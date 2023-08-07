@@ -8,6 +8,12 @@ month = date.getMonth();
 day = date.getDate();
 today = year + ":" + month + ":" + day;
 
+const Portfolio = mongoose.Schema({
+  ownerId: { type: String, required: true },
+  stockName: { type: String, required: true },
+  amountOwned: { type: Number, required: true },
+});
+
 //add kyc
 const users = mongoose.Schema({
   userid: { type: String },
@@ -23,6 +29,7 @@ const users = mongoose.Schema({
   refreshToken: { type: String },
   passwordResetToken: { type: String },
   password: { type: String, required: true },
+  portfolio: [Portfolio],
   created: { type: String, default: today },
 });
 

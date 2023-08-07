@@ -37,11 +37,13 @@ const TinypesaWebhook = async (req, res) => {
       return res.status(400).json({ message: Messages.depositFailed });
     }
     await session.commitTransaction();
-    session.endSession();
     return res.status(200).json({ message: Messages.depositSuccess });
   } catch (error) {
+    await session.abortTransaction();
     console.log(error);
     return res.status(400).json({ message: Messages.serverError });
+  } finally {
+    session.endSession();
   }
 };
 

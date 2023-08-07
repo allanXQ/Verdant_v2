@@ -1,3 +1,17 @@
 #implement filter,sort, pagination
+sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
+#update respective portfolios
+
+buylimit and selllimit
+#selllimit and buylimit are too similar. Create a single function to handle both
+#add sessions, check for respective stock in portfolio. Update respective portfolios
+#check if we can get buyer or seller id based on the orderId and prevent sending of these ids when creating buy or sell limit order
+
 #optimize getTrades querying style to be DRY
+#in sellOrder and buyOrder update the users portfolio
+#buyOrder,sellOrder validation schemas. amount should be greater than 0
+#cronjob to delete portfolio balances and escrow worth zero
+
+//mongodb sessions
+//mongodb aggregate

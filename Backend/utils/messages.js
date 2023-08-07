@@ -46,6 +46,8 @@ const Messages = {
 
   orderCreated: "Order created successfully",
   orderFailed: "Order failed",
+
+  insufficientStocks: "Insufficient Stocks",
 };
 
 module.exports = Messages;

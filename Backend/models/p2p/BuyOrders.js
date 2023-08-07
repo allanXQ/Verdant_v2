@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-const id = crypto.randomBytes(10).toString("hex");
+const uuid = require("uuid");
+const orderId = uuid.v4();
 
 const date = new Date();
 year = date.getFullYear();
@@ -9,7 +9,7 @@ day = date.getDate();
 today = year + ":" + month + ":" + day;
 
 const buyOrders = new mongoose.Schema({
-  orderId: { type: String, default: id },
+  orderId: { type: String, default: orderId },
   buyerId: { type: String, required: true },
   buyerName: { type: String, required: true },
   stockName: { type: String, required: true },
