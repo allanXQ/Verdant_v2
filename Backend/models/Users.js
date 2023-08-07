@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const uuid = require("uuid");
-const id = uuid.v4();
+
 const role = require("../config/roles");
 userrole = role.user;
 const date = new Date();

@@ -10,11 +10,11 @@ today = year + ":" + month + ":" + day;
 
 const buyOrders = new mongoose.Schema({
   orderId: { type: String, default: id },
-  buyername: { type: String, required: true },
-  stockname: { type: String, required: true },
-  stockAmount: { type: Number, default: 0 },
-  cashAmount: { type: Number, required: true },
-  status: { type: String, default: "pending" },
+  buyerId: { type: String, required: true },
+  buyerName: { type: String, required: true },
+  stockName: { type: String, required: true },
+  stockAmount: { type: Number, required: true },
+  totalAssetValue: { type: Number, required: true },
   created: { type: String, default: today },
 });
 

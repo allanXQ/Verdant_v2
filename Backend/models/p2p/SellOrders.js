@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-const id = crypto.randomBytes(10).toString("hex");
+const uuid = require("uuid");
+const orderId = uuid.v4();
 
 const date = new Date();
 year = date.getFullYear();
@@ -9,13 +9,12 @@ day = date.getDate();
 today = year + ":" + month + ":" + day;
 
 const SellOrders = new mongoose.Schema({
-  orderId: { type: String },
+  orderId: { type: String, default: orderId },
   sellerId: { type: String, required: true },
-  buyerId: { type: String, default: "none" },
+  sellerName: { type: String, required: true },
   stockName: { type: String, required: true },
-  stockAmount: { type: Number, default: 0 },
+  stockAmount: { type: Number, required: true },
   price: { type: Number, required: true },
-  status: { type: String, default: "pending" },
   created: { type: String, default: today },
 });
 

@@ -1,0 +1,3 @@
+#implement filter,sort, pagination
+#sellOrder and buyOrder are too similar. Create a single function to handle both
+#optimize getTrades querying style to be DRY

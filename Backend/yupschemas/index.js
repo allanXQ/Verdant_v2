@@ -62,6 +62,14 @@ const withdrawalSchema = yup.object().shape({
     .required(),
 });
 
+const p2pOrderSchema = yup.object().shape({
+  userId: yup.string().required(),
+  username: yup.string().required(),
+  stockName: yup.string().required(),
+  stockAmount: yup.number().required(),
+  price: yup.number().required(),
+});
+
 module.exports = {
   regSchema,
   loginSchema,
@@ -70,4 +78,5 @@ module.exports = {
   updatePasswordSchema,
   depositSchema,
   withdrawalSchema,
+  p2pOrderSchema,
 };

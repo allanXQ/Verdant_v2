@@ -43,6 +43,9 @@ const Messages = {
   passwordResetEmail: "Psasword reset email sent",
   passwordResetFailed: "Password reset failed",
   passwordResetSuccess: "Password reset successful",
+
+  orderCreated: "Order created successfully",
+  orderFailed: "Order failed",
 };
 
 module.exports = Messages;
