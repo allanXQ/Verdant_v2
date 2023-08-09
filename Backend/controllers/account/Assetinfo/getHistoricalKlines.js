@@ -2,24 +2,25 @@ const Messages = require("../../../utils/messages");
 const { coinLabelMap, klineIntervals } = require("./config");
 const axios = require("axios");
 
-const getData = async (customSymbol) => {
+const getData = async (customSymbol, klineInterval) => {
   const tradingPair = coinLabelMap[customSymbol];
   if (!tradingPair) {
     throw new Error(Messages.invalidAsset);
   }
-  console.log(tradingPair, klineIntervals["1m"]);
 
-  // Replace with the appropriate endpoint and parameters
-  const url = `https://api.binance.com/api/v3/uiKlines?symbol=${tradingPair}&interval=${klineIntervals["1m"]}`;
+  const url = `https://api.binance.com/api/v3/uiKlines?symbol=${tradingPair}&interval=${klineInterval}`;
 
   const response = await axios.get(url);
   return response.data;
 };
 
 const getHistoricalKlines = async (req, res) => {
-  const { assetName } = req.body;
+  const { assetName, klineInterval } = req.body;
   try {
-    const data = await getData(assetName);
+    if (!assetName || !klineInterval) {
+      return res.status(400).json({ message: Messages.invalidRequest });
+    }
+    const data = await getData(assetName, klineInterval);
     return res
       .status(200)
       .json({ message: Messages.requestSuccessful, payload: data });
