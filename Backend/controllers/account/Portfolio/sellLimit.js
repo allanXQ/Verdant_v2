@@ -15,8 +15,9 @@ const Escrow = require("../../../models/p2p/escrow");
 
 const Sell = async (req, res) => {
   const { userId, buyerId, orderId, stockName, stockAmount, price } = req.body;
+  let session;
   try {
-    const session = await mongoose.startSession();
+    session = await mongoose.startSession();
     session.startTransaction();
 
     //check order existence
@@ -144,11 +145,11 @@ const Sell = async (req, res) => {
       message: Messages.orderCreated,
     });
   } catch (error) {
-    await session.abortTransaction();
+    session && (await session.abortTransaction());
     console.log(error);
     return res.json({ status: 500, message: Messages.serverError });
   } finally {
-    session.endSession();
+    session && session.endSession();
   }
 };
 

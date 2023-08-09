@@ -13,13 +13,13 @@ const { orderTypes } = require("../../../config");
 
 const createSellOrder = async (req, res) => {
   const { userId, username, stockName, stockAmount, price } = req.body;
+  let session;
 
   try {
-    const session = await mongoose.startSession();
+    session = await mongoose.startSession();
     session.startTransaction();
     const user = await Users.findOne({ userId }).session(session);
     const portfolio = user.portfolio;
-    const orderId = id;
     const stock = portfolio.find((stock) => stock.stockName === stockName);
     if (!stock || parseInt(stock.stockAmount) < parseInt(stockAmount)) {
       return res.json({
@@ -29,7 +29,7 @@ const createSellOrder = async (req, res) => {
     }
     stock.stockAmount = parseInt(stock.stockAmount) - parseInt(stockAmount);
     await user.save({ session });
-
+    const orderId = crypto.randomBytes(6).toString("hex");
     await Escrow.create({
       orderId,
       orderType: orderTypes.Sell,
@@ -56,11 +56,11 @@ const createSellOrder = async (req, res) => {
       message: Messages.orderCreated,
     });
   } catch (error) {
-    await session.abortTransaction();
+    session && (await session.abortTransaction());
     console.log(error);
     return res.json({ status: 500, message: Messages.serverError });
   } finally {
-    session.endSession();
+    session && session.endSession();
   }
 };
 

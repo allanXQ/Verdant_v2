@@ -4,7 +4,6 @@ const Escrow = require("../../../models/p2p/escrow");
 const Users = require("../../../models/Users");
 const Messages = require("../../../utils/messages");
 const crypto = require("crypto");
-const id = crypto.randomBytes(6).toString("hex");
 //check if account balance is sufficient
 //deduct asset value from account balance
 //store the asset value in escrow
@@ -12,9 +11,10 @@ const id = crypto.randomBytes(6).toString("hex");
 
 const createbuyOrder = async (req, res) => {
   const { userId, username, stockName, stockAmount, price } = req.body;
+  let session;
 
   try {
-    const session = await mongoose.startSession();
+    session = await mongoose.startSession();
     session.startTransaction();
     const user = await Users.findOne({ userId }).session(session);
     const accountBalance = parseInt(user.accountBalance);
@@ -25,10 +25,10 @@ const createbuyOrder = async (req, res) => {
         message: Messages.insufficientBalance,
       });
     }
-    accountBalance -= assetValue;
+    user.accountBalance -= assetValue;
 
     await user.save({ session });
-    const orderId = id;
+    const orderId = crypto.randomBytes(6).toString("hex");
     await Escrow.create(
       {
         orderId,
@@ -57,11 +57,11 @@ const createbuyOrder = async (req, res) => {
       message: Messages.orderCreated,
     });
   } catch (error) {
-    await session.abortTransaction();
+    session && (await session.abortTransaction());
     console.log(error);
     return res.json({ status: 500, message: Messages.serverError });
   } finally {
-    session.endSession();
+    session && session.endSession();
   }
 };
 

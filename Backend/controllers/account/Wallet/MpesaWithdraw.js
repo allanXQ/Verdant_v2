@@ -3,6 +3,7 @@ const WalletConfig = require("../../../config/wallet");
 const Messages = require("../../../utils/messages");
 
 const MpesaWithdraw = async (req, res) => {
+  let session;
   try {
     const { phone, amount } = req.body;
     const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
@@ -40,7 +41,7 @@ const MpesaWithdraw = async (req, res) => {
       });
     }
 
-    const session = await mongoose.startSession();
+    session = await mongoose.startSession();
     session.startTransaction();
 
     await Withdraw.create(
@@ -64,11 +65,11 @@ const MpesaWithdraw = async (req, res) => {
     await session.commitTransaction();
     return res.status(200).json({ message: Messages.withdrawalSuccess });
   } catch (error) {
-    await session.abortTransaction();
+    session && (await session.abortTransaction());
     console.log(error);
     return res.status(500).json({ message: Messages.serverError });
   } finally {
-    session.endSession();
+    session && session.endSession();
   }
 };
 
