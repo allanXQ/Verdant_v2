@@ -15,7 +15,7 @@ const Portfolio = mongoose.Schema({
 });
 
 //add kyc
-const users = mongoose.Schema({
+const Users = mongoose.Schema({
   userid: { type: String },
   role: { type: String, default: userrole },
   firstname: { type: String },
@@ -23,7 +23,7 @@ const users = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   phone: { type: Number, required: true, unique: true },
-  balance: { type: Number, default: 50 },
+  accountBalance: { type: Number, default: 0 },
   status: { type: String, default: "inactive" },
   referrer: { type: String, default: "none" },
   refreshToken: { type: String },
@@ -33,6 +33,6 @@ const users = mongoose.Schema({
   created: { type: String, default: today },
 });
 
-const model = mongoose.model("users", users);
+const model = mongoose.model("Users", Users);
 
 module.exports = model;

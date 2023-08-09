@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const uuid = require("uuid");
-const orderId = uuid.v4();
+const crypto = require("crypto");
+const orderId = crypto.randomBytes(6).toString("hex");
 
 const date = new Date();
 year = date.getFullYear();

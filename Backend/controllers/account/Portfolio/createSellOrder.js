@@ -1,6 +1,13 @@
 const SellOrders = require("../../../models/p2p/SellOrders");
+const Escrow = require("../../../models/p2p/escrow");
 const Users = require("../../../models/user");
 const Messages = require("../../../utils/messages");
+const crypto = require("crypto");
+const id = crypto.randomBytes(6).toString("hex");
+//check if portfolio balance is sufficient
+//deduct asset amount from portfolio balance
+//store the asset amount and name in escrow
+//create a sell order
 
 const createSellOrder = async (req, res) => {
   const { userId, username, stockName, stockAmount, price } = req.body;
@@ -10,15 +17,24 @@ const createSellOrder = async (req, res) => {
     session.startTransaction();
     const user = await Users.findOne({ userId }).session(session);
     const portfolio = user.portfolio;
+    const orderId = id;
     const stock = portfolio.find((stock) => stock.stockName === stockName);
-    if (stock.stockAmount < stockAmount) {
+    if (!stock || parseInt(stock.stockAmount) < parseInt(stockAmount)) {
       return res.json({
         status: 400,
         message: Messages.insufficientStocks,
       });
     }
-    stock.stockAmount -= stockAmount;
+    stock.stockAmount = parseInt(stock.stockAmount) - parseInt(stockAmount);
     await user.save({ session });
+
+    await Escrow.create({
+      orderId,
+      orderType: orderTypes.Sell,
+      userId,
+      stockName,
+      stockAmount,
+    });
 
     const sellOrder = await SellOrders.create(
       {
@@ -31,6 +47,7 @@ const createSellOrder = async (req, res) => {
       },
       { session }
     );
+    await session.commitTransaction();
     return res.json({
       status: 200,
       payload: sellOrder,

@@ -48,6 +48,7 @@ const Messages = {
   orderFailed: "Order failed",
 
   insufficientStocks: "Insufficient Stocks",
+  overRequest: "Your request amount is above the minimum available",
 };
 
 module.exports = Messages;

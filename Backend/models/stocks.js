@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-const id = crypto.randomBytes(6).toString("hex");
 const date = new Date();
 year = date.getFullYear();
 month = date.getMonth();

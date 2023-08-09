@@ -1,13 +1,16 @@
 const Messages = require("../../../utils/messages");
 const closedTrades = require("../../../models/p2p/closedTrades");
-const Users = require("../../../models/user");
+const Users = require("../../../models/Users");
 const BuyOrders = require("../../../models/p2p/BuyOrders");
+const Escrow = require("../../../models/p2p/escrow");
 
 //check if buy order exists
-//check if seller has sufficient balance
-//update seller balance
-//update buyer balance
-//remove order from buyorders
+//check if buyer has sufficient account balance in escrow
+//check if seller has sufficient portfolio balance
+//update seller account balance +
+//update/delete buyer escrow account -
+//update buyer portfolio balance +
+//remove//update order from buyorders
 //create a complete trade
 
 const Sell = async (req, res) => {
@@ -21,6 +24,37 @@ const Sell = async (req, res) => {
     if (!Order) {
       return res.status(400).json({ message: Messages.invalidRequest });
     }
+    //check if buyer has sufficient account balance in escrow
+    const buyerEscrow = await Escrow.findOne({ orderId, userId: buyerId });
+    const assetValue = parseInt(stockAmount) * parseInt(price);
+    if (!buyerEscrow || parseInt(buyerEscrow.cashAmount) < assetValue) {
+      return res.json({
+        status: 400,
+        message: Messages.invalidRequest,
+      });
+    }
+    //update escrow
+    const buyerCashAmount = parseInt(buyerEscrow.cashAmount);
+    const newEscrowBalance = buyerCashAmount - assetValue;
+    if (newEscrowBalance < 0) {
+      return res.json({
+        status: 400,
+        message: Messages.invalidRequest,
+      });
+    }
+    if (newEscrowBalance === 0) {
+      await Escrow.deleteOne({ orderId, userId: buyerId }).session(session);
+    } else {
+      await Escrow.updateOne(
+        { orderId, userId: buyerId },
+        {
+          $set: {
+            cashAmount: newEscrowBalance,
+          },
+        },
+        { session }
+      );
+    }
 
     //check && update seller portfolio
     const user = await Users.findOne({ userId }).session(session);
@@ -32,6 +66,8 @@ const Sell = async (req, res) => {
         message: Messages.insufficientStocks,
       });
     }
+    stock.amountOwned = parseInt(stock.amountOwned) - parseInt(stockAmount);
+    await user.save({ session });
 
     //check && update buyer portfolio
     const findBuyer = await Users.findOne({ userId: buyerId }).session(session);
@@ -51,7 +87,7 @@ const Sell = async (req, res) => {
             portfolio: {
               ownerId: buyerId,
               stockName,
-              stockAmount,
+              amountOwned: stockAmount,
             },
           },
         },
@@ -64,7 +100,14 @@ const Sell = async (req, res) => {
     }
 
     //update/delete buy order from buy orders
-    if (parseInt(Order.stockAmount) <= 0) {
+    const newOrderBalance = parseInt(Order.stockAmount) - parseInt(stockAmount);
+    if (newOrderBalance < 0) {
+      return res.json({
+        status: 400,
+        message: Messages.invalidRequest,
+      });
+    }
+    if (newOrderBalance === 0) {
       //delete order
       await BuyOrders.deleteOne({ orderId }).session(session);
     } else {
@@ -73,7 +116,7 @@ const Sell = async (req, res) => {
         { orderId },
         {
           $set: {
-            stockAmount: parseInt(Order.stockAmount) - parseInt(stockAmount),
+            stockAmount: newOrderBalance,
           },
         },
         { session }
