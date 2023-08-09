@@ -1,9 +1,11 @@
 const SellOrders = require("../../../models/p2p/SellOrders");
 const Escrow = require("../../../models/p2p/escrow");
-const Users = require("../../../models/user");
+const Users = require("../../../models/Users");
 const Messages = require("../../../utils/messages");
 const crypto = require("crypto");
 const id = crypto.randomBytes(6).toString("hex");
+const { orderTypes } = require("../../../config");
+
 //check if portfolio balance is sufficient
 //deduct asset amount from portfolio balance
 //store the asset amount and name in escrow

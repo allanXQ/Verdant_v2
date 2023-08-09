@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-const orderId = crypto.randomBytes(6).toString("hex");
 
 const closedTrades = new mongoose.Schema({
-  orderId: { type: String, default: orderId },
+  orderId: { type: String, required: true, unique: true },
   buyerId: { type: String, required: true },
   sellerId: { type: String, required: true },
   stockName: { type: String, required: true },

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const role = require("../config/roles");
-userrole = role.user;
+const { roles } = require("../config");
 
 const Portfolio = mongoose.Schema({
   ownerId: { type: String, required: true },
@@ -12,7 +11,7 @@ const Portfolio = mongoose.Schema({
 //add kyc
 const Users = mongoose.Schema({
   userid: { type: String },
-  role: { type: String, default: userrole },
+  role: { type: String, default: roles.user },
   firstname: { type: String },
   lastname: { type: String },
   username: { type: String, required: true, unique: true },

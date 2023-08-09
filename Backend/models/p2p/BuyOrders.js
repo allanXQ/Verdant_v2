@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const orderId = crypto.randomBytes(6).toString("hex");
 
 const buyOrders = new mongoose.Schema({
-  orderId: { type: String, default: orderId },
+  orderId: {
+    type: String,
+    default: () => crypto.randomBytes(6).toString("hex"),
+    unique: true,
+  },
   buyerId: { type: String, required: true },
   buyerName: { type: String, required: true },
   stockName: { type: String, required: true },

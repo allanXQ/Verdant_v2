@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Stocks = new mongoose.Schema({
-  stockid: { type: String },
+  stockId: { type: String },
   stockName: { type: String, required: true, unique: true },
   amount: { type: Number, required: true },
   created: { type: Date, default: Date.now },

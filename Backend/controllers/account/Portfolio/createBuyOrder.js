@@ -1,5 +1,5 @@
-const orderTypes = require("../../../config/orderTypes");
-const buyOrders = require("../../../models/p2p/buyOrders");
+const { orderTypes } = require("../../../config");
+const buyOrders = require("../../../models/p2p/BuyOrders");
 const Escrow = require("../../../models/p2p/escrow");
 const Users = require("../../../models/Users");
 const Messages = require("../../../utils/messages");
