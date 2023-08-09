@@ -4,7 +4,7 @@ const Messages = require("../../../utils/messages");
 //implement filter by stockname and userid,transaction status,
 // sorting by price,date,
 //pagination
-const getTrades = async (req, res) => {
+const tradeHistory = async (req, res) => {
   const { userId, stockName, type } = req.body;
   let trades;
   try {
@@ -36,4 +36,4 @@ const getTrades = async (req, res) => {
   }
 };
 
-module.exports = getTrades;
+module.exports = tradeHistory;

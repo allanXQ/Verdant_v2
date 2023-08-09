@@ -49,6 +49,8 @@ const Messages = {
 
   insufficientStocks: "Insufficient Stocks",
   overRequest: "Your request amount is above the minimum available",
+
+  invalidAsset: "Invalid Asset",
 };
 
 module.exports = Messages;

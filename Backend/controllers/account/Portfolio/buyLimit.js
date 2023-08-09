@@ -14,7 +14,7 @@ const Escrow = require("../../../models/p2p/escrow");
 //remove/update order from sellOrders
 //create a complete trade
 
-const Buy = async (req, res) => {
+const buyLimit = async (req, res) => {
   const { userId, sellerId, orderId, stockName, stockAmount, price } = req.body;
   let session;
   try {
@@ -128,4 +128,4 @@ const Buy = async (req, res) => {
   }
 };
 
-module.exports = Buy;
+module.exports = buyLimit;

@@ -9,7 +9,7 @@ const crypto = require("crypto");
 //store the asset value in escrow
 //create a buy order
 
-const createbuyOrder = async (req, res) => {
+const createBuyOrder = async (req, res) => {
   const { userId, username, stockName, stockAmount, price } = req.body;
   let session;
 
@@ -65,4 +65,4 @@ const createbuyOrder = async (req, res) => {
   }
 };
 
-module.exports = createbuyOrder;
+module.exports = createBuyOrder;

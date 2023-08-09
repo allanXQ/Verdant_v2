@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/auth", require("./routes/user/auth"));
 app.use("/api/v1/wallet", require("./routes/user/wallet"));
+app.use("/api/v1/assetInfo", require("./routes/user/assetInfo"));
 
 const DBconn = async () => {
   return mongoose
