@@ -12,7 +12,7 @@ const Commissions = new mongoose.Schema({
   username: { type: String, required: true },
   phone: { type: Number, required: true },
   amount: { type: Number, required: true },
-  created: { type: String, default: today },
+  created: { type: Date, default: Date.now },
 });
 
 const model = mongoose.model("Commissions", Commissions);

@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 
 const role = require("../config/roles");
 userrole = role.user;
-const date = new Date();
-year = date.getFullYear();
-month = date.getMonth();
-day = date.getDate();
-today = year + ":" + month + ":" + day;
 
 const Portfolio = mongoose.Schema({
   ownerId: { type: String, required: true },
@@ -30,7 +25,7 @@ const Users = mongoose.Schema({
   passwordResetToken: { type: String },
   password: { type: String, required: true },
   portfolio: [Portfolio],
-  created: { type: String, default: today },
+  created: { type: Date, default: Date.now },
 });
 
 const model = mongoose.model("Users", Users);
