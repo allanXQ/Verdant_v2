@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Messages = require("../../../utils/messages");
 const closedTrades = require("../../../models/p2p/closedTrades");
 const Users = require("../../../models/Users");

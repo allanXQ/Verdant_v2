@@ -70,6 +70,12 @@ const p2pOrderSchema = yup.object().shape({
   price: yup.number().required(),
 });
 
+const cancelOrderSchema = yup.object().shape({
+  orderId: yup.string().required(),
+  userId: yup.string().required(),
+  orderType: yup.string().required(),
+});
+
 module.exports = {
   regSchema,
   loginSchema,
@@ -79,4 +85,5 @@ module.exports = {
   depositSchema,
   withdrawalSchema,
   p2pOrderSchema,
+  cancelOrderSchema,
 };

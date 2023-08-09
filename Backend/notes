@@ -3,13 +3,13 @@ sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
 #add cancel order functionality
 #update components using withdrawal schema and withdrawal fees to include new changes to models(widthrawal mode, userId-withdrawal-fees)
+#prevent users from buying or selling to themselves
 
 buylimit and selllimit
 #selllimit and buylimit are too similar. Create a single function to handle both
 #check if we can get buyer or seller id based on the orderId and prevent sending of these ids when creating buy or sell limit order
 
 #optimize getTrades querying style to be DRY
-#in sellOrder and buyOrder update the users portfolio
 #buyOrder,sellOrder validation schemas. amount should be greater than 0
 
 //mongodb sessions
