@@ -16,6 +16,9 @@ const Escrow = require("../../../models/p2p/escrow");
 
 const sellLimit = async (req, res) => {
   const { userId, buyerId, orderId, stockName, stockAmount, price } = req.body;
+  if (userId === buyerId) {
+    return res.status(400).json({ message: Messages.invalidRequest });
+  }
   let session;
   try {
     session = await mongoose.startSession();
