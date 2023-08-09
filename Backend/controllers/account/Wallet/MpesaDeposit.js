@@ -1,4 +1,4 @@
-const WalletConfig = require("../../../config/wallet");
+const { WalletConfig } = require("../../../config");
 const Messages = require("../../../utils/messages");
 
 const MpesaDeposit = async (req, res) => {

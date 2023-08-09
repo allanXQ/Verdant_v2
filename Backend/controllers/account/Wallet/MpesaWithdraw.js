@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose");
-const WalletConfig = require("../../../config/wallet");
+const { WalletConfig } = require("../../../config");
 const Messages = require("../../../utils/messages");
 
 const MpesaWithdraw = async (req, res) => {
