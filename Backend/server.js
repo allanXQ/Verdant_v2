@@ -21,7 +21,7 @@ app.use("/api/v1/auth", require("./routes/user/auth"));
 app.use("/api/v1/wallet", require("./routes/user/wallet"));
 app.use("/api/v1/assetInfo", require("./routes/user/assetInfo"));
 
-app.use("/api/v1/ZAdmin/stocks", require("./routes/admin/stocks"));
+app.use("/api/v1/ZAdmin/assets", require("./routes/admin/assets"));
 
 app.use(errorHandler);
 

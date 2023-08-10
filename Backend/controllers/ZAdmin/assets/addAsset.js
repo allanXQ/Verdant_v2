@@ -1,17 +1,17 @@
-const Stocks = require("../../../models/Stocks");
+const Assets = require("../../../models/Assets");
 const createId = require("../../../utils/createId");
 const Messages = require("../../../utils/messages");
 
-//check if stock exists
+//check if Asset exists
 //check if coin pair exists in binance
-//create a stock
-const addStock = async (req, res, next) => {
+//create a Asset
+const addAsset = async (req, res, next) => {
   try {
-    const { stockName, coinPair, amount } = req.body;
-    const stockId = createId;
-    await Stocks.create({
-      stockId,
-      stockName,
+    const { assetName, coinPair, amount } = req.body;
+    const assetId = createId();
+    await Assets.create({
+      assetId,
+      assetName,
       coinPair,
       amount,
     });
@@ -23,4 +23,4 @@ const addStock = async (req, res, next) => {
   }
 };
 
-module.exports = addStock;
+module.exports = addAsset;

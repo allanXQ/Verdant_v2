@@ -1,4 +1,4 @@
-const Stocks = require("../../../models/Stocks");
+const Stocks = require("../../../models/Assets");
 
 const getStocks = async (req, res) => {
   try {

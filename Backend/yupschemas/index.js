@@ -76,9 +76,9 @@ const cancelOrderSchema = yup.object().shape({
   orderType: yup.string().required(),
 });
 
-const addStockSchema = yup.object().shape({
-  stockName: yup.string().required(),
-  amount: yup.number().required(),
+const addAssetSchema = yup.object().shape({
+  assetName: yup.string().required(),
+  amount: yup.number().moreThan(0).required(),
   coinPair: yup.string().required(),
 });
 
@@ -92,5 +92,5 @@ module.exports = {
   withdrawalSchema,
   p2pOrderSchema,
   cancelOrderSchema,
-  addStockSchema,
+  addAssetSchema,
 };

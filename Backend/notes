@@ -2,12 +2,13 @@
 sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
 #update components using withdrawal schema and withdrawal fees to include new changes to models(widthrawal mode, userId-withdrawal-fees)
-#prevent users from buying or selling to themselves
-#extract create id to its own util function
-
+#replace stock name with assetName in schema and yup schema
 buylimit and selllimit
 #selllimit and buylimit are too similar. Create a single function to handle both
 #check if we can get buyer or seller id based on the orderId and prevent sending of these ids when creating buy or sell limit order
+#add admin portfolio. Is the default portfolio in which all new assets go to. admin can then sell to other users.
+
+#replace ids with default mongodb \_id
 
 #optimize getTrades querying style to be DRY
 #buyOrder,sellOrder validation schemas. amount should be greater than 0
