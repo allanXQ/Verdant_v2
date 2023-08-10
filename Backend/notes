@@ -1,9 +1,9 @@
 #implement filter,sort, pagination
 sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
-#add cancel order functionality
 #update components using withdrawal schema and withdrawal fees to include new changes to models(widthrawal mode, userId-withdrawal-fees)
 #prevent users from buying or selling to themselves
+#extract create id to its own util function
 
 buylimit and selllimit
 #selllimit and buylimit are too similar. Create a single function to handle both

@@ -4,7 +4,9 @@ const formValidate = (schema) => async (req, res, next) => {
     await schema.validate(body);
     next();
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    const YupValidationError = new Error(error.message);
+    YupValidationError.name = "YupValidationError";
+    next(YupValidationError);
   }
 };
 

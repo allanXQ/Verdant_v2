@@ -3,9 +3,8 @@ const SellOrders = require("../../../models/p2p/SellOrders");
 const Escrow = require("../../../models/p2p/escrow");
 const Users = require("../../../models/Users");
 const Messages = require("../../../utils/messages");
-const crypto = require("crypto");
-const id = crypto.randomBytes(6).toString("hex");
 const { orderTypes } = require("../../../config");
+const createId = require("../../../utils/createId");
 
 //check if portfolio balance is sufficient
 //deduct asset amount from portfolio balance
@@ -30,7 +29,7 @@ const createSellOrder = async (req, res) => {
     }
     stock.stockAmount = parseInt(stock.stockAmount) - parseInt(stockAmount);
     await user.save({ session });
-    const orderId = crypto.randomBytes(6).toString("hex");
+    const orderId = createId();
     await Escrow.create({
       orderId,
       orderType: orderTypes.Sell,
