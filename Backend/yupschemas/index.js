@@ -47,7 +47,7 @@ const updatePasswordSchema = yup.object().shape({
 });
 
 const depositSchema = yup.object().shape({
-  amount: yup.number().required(),
+  amount: yup.number().moreThan(0).required(),
   phone: yup
     .string()
     .matches(phoneRegexp, Messages.invalidPhoneNumber)
@@ -55,7 +55,7 @@ const depositSchema = yup.object().shape({
 });
 
 const withdrawalSchema = yup.object().shape({
-  amount: yup.number().required(),
+  amount: yup.number().moreThan(0).required(),
   phone: yup
     .string()
     .matches(phoneRegexp, Messages.invalidPhoneNumber)
@@ -66,7 +66,7 @@ const p2pOrderSchema = yup.object().shape({
   userId: yup.string().required(),
   username: yup.string().required(),
   stockName: yup.string().required(),
-  stockAmount: yup.number().required(),
+  stockAmount: yup.number().moreThan(0).required(),
   price: yup.number().required(),
 });
 
