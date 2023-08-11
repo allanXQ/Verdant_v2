@@ -1,11 +1,12 @@
 require("dotenv").config();
 const { WebsocketClient } = require("binance");
+const getAssets = require("./getAssets");
 
 const API_KEY = process.env.BINANCEAPIKEY;
 const API_SECRET = process.env.BINANCEAPISECRET;
 
 // optionally override the logger
-const startWsServer = () => {
+const binanceClient = () => {
   try {
     const wsClient = new WebsocketClient({
       api_key: API_KEY,
@@ -47,17 +48,24 @@ const startWsServer = () => {
     });
 
     wsClient.on("close", (data) => {
+      wsClient.connectToWsUrl;
       console.log("ws saw close ", data?.wsKey);
     });
 
     const market = "BTCUSDT";
     const interval = "1m";
 
-    wsClient.subscribeSpotKline(market, interval);
-    wsClient.subscribeSpotSymbolMini24hrTicker(market);
+    getAssets()
+      .then((data) => {
+        data.forEach((asset) => {
+          // wsClient.subscribeSpotKline(market, interval);
+          // wsClient.subscribeSpotSymbolMini24hrTicker(market);
+        });
+      })
+      .catch((error) => {});
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = startWsServer;
+module.exports = binanceClient;

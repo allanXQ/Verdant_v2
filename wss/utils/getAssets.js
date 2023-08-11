@@ -1,5 +1,9 @@
 const Assets = require("../models/Assets");
 
 const getAssets = async () => {
-  await Assets.find();
+  const assets = await Assets.find();
+  if (assets) return assets;
+  return false;
 };
+
+module.exports = getAssets;
