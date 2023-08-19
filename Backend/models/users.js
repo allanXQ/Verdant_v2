@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const { roles } = require("../config");
 
+const isLocalAuth = function () {
+  return this.authMethod === "local";
+};
+
 const Portfolio = mongoose.Schema({
   ownerId: { type: String, required: true },
   stockName: { type: String, required: true },
@@ -14,15 +18,21 @@ const Users = mongoose.Schema({
   role: { type: String, default: roles.user },
   firstname: { type: String },
   lastname: { type: String },
-  username: { type: String, required: true, unique: true },
+  googleName: { type: String, required: !isLocalAuth },
+  username: { type: String, required: isLocalAuth, unique: true },
   email: { type: String, required: true, unique: true },
-  phone: { type: Number, required: true, unique: true },
-  accountBalance: { type: Number, default: 0 },
+  phone: { type: Number, required: isLocalAuth, unique: true },
+  accountBalance: { type: Number, default: 50 },
+  authMethod: {
+    type: String,
+    enum: ["local", "google"],
+    required: true,
+  },
   status: { type: String, default: "inactive" },
   referrer: { type: String, default: "none" },
   refreshToken: { type: String },
   passwordResetToken: { type: String },
-  password: { type: String, required: true },
+  password: { type: String, required: isLocalAuth },
   portfolio: [Portfolio],
   created: { type: Date, default: Date.now },
 });
