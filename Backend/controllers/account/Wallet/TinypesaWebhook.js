@@ -30,7 +30,7 @@ const TinypesaWebhook = async (req, res) => {
     const userUpdate = await User.findOneAndUpdate(
       { phone: phoneNumber },
       {
-        $inc: { balance: Amount },
+        $inc: { accountBalance: Amount },
       },
       { session, new: true }
     );
