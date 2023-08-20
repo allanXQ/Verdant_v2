@@ -1,4 +1,4 @@
-const Assets = require("../models/Assets");
+const Assets = require("../../models/Assets");
 
 const getAssets = async () => {
   const assets = await Assets.find();

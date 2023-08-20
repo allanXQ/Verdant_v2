@@ -2,7 +2,7 @@ const WebSocket = require("ws");
 const express = require("express");
 const http = require("http");
 const server = http.createServer(app);
-const DBconn = require("./config/dbConn");
+const DBconn = require("../config/dbConn");
 
 const port = process.env.WSPORT || 2000;
 

@@ -25,21 +25,4 @@ app.use("/api/v1/ZAdmin/assets", require("./routes/admin/assets"));
 
 app.use(errorHandler);
 
-const DBconn = async () => {
-  return mongoose
-    .connect(process.env.DATABASE, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then(() => {
-      console.log("Connected to database");
-      app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-DBconn();
+DBconn(app, port);
