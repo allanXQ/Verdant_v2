@@ -5,9 +5,10 @@
 }
 
 body {
-  background-color: #e7eaf4;
+  background-color: white;
   /* color: white; */
   font-family: "Roboto", sans-serif;
+  overflow-y: hidden;
 }
 
 /* a {

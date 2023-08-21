@@ -133,7 +133,7 @@ export const Sidenav = ({
       display="flex"
       flexDirection="column"
       alignItems="center"
-      backgroundColor="rgb(249, 249, 249, 0.7)"
+      backgroundColor="white"
       gap={2}
       width={{ md: drawerWidth }}
     >
@@ -141,11 +141,10 @@ export const Sidenav = ({
         toggled={theme.breakpoints.down("md") ? isOpen : true}
         width={drawerWidth}
         breakPoint="900px"
+        backgroundColor="white"
         style={{
           display: "flex",
           height: drawerHeight,
-
-          // backgroundColor: "#fff",
         }}
       >
         <Box
@@ -163,8 +162,6 @@ export const Sidenav = ({
               height: "100px",
             }}
           />
-          <Typography variant="h6">Welcome Back</Typography>
-          <Typography variant="h6">Allan Juma</Typography>
         </Box>
         <Menu>
           {navlinks.map((item, index) =>

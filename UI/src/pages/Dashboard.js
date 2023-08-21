@@ -6,8 +6,13 @@
 //active loan requests
 import { useTheme } from "@emotion/react";
 import {
+  CreditCardOutlined,
+  Groups2Outlined,
+  Groups3Outlined,
   KeyboardArrowDownOutlined,
   KeyboardArrowUpOutlined,
+  SwapHorizOutlined,
+  TransferWithinAStationOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -17,16 +22,10 @@ import {
   CardContent,
   Divider,
   Grid,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 
 const stats = [
@@ -36,12 +35,12 @@ const stats = [
     percentageChange: 10,
   },
   {
-    name: "Loans Given",
+    name: "Portfolio",
     value: "1000",
     percentageChange: 10,
   },
   {
-    name: "Loans Taken",
+    name: "Trades",
     value: "1000",
     percentageChange: 10,
   },
@@ -56,85 +55,156 @@ const stats = [
   // },
 ];
 
-const Deposits = [
+const columns = [
   {
-    MpesaRef: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    field: "Asset",
+    headerName: "Asset",
+    width: 200,
   },
   {
-    MpesaRef: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    field: "Symbol",
+    headerName: "Symbol",
+    width: 200,
   },
   {
-    MpesaRef: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    field: "Amount",
+    headerName: "Amount",
+    width: 200,
   },
   {
-    MpesaRef: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    field: "Price",
+    headerName: "Price",
+    width: 200,
   },
-  // {
-  //   MpesaRef: "123456789",
-  //   Amount: 1000,
-  //   Date: "12/12/2021",
-  //   status: "success",
-  // },
-  // {
-  //   MpesaRef: "123456789",
-  //   Amount: 1000,
-  //   Date: "12/12/2021",
-  //   status: "success",
-  // },
+  {
+    field: "percentageChange",
+    headerName: "24h Change",
+    width: 200,
+  },
+  {
+    field: "Action",
+    headerName: "Action",
+    width: 200,
+  },
 ];
 
-const Withdrawals = [
+const Assets = [
   {
-    Phone: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    id: 1,
+    iconurl: "https://www.coingecko.com/coins/1/large/bitcoin.png?1547033579",
+    Asset: "Bitcoin",
+    Symbol: "BTC",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
   },
   {
-    Phone: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    id: 2,
+    iconurl:
+      "https://www.coingecko.com/coins/356/large/ethereum.png?1547034048",
+    Asset: "Ethereum",
+    Symbol: "ETH",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
   },
   {
-    Phone: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    id: 3,
+    iconurl:
+      "https://www.coingecko.com/coins/825/large/binance-coin-logo.png?1547034615",
+    Asset: "Litecoin",
+    Symbol: "LTC",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
   },
   {
-    Phone: "123456789",
-    Amount: 1000,
-    Date: "12/12/2021",
-    status: "success",
+    id: 4,
+    iconurl:
+      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
+    Asset: "Bitcoin Cash",
+    Symbol: "BCH",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
   },
-  // {
-  //   Phone: "123456789",
-  //   Amount: 1000,
-  //   Date: "12/12/2021",
-  //   status: "success",
-  // },
-  // {
-  //   Phone: "123456789",
-  //   Amount: 1000,
-  //   Date: "12/12/2021",
-  // },
+  {
+    id: 5,
+    iconurl:
+      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
+    Asset: "Ripple",
+    Symbol: "XRP",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
+  },
+  {
+    id: 6,
+    iconurl:
+      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
+    Asset: "Dogecoin",
+    Symbol: "DOGE",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
+  },
+  {
+    id: 7,
+    iconurl:
+      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
+    Asset: "Cardano",
+    Symbol: "ADA",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
+  },
+  {
+    id: 8,
+    iconurl:
+      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
+    Asset: "Polkadot",
+    Symbol: "DOT",
+    Amount: "0.0000001",
+    Price: "1000000",
+    percentageChange: 10,
+  },
+];
+
+const Services = [
+  {
+    id: 1,
+    name: "P2P",
+    icon: <Groups2Outlined />,
+    Description: "Peer to Peer Trading",
+  },
+  {
+    id: 2,
+    name: "Referral",
+    icon: <Groups3Outlined />,
+    Description: "Refer and Earn",
+  },
+  {
+    id: 3,
+    name: "Transfer",
+    icon: <TransferWithinAStationOutlined />,
+    Description: "Transfer to other users",
+  },
+  {
+    id: 4,
+    name: "Loan",
+    icon: <CreditCardOutlined />,
+    Description: "Get a loan",
+  },
+  {
+    id: 5,
+    name: "Swap",
+    icon: <SwapHorizOutlined />,
+    Description: "Swap your assets",
+  },
 ];
 
 const secondaryCardWidth = "250px";
-const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 4rem)`;
+const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -143,12 +213,13 @@ const Dashboard = () => {
   return (
     <Grid
       container
-      spacing={2}
+      spacing="0.5rem"
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
         justifyContent: "center",
-        // gap: 2,
+        width: "fit-content",
+        gap: 1,
         // alignItems: "center",
         flexGrow: 1,
         flexBasis: 0,
@@ -160,7 +231,11 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
+            overflowY: "hidden",
             width: { sm: "100vw", lg: overviewWidth },
+            backgroundColor: "transparent",
+            border: "none",
+            boxShadow: "none",
           }}
         >
           <CardContent
@@ -256,101 +331,47 @@ const Dashboard = () => {
             ))}
           </CardContent>
 
-          <CardContent>Recent Transactions</CardContent>
-          <CardContent>
-            <Stack
-              direction="row"
-              // spacing={4}
-              rowGap={2}
-              flexWrap="wrap"
-              alignItems="center"
-              justifyContent="center"
-              divider={
-                isSmallScreen ? null : (
-                  <Divider orientation="vertical" flexItem />
-                )
-              }
-            >
-              <Box>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography>Deposits</Typography>
-                  <Button variant="contained" color="primary">
-                    See All
-                  </Button>
-                </Stack>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Mpesa Ref</TableCell>
-                        <TableCell>Amount</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Status</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {Deposits.map((deposit, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{deposit.MpesaRef}</TableCell>
-                          <TableCell>{deposit.Amount}</TableCell>
-                          <TableCell>{deposit.Date}</TableCell>
-                          <TableCell>{deposit.status}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-              <Box>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography>Withdrawals</Typography>
-                  <Button variant="contained" color="primary">
-                    See All
-                  </Button>
-                </Stack>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Phone</TableCell>
-                        <TableCell>Amount</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Status</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {Withdrawals.map((Withdrawals, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{Withdrawals.Phone}</TableCell>
-                          <TableCell>{Withdrawals.Amount}</TableCell>
-                          <TableCell>{Withdrawals.Date}</TableCell>
-                          <TableCell>{Withdrawals.status}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-            </Stack>
+          <CardContent
+            sx={{
+              maxHeight: "400px",
+              overflowX: "scroll",
+              width: "inherit",
+            }}
+          >
+            <Typography>Assets</Typography>
+            <MUIDataGrid columns={columns} rows={Assets} pagination={false} />
           </CardContent>
         </Card>
       </Grid>
-      <Grid item>
-        <Card
-          sx={{
-            width: secondaryCardWidth,
-          }}
-        >
-          <CardContent>Credit Score</CardContent>
-        </Card>
+      <Grid
+        item
+        sx={{
+          backgroundColor: "white",
+          width: secondaryCardWidth,
+        }}
+      >
+        <Typography variant="h5">Services</Typography>
+        {Services.map((service, index) => (
+          <Card
+            key={index}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+              height: "70px",
+              backgroundColor: "transparent",
+              boxShadow: "none",
+            }}
+          >
+            <CardContent sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+              {service.icon}
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography variant="h6">{service.name}</Typography>
+                <Typography variant="body2">{service.Description}</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        ))}
       </Grid>
     </Grid>
   );

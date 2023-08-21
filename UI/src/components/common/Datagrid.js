@@ -1,17 +1,24 @@
+import styled from "@emotion/styled";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 
-const MUIDataGrid = ({ columns, rows }) => {
+const StyledDataGrid = styled(DataGrid)({
+  border: "none",
+  "& .MuiDataGrid-withBorderColor": {
+    borderColor: "transparent",
+  },
+  "& .MuiDataGrid-footerContainer": {
+    display: "none",
+  },
+});
+
+const MUIDataGrid = ({ rows, columns }) => {
   return (
-    <DataGrid
+    <StyledDataGrid
       rows={rows}
       columns={columns}
-      pageSize={5}
-      rowsPerPageOptions={[5]}
+      pagination={false}
       disableSelectionOnClick
-      sx={{
-        maxWidth: `calc(100vw-200px)`,
-      }}
     />
   );
 };

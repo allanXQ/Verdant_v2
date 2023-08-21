@@ -16,6 +16,7 @@ const RootLayout = () => {
         container
         sx={{
           display: "flex",
+          flexWrap: "nowrap",
         }}
       >
         <Grid item>
