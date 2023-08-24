@@ -3,6 +3,7 @@ import RootLayout from "./components/Layouts/RootLayout";
 import Dashboard from "./pages/Dashboard";
 import DepositHistory from "pages/TransactionHistory/DepositHistory";
 import Login from "pages/Auth/login";
+import Trade from "pages/Trade";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="deposit-history" element={<DepositHistory />} />
+        <Route path="trade" element={<Trade />} />
       </Route>
     </Routes>
   );

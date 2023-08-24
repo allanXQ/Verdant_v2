@@ -1,5 +1,5 @@
 const coinLabelMap = {
-  verdant: "AXSBUSD",
+  verdant: "BTCUSDT",
 };
 
 const klineIntervals = {

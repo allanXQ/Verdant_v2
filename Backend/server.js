@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/auth", require("./routes/user/auth"));
 app.use("/api/v1/wallet", require("./routes/user/wallet"));
-app.use("/api/v1/assetInfo", require("./routes/user/assetInfo"));
+app.use("/api/v1/asset-info", require("./routes/user/assetInfo"));
 
 app.use("/api/v1/ZAdmin/assets", require("./routes/admin/assets"));
 

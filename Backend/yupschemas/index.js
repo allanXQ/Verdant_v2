@@ -91,6 +91,11 @@ const addAssetSchema = yup.object().shape({
   coinPair: yup.string().required(),
 });
 
+const historicalKlinesSchema = yup.object().shape({
+  assetName: yup.string().required(),
+  klineInterval: yup.string().required(),
+});
+
 module.exports = {
   regSchema,
   loginSchema,
@@ -102,4 +107,5 @@ module.exports = {
   p2pOrderSchema,
   cancelOrderSchema,
   addAssetSchema,
+  historicalKlinesSchema,
 };

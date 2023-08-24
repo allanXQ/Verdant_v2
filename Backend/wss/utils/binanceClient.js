@@ -8,61 +8,21 @@ const API_SECRET = process.env.BINANCEAPISECRET;
 // optionally override the logger
 const binanceClient = () => {
   try {
-    const wsClient = new WebsocketClient({
-      api_key: API_KEY,
-      api_secret: API_SECRET,
-      beautify: true,
-    });
-    wsClient.on("open", (data) => {
-      console.log("connection opened open:", data.wsKey, data.ws.target.url);
-    });
+    const binanceWs = new WebSocket(
+      "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
+    );
 
-    wsClient.on("formattedMessage", (data) => {
-      switch (data.eventType) {
-        case "kline":
-          console.log("kline");
-          break;
-        case "24hrMiniTicker":
-          console.log("24hrMiniTicker");
-          break;
-        default:
-          break;
-      }
-      console.log("formattedMessage: ", data);
-    });
-
-    wsClient.on("reply", (data) => {
-      console.log("log reply: ", JSON.stringify(data, null, 2));
-    });
-
-    wsClient.on("reconnecting", (data) => {
-      console.log("ws automatically reconnecting.... ", data?.wsKey);
-    });
-
-    wsClient.on("reconnected", (data) => {
-      console.log("ws has reconnected ", data?.wsKey);
-    });
-
-    wsClient.on("error", (data) => {
-      console.log("ws saw error ", data?.wsKey);
-    });
-
-    wsClient.on("close", (data) => {
-      wsClient.connectToWsUrl;
-      console.log("ws saw close ", data?.wsKey);
-    });
-
-    const market = "BTCUSDT";
-    const interval = "1m";
-
-    getAssets()
-      .then((data) => {
-        data.forEach((asset) => {
-          // wsClient.subscribeSpotKline(market, interval);
-          // wsClient.subscribeSpotSymbolMini24hrTicker(market);
-        });
-      })
-      .catch((error) => {});
+    binanceWs.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      const candlestick = {
+        time: data.k.t,
+        open: parseFloat(data.k.o),
+        high: parseFloat(data.k.h),
+        low: parseFloat(data.k.l),
+        close: parseFloat(data.k.c),
+      };
+      console.log(candlestick);
+    };
   } catch (error) {
     console.log(error);
   }
