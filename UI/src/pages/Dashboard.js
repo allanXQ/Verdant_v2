@@ -59,32 +59,38 @@ const columns = [
   {
     field: "Asset",
     headerName: "Asset",
-    // width: 200,
+    smallScreenScreen: true,
+    width: 200,
   },
   {
     field: "Symbol",
     headerName: "Symbol",
-    // width: 200,
+    smallScreenScreen: false,
+    width: 200,
   },
   {
     field: "Amount",
     headerName: "Amount",
-    // width: 200,
-  },
-  {
-    field: "Price",
-    headerName: "Price",
-    // width: 200,
+    smallScreenScreen: false,
+    width: 200,
   },
   {
     field: "percentageChange",
     headerName: "24h Change",
-    // width: 200,
+    smallScreenScreen: true,
+    width: 200,
+  },
+  {
+    field: "Price",
+    headerName: "Price",
+    smallScreenScreen: true,
+    width: 200,
   },
   {
     field: "Trade",
     headerName: "Trade",
-    // width: 200,
+    smallScreenScreen: false,
+    width: 200,
   },
 ];
 
@@ -170,6 +176,10 @@ const Assets = [
   },
 ];
 
+Assets.map((asset) => {
+  asset.Trade = <Button>Trade</Button>;
+});
+
 const Services = [
   {
     id: 1,
@@ -217,10 +227,8 @@ const Dashboard = () => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        justifyContent: "center",
         width: "fit-content",
         gap: 1,
-        // alignItems: "center",
         flexGrow: 1,
         flexBasis: 0,
         flexWrap: "wrap",
@@ -269,7 +277,6 @@ const Dashboard = () => {
               display: "flex",
               justifyContent: "space-between",
               gap: { xs: 2, sm: 4 },
-              alignItems: "center",
               flexWrap: "wrap",
               flexGrow: 1,
               flexFlow: "row wrap",
@@ -333,22 +340,31 @@ const Dashboard = () => {
           <CardContent
             sx={{
               maxHeight: "400px",
-              overflowX: "scroll",
-              overflowY: "hidden",
-              width: "inherit",
             }}
           >
             <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
             >
               <Typography>Assets</Typography>
               <Button variant="contained" color="primary">
                 See All
               </Button>
             </Box>
-            <MUIDataGrid columns={columns} rows={Assets} pagination={false} />
+            <Box
+              sx={{
+                maxWidth: "90vw",
+              }}
+            >
+              <MUIDataGrid
+                columns={columns}
+                rows={Assets.slice(0, 5)}
+                pagination={false}
+              />
+            </Box>
           </CardContent>
         </Card>
       </Grid>
@@ -356,7 +372,6 @@ const Dashboard = () => {
         item
         sx={{
           display: "flex",
-          // flexDirection: "column",
           flexWrap: "wrap",
           gap: 1,
           backgroundColor: "white",
@@ -373,7 +388,6 @@ const Dashboard = () => {
               height: "80px",
               minWidth: secondaryCardWidth,
               border: "1px solid rgba(0,0,0,0.1)",
-              // borderRadius: "1px",
               backgroundColor: "transparent",
               boxShadow: "none",
             }}
