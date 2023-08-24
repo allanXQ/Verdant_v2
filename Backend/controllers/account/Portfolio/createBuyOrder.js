@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const { orderTypes } = require("../../../config");
 const buyOrders = require("../../../models/p2p/BuyOrders");
 const Escrow = require("../../../models/p2p/escrow");
-const Users = require("../../../models/Users");
+const Users = require("../../../models/users");
 const Messages = require("../../../utils/messages");
 const crypto = require("crypto");
 //check if account balance is sufficient

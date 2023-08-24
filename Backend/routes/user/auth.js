@@ -9,7 +9,7 @@ const { ForgotPassword } = require("../../controllers/auth/forgot-password");
 const { RefreshToken } = require("../../controllers/auth/refreshjwt");
 const { Logout } = require("../../controllers/auth/logout");
 const formValidate = require("../../middleware/validate");
-const { googleOAuth } = require("../../controllers/auth/google");
+const { googleOAuth } = require("../../controllers/auth/googleOAuth");
 const {
   regSchema,
   loginSchema,

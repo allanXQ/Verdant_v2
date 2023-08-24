@@ -1,4 +1,4 @@
-const MpesaDeposits = require("../../../models/MpesaDeposits");
+const MpesaDeposits = require("../../../models/mpesaDeposits");
 const Messages = require("../../../utils/messages");
 
 const MpesaDepositHistory = async (req, res) => {

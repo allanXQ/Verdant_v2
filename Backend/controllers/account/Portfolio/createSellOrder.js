@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const SellOrders = require("../../../models/p2p/SellOrders");
 const Escrow = require("../../../models/p2p/escrow");
-const Users = require("../../../models/Users");
+const Users = require("../../../models/users");
 const Messages = require("../../../utils/messages");
 const { orderTypes } = require("../../../config");
 const createId = require("../../../utils/createId");

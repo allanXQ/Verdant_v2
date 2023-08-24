@@ -6,6 +6,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/errorHandler");
+const DBconn = require("./config/dbConn");
 
 const app = express();
 const port = process.env.PORT || 5000;

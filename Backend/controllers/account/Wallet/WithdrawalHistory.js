@@ -1,4 +1,4 @@
-const Withdrawals = require("../../../models/Withdrawals");
+const Withdrawals = require("../../../models/withdrawals");
 const Messages = require("../../../utils/messages");
 
 const WithdrawalHistory = async (req, res) => {

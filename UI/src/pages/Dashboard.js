@@ -59,32 +59,32 @@ const columns = [
   {
     field: "Asset",
     headerName: "Asset",
-    width: 200,
+    // width: 200,
   },
   {
     field: "Symbol",
     headerName: "Symbol",
-    width: 200,
+    // width: 200,
   },
   {
     field: "Amount",
     headerName: "Amount",
-    width: 200,
+    // width: 200,
   },
   {
     field: "Price",
     headerName: "Price",
-    width: 200,
+    // width: 200,
   },
   {
     field: "percentageChange",
     headerName: "24h Change",
-    width: 200,
+    // width: 200,
   },
   {
-    field: "Action",
-    headerName: "Action",
-    width: 200,
+    field: "Trade",
+    headerName: "Trade",
+    // width: 200,
   },
 ];
 
@@ -187,7 +187,7 @@ const Services = [
     id: 3,
     name: "Transfer",
     icon: <TransferWithinAStationOutlined />,
-    Description: "Transfer to other users",
+    Description: "Transfer assets to other users",
   },
   {
     id: 4,
@@ -203,7 +203,7 @@ const Services = [
   },
 ];
 
-const secondaryCardWidth = "250px";
+const secondaryCardWidth = "350px";
 const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
 const Dashboard = () => {
@@ -231,7 +231,6 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            overflowY: "hidden",
             width: { sm: "100vw", lg: overviewWidth },
             backgroundColor: "transparent",
             border: "none",
@@ -335,10 +334,20 @@ const Dashboard = () => {
             sx={{
               maxHeight: "400px",
               overflowX: "scroll",
+              overflowY: "hidden",
               width: "inherit",
             }}
           >
-            <Typography>Assets</Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography>Assets</Typography>
+              <Button variant="contained" color="primary">
+                See All
+              </Button>
+            </Box>
             <MUIDataGrid columns={columns} rows={Assets} pagination={false} />
           </CardContent>
         </Card>
@@ -346,11 +355,14 @@ const Dashboard = () => {
       <Grid
         item
         sx={{
+          display: "flex",
+          // flexDirection: "column",
+          flexWrap: "wrap",
+          gap: 1,
           backgroundColor: "white",
           width: secondaryCardWidth,
         }}
       >
-        <Typography variant="h5">Services</Typography>
         {Services.map((service, index) => (
           <Card
             key={index}
@@ -358,7 +370,10 @@ const Dashboard = () => {
               display: "flex",
               flexDirection: "column",
               gap: 1,
-              height: "70px",
+              height: "80px",
+              minWidth: secondaryCardWidth,
+              border: "1px solid rgba(0,0,0,0.1)",
+              // borderRadius: "1px",
               backgroundColor: "transparent",
               boxShadow: "none",
             }}
