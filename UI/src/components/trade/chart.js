@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 import axios from "axios";
+import { io } from "socket.io-client";
 
-const CandlestickChart = () => {
+const CandlestickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
   const [chart, setChart] = useState(null);
   const [ws, setWs] = useState(null);
@@ -20,8 +21,8 @@ const CandlestickChart = () => {
         let historicalData;
         await axios
           .post("http://localhost:5000/api/v1/asset-info/historical-klines", {
-            assetName: "verdant",
-            klineInterval: "1m",
+            assetName,
+            klineInterval,
           })
           .then((res) => {
             historicalData = res.data.payload;
@@ -37,30 +38,31 @@ const CandlestickChart = () => {
       };
       fetchHistoricalData();
 
-      const binanceWs = new WebSocket(
-        "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
-      );
+      const socket = io(`ws://localhost:2000`, {
+        path: `ws/${assetName}/${klineInterval}`,
+      });
+      socket.on("connect_error", (error) => {
+        console.log("Connection Error: ", error);
+      });
 
-      binanceWs.onmessage = (message) => {
-        const data = JSON.parse(message.data);
-        const candlestick = {
-          time: data.k.t,
-          open: parseFloat(data.k.o),
-          high: parseFloat(data.k.h),
-          low: parseFloat(data.k.l),
-          close: parseFloat(data.k.c),
-        };
+      socket.on("connect", () => {
+        console.log(`Connected to /ws/${assetName}/${klineInterval}`);
 
-        candlestickSeries.update(candlestick);
-      };
+        // Request klines data
+        socket.emit("requestKlines");
 
-      setWs(binanceWs);
+        socket.on("klineData", (data) => {
+          candlestickSeries.update(data);
+          console.log(data);
+        });
+      });
+      setWs(socket);
     }
 
     return () => {
       chart && chart.remove();
       chartContainerRef.current && (chartContainerRef.current.innerHTML = "");
-      // ws && ws.close();
+      ws && ws.close();
     };
   }, []);
 

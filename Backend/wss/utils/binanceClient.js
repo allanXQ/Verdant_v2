@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { WebsocketClient } = require("binance");
+const WebSocket = require("ws");
 const getAssets = require("./getAssets");
 
 const API_KEY = process.env.BINANCEAPIKEY;
@@ -7,25 +7,18 @@ const API_SECRET = process.env.BINANCEAPISECRET;
 
 // optionally override the logger
 const binanceClient = () => {
-  try {
-    const binanceWs = new WebSocket(
-      "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
-    );
+  const binanceWs = new WebSocket(
+    "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
+  );
 
-    binanceWs.onmessage = (message) => {
-      const data = JSON.parse(message.data);
-      const candlestick = {
-        time: data.k.t,
-        open: parseFloat(data.k.o),
-        high: parseFloat(data.k.h),
-        low: parseFloat(data.k.l),
-        close: parseFloat(data.k.c),
-      };
-      console.log(candlestick);
-    };
-  } catch (error) {
+  binanceWs.onclose = (close) => {
+    console.log(close);
+  };
+  binanceWs.onerror = (error) => {
     console.log(error);
-  }
+  };
+
+  return binanceWs;
 };
 
 module.exports = binanceClient;
