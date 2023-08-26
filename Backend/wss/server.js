@@ -6,21 +6,12 @@ const WebSocket = require("ws");
 const { Server } = require("socket.io");
 
 const DBconn = require("../config/dbConn");
+const { coinLabelMap } = require("../controllers/account/Assetinfo/config");
 // const binanceClient = require("./utils/binanceClient");
 
 const port = process.env.WSPORT || 2000;
 
 const app = express();
-// app.use(
-//   cors({
-//     origin: "*",
-//     allowedHeaders: ["Access-Control-Allow-Origin"],
-//     headers: {
-//       "Access-Control-Allow-Origin": "*",
-//     },
-//     credentials: true,
-//   })
-// );
 const server = http.createServer(app);
 
 const wss = new Server(server, {
@@ -30,19 +21,18 @@ const wss = new Server(server, {
   },
 });
 
-const binanceClient = new WebSocket(
-  "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
-);
-
-binanceClient.onclose = (close) => {
-  console.log(close);
-};
+let binanceClient;
 
 wss.on("connection", (socket) => {
   // Extract the coin pair from the namespace.
-
+  let a = "p";
+  a.toLowerCase;
   socket.on("requestKlines", (data) => {
     console.log(data.assetName, data.klineInterval);
+    const { assetName, klineInterval } = data;
+    const tradingPair = coinLabelMap[assetName].toLowerCase();
+    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@kline_${klineInterval}`;
+    binanceClient = new WebSocket(url);
 
     // You can handle the data fetching for the coin pair here
     binanceClient.onerror = (error) => {
@@ -67,7 +57,6 @@ wss.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     binanceClient.close();
-    console.log(`User disconnected from `);
   });
 });
 

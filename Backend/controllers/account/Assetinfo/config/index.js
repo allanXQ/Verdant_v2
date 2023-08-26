@@ -1,5 +1,5 @@
 const coinLabelMap = {
-  verdant: "BTCUSDT",
+  verdant: "ETHUSDT",
 };
 
 const klineIntervals = {
