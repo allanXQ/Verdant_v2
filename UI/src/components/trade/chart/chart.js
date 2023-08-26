@@ -5,6 +5,8 @@ import { io } from "socket.io-client";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
+  const resizeObserver = useRef(null);
+
   const [chart, setChart] = useState(null);
   const [ws, setWs] = useState(null);
 
@@ -12,8 +14,6 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
     if (chartContainerRef.current) {
       const chartInstance = createChart(chartContainerRef.current, {
         autoSize: true,
-        // width: 1000,
-        // height: 300,
         layout: {
           background: {
             color: "#253248",
@@ -35,6 +35,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
           borderColor: "#485c7b",
         },
         timeScale: {
+          visible: false,
           borderColor: "#485c7b",
         },
       });
@@ -48,6 +49,13 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       });
 
       setChart(chartInstance);
+
+      resizeObserver.current = new ResizeObserver((entries) => {
+        const { width, height } = entries[0].contentRect;
+        chartInstance.applyOptions({ width, height });
+      });
+      resizeObserver.current.observe(chartContainerRef.current);
+
       const fetchHistoricalData = async () => {
         let historicalData;
         await axios
@@ -97,13 +105,14 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       chart && chart.remove();
       chartContainerRef.current && (chartContainerRef.current.innerHTML = "");
       ws && ws.close();
+      resizeObserver.current && resizeObserver.current.disconnect();
     };
   }, []);
 
   return (
     <div
       ref={chartContainerRef}
-      style={{ width: "100%", height: "300px" }}
+      style={{ width: "90vw", height: "500px" }}
     ></div>
   );
 };
