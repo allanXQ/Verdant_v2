@@ -1,35 +1,53 @@
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
+const WebSocket = require("ws");
+
 const { Server } = require("socket.io");
 
 const DBconn = require("../config/dbConn");
-const binanceClient = require("./utils/binanceClient");
+// const binanceClient = require("./utils/binanceClient");
 
 const port = process.env.WSPORT || 2000;
 
 const app = express();
-app.use(cors());
+// app.use(
+//   cors({
+//     origin: "*",
+//     allowedHeaders: ["Access-Control-Allow-Origin"],
+//     headers: {
+//       "Access-Control-Allow-Origin": "*",
+//     },
+//     credentials: true,
+//   })
+// );
 const server = http.createServer(app);
 
 const wss = new Server(server, {
-  origin: "*", // replace with your client origin
-  methods: ["GET", "POST"],
-  // allowedHeaders: ["my-custom-header"],
-  // credentials: true
+  cors: {
+    origin: "http://localhost:3000", // replace with your client origin
+    credentials: true,
+  },
 });
 
-wss.of(/^\/ws\/\w+\/\w+$/).on("connection", (socket) => {
-  // Extract the coin pair from the namespace.
-  const details = socket.nsp.name.split("/");
-  const coinPair = details[2];
-  const klineInterval = details[3];
-  console.log(`User connected to ${coinPair}`);
+const binanceClient = new WebSocket(
+  "wss://stream.binance.com:9443/ws/btcusdt@kline_1m"
+);
 
-  socket.on("requestKlines", () => {
-    console.log(`User requested klines for ${coinPair}`);
+binanceClient.onclose = (close) => {
+  console.log(close);
+};
+
+wss.on("connection", (socket) => {
+  // Extract the coin pair from the namespace.
+
+  socket.on("requestKlines", (data) => {
+    console.log(data.assetName, data.klineInterval);
+
     // You can handle the data fetching for the coin pair here
-    binanceClient(coinPair, klineInterval);
+    binanceClient.onerror = (error) => {
+      console.log(error);
+    };
     binanceClient.onmessage = (message) => {
       const data = JSON.parse(message.data);
       const candlestick = {
@@ -39,6 +57,7 @@ wss.of(/^\/ws\/\w+\/\w+$/).on("connection", (socket) => {
         low: parseFloat(data.k.l),
         close: parseFloat(data.k.c),
       };
+      console.log(candlestick);
       socket.emit("klineData", {
         candlestick,
         /* mock data here, potentially based on coinPair */
@@ -48,9 +67,8 @@ wss.of(/^\/ws\/\w+\/\w+$/).on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     binanceClient.close();
-    console.log(`User disconnected from ${coinPair}`);
+    console.log(`User disconnected from `);
   });
 });
 
-DBconn(app, port);
-binanceClient();
+DBconn(server, port);

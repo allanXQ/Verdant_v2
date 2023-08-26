@@ -38,8 +38,8 @@ const CandlestickChart = ({ assetName, klineInterval }) => {
       };
       fetchHistoricalData();
 
-      const socket = io(`ws://localhost:2000`, {
-        path: `ws/${assetName}/${klineInterval}`,
+      const socket = io("http://localhost:2000", {
+        withCredentials: true,
       });
       socket.on("connect_error", (error) => {
         console.log("Connection Error: ", error);
@@ -49,10 +49,13 @@ const CandlestickChart = ({ assetName, klineInterval }) => {
         console.log(`Connected to /ws/${assetName}/${klineInterval}`);
 
         // Request klines data
-        socket.emit("requestKlines");
+        socket.emit("requestKlines", {
+          assetName,
+          klineInterval,
+        });
 
         socket.on("klineData", (data) => {
-          candlestickSeries.update(data);
+          candlestickSeries.update(data.candlestick);
           console.log(data);
         });
       });
