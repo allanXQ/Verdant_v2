@@ -3,7 +3,7 @@ import { createChart } from "lightweight-charts";
 import axios from "axios";
 import { io } from "socket.io-client";
 
-const CandlestickChart = ({ assetName, klineInterval }) => {
+const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
   const [chart, setChart] = useState(null);
   const [ws, setWs] = useState(null);
@@ -38,28 +38,28 @@ const CandlestickChart = ({ assetName, klineInterval }) => {
       };
       fetchHistoricalData();
 
-      const socket = io("http://localhost:2000", {
-        withCredentials: true,
-      });
-      socket.on("connect_error", (error) => {
-        console.log("Connection Error: ", error);
-      });
+      // const socket = io("http://localhost:2000", {
+      //   withCredentials: true,
+      // });
+      // socket.on("connect_error", (error) => {
+      //   console.log("Connection Error: ", error);
+      // });
 
-      socket.on("connect", () => {
-        console.log(`Connected to /ws/${assetName}/${klineInterval}`);
+      // socket.on("connect", () => {
+      //   console.log(`Connected to /ws/${assetName}/${klineInterval}`);
 
-        // Request klines data
-        socket.emit("requestKlines", {
-          assetName,
-          klineInterval,
-        });
+      // Request klines data
+      //   socket.emit("requestKlines", {
+      //     assetName,
+      //     klineInterval,
+      //   });
 
-        socket.on("klineData", (data) => {
-          candlestickSeries.update(data.candlestick);
-          console.log(data);
-        });
-      });
-      setWs(socket);
+      //   socket.on("klineData", (data) => {
+      //     candlestickSeries.update(data.candlestick);
+      //     console.log(data);
+      //   });
+      // });
+      // setWs(socket);
     }
 
     return () => {
@@ -77,4 +77,4 @@ const CandlestickChart = ({ assetName, klineInterval }) => {
   );
 };
 
-export default CandlestickChart;
+export default CandleStickChart;
