@@ -1,6 +1,6 @@
 const Assets = require("../../../models/Assets");
 
-const getAssets = async (req, res) => {
+const getAssets = async (req, res, next) => {
   try {
     const assets = await Assets.find();
     if (assets) {
@@ -11,7 +11,7 @@ const getAssets = async (req, res) => {
       });
     }
   } catch (error) {
-    return res.json({ status: 500, message: "An error occurred" });
+    next(error);
   }
 };
 

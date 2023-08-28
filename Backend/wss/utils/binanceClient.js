@@ -1,6 +1,5 @@
 require("dotenv").config();
 const WebSocket = require("ws");
-const getAssets = require("./getAssets");
 
 const API_KEY = process.env.BINANCEAPIKEY;
 const API_SECRET = process.env.BINANCEAPISECRET;
