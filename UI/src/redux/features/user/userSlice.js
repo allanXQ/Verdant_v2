@@ -25,6 +25,7 @@ const initialState = {
     loanRepayments: [],
     swapOrders: [],
     referrals: [],
+    error: null,
   },
 };
 

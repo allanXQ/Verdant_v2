@@ -72,6 +72,7 @@ const initialState = {
     },
   ],
   assets: [],
+  error: null,
 };
 
 export const appDataSlice = createSlice({
