@@ -26,7 +26,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAppData, selectKlineIntervals } from "redux/features/app/appData";
 
 const stats = [
   {
@@ -218,7 +220,13 @@ const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
 const Dashboard = () => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAppData());
+  }, [dispatch]);
+
+  const klineIntervals = selectKlineIntervals;
+  console.log(klineIntervals);
 
   return (
     <Grid
@@ -378,6 +386,19 @@ const Dashboard = () => {
           width: secondaryCardWidth,
         }}
       >
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography variant="h5" sx={{}}>
+            More Services
+          </Typography>
+        </Box>
+
         {Services.map((service, index) => (
           <Card
             key={index}

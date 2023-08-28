@@ -32,5 +32,13 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    login: (state, action) => {
+      state.isLoggedIn = true;
+      state.user = action.payload;
+    },
+  },
 });
+
+export const { login } = userSlice.actions;
+export default userSlice.reducer;

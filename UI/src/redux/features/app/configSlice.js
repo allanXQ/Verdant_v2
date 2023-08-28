@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const configSlice = createSlice({
-  name: "appThemeConfig",
+  name: "config",
   initialState,
   reducers: {
     updateTheme: (state, action) => {
