@@ -12,7 +12,6 @@ const MainChart = () => {
         backgroundColor: "#253248",
         mx: "auto",
         width: "98%",
-        height: 20,
       }}
     >
       <RangePicker />
