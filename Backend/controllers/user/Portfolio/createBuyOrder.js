@@ -1,17 +1,16 @@
 const { default: mongoose } = require("mongoose");
-const SellOrders = require("../../../models/p2p/SellOrders");
+const { orderTypes } = require("../../../config");
+const buyOrders = require("../../../models/p2p/buyOrders");
 const Escrow = require("../../../models/p2p/escrow");
 const Users = require("../../../models/users");
 const Messages = require("../../../utils/messages");
-const { orderTypes } = require("../../../config");
-const createId = require("../../../utils/createId");
+const crypto = require("crypto");
+//check if account balance is sufficient
+//deduct asset value from account balance
+//store the asset value in escrow
+//create a buy order
 
-//check if portfolio balance is sufficient
-//deduct asset amount from portfolio balance
-//store the asset amount and name in escrow
-//create a sell order
-
-const createSellOrder = async (req, res) => {
+const createBuyOrder = async (req, res) => {
   const { userId, username, stockName, stockAmount, price } = req.body;
   let session;
 
@@ -19,30 +18,33 @@ const createSellOrder = async (req, res) => {
     session = await mongoose.startSession();
     session.startTransaction();
     const user = await Users.findOne({ userId }).session(session);
-    const portfolio = user.portfolio;
-    const stock = portfolio.find((stock) => stock.stockName === stockName);
-    if (!stock || parseInt(stock.stockAmount) < parseInt(stockAmount)) {
+    const accountBalance = parseInt(user.accountBalance);
+    const assetValue = parseInt(stockAmount) * parseInt(price);
+    if (accountBalance < assetValue) {
       return res.json({
         status: 400,
-        message: Messages.insufficientStocks,
+        message: Messages.insufficientBalance,
       });
     }
-    stock.stockAmount = parseInt(stock.stockAmount) - parseInt(stockAmount);
-    await user.save({ session });
-    const orderId = createId();
-    await Escrow.create({
-      orderId,
-      orderType: orderTypes.Sell,
-      userId,
-      stockName,
-      stockAmount,
-    });
+    user.accountBalance -= assetValue;
 
-    const sellOrder = await SellOrders.create(
+    await user.save({ session });
+    const orderId = crypto.randomBytes(6).toString("hex");
+    await Escrow.create(
       {
         orderId,
-        sellerId: userId,
-        sellerName: username,
+        orderType: orderTypes.Buy,
+        userId,
+        cashAmount: assetValue,
+      },
+      { session }
+    );
+
+    const buyOrder = await buyOrders.create(
+      {
+        orderId,
+        buyerId: userId,
+        buyerName: username,
         stockName,
         stockAmount,
         price,
@@ -52,7 +54,7 @@ const createSellOrder = async (req, res) => {
     await session.commitTransaction();
     return res.json({
       status: 200,
-      payload: sellOrder,
+      payload: buyOrder,
       message: Messages.orderCreated,
     });
   } catch (error) {
@@ -64,4 +66,4 @@ const createSellOrder = async (req, res) => {
   }
 };
 
-module.exports = createSellOrder;
+module.exports = createBuyOrder;

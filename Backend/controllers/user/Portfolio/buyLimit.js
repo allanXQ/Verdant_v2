@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const Messages = require("../../../utils/messages");
 const closedTrades = require("../../../models/p2p/closedTrades");
 const Users = require("../../../models/users");
-const sellOrders = require("../../../models/p2p/SellOrders");
+const sellOrders = require("../../../models/p2p/sellOrders");
 const Escrow = require("../../../models/p2p/escrow");
 
 //check if sell order exists

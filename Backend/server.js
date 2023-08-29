@@ -18,11 +18,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1/auth", require("./routes/user/auth"));
-app.use("/api/v1/wallet", require("./routes/user/wallet"));
 app.use("/api/v1/asset-info", require("./routes/app/assetInfo"));
 app.use("/api/v1/app-data", require("./routes/app/getAppData"));
-app.use("/api/v1/user", require("./routes/user/userInfo"));
+app.use("/api/v1/user", require("./routes/user/index"));
 
 app.use("/api/v1/ZAdmin/assets", require("./routes/admin/assets"));
 

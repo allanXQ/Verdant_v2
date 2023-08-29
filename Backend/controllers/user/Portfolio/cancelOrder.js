@@ -1,6 +1,6 @@
 const { orderTypes } = require("../../../config");
-const buyOrders = require("../../../models/p2p/BuyOrders");
-const sellOrders = require("../../../models/p2p/SellOrders");
+const buyOrders = require("../../../models/p2p/buyOrders");
+const sellOrders = require("../../../models/p2p/sellOrders");
 
 const cancelOrder = async (req, res) => {
   try {
