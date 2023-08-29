@@ -48,7 +48,7 @@ router.post(
   errorHOC(ResetPassword)
 );
 router.post("/auth/refresh-token", errorHOC(RefreshToken));
-router.post("/auth/logout", errorHOC(Logout));
+router.post("/auth/logout", Logout);
 
 router.post(
   "/auth/forgot-password",
@@ -62,7 +62,7 @@ router.post(
   errorHOC(UpdatePassword)
 );
 
-router.get("/auth/google", errorHOC(googleOAuth));
+router.get("/auth/google", googleOAuth);
 
 //wallet routes
 router.post(

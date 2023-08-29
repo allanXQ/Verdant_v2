@@ -36,18 +36,13 @@ const getData = async (assetName, klineInterval) => {
 
 const getHistoricalKlines = async (req, res) => {
   const { assetName, klineInterval } = req.body;
-  try {
-    if (!assetName || !klineInterval) {
-      return res.status(400).json({ message: Messages.invalidRequest });
-    }
-    const data = await getData(assetName, klineInterval);
-    return res
-      .status(200)
-      .json({ message: Messages.requestSuccessful, payload: data });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: Messages.serverError });
+  if (!assetName || !klineInterval) {
+    return res.status(400).json({ message: Messages.invalidRequest });
   }
+  const data = await getData(assetName, klineInterval);
+  return res
+    .status(200)
+    .json({ message: Messages.requestSuccessful, payload: data });
 };
 
 module.exports = getHistoricalKlines;

@@ -14,33 +14,28 @@ const Register = async (req, res) => {
   } = req.body;
   const id = id;
 
-  try {
-    const getUser = await User.findOne({ username });
-    const getPhone = await User.findOne({ phone });
-    const getEmail = await User.findOne({ email });
-    if (getUser) {
-      return res.status(400).json({ message: Messages.invalidUsername });
-    }
-    if (getEmail) {
-      return res.status(400).json({ message: Messages.invalidEmail });
-    }
-    if (getPhone) {
-      return res.status(400).json({ message: Messages.invalidPhoneNumber });
-    }
-    const password = await bcrypt.hash(plainPassword, 10);
-    await User.create({
-      userid: id,
-      username,
-      email,
-      phone,
-      referrer,
-      password,
-    });
-    return res.status(200).json({ message: Messages.userCreatedSuccessfully });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: Messages.serverError });
+  const getUser = await User.findOne({ username });
+  const getPhone = await User.findOne({ phone });
+  const getEmail = await User.findOne({ email });
+  if (getUser) {
+    return res.status(400).json({ message: Messages.invalidUsername });
   }
+  if (getEmail) {
+    return res.status(400).json({ message: Messages.invalidEmail });
+  }
+  if (getPhone) {
+    return res.status(400).json({ message: Messages.invalidPhoneNumber });
+  }
+  const password = await bcrypt.hash(plainPassword, 10);
+  await User.create({
+    userid: id,
+    username,
+    email,
+    phone,
+    referrer,
+    password,
+  });
+  return res.status(200).json({ message: Messages.userCreatedSuccessfully });
 };
 
 module.exports = { Register };
