@@ -12,6 +12,11 @@ const Portfolio = mongoose.Schema({
   amountOwned: { type: Number, required: true },
 });
 
+const Referrals = mongoose.Schema({
+  userId: { type: String, required: true },
+  username: { type: String, required: true },
+});
+
 //add kyc
 const Users = mongoose.Schema({
   userid: { type: String },
@@ -34,6 +39,7 @@ const Users = mongoose.Schema({
   passwordResetToken: { type: String },
   password: { type: String, required: isLocalAuth },
   portfolio: [Portfolio],
+  referrals: [Referrals],
   created: { type: Date, default: Date.now },
 });
 

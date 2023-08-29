@@ -8,7 +8,7 @@ const getAppData = async (req, res, next) => {
   try {
     const assets = await findQuery(Assets);
     const assetUpdate = assets.map(async (asset) => {
-      const tradingPair = "BTCUSDT"; //asset.coinPair;
+      const tradingPair = asset.coinPair;
       const url = `https://api.binance.com/api/v3/ticker/24hr?symbol=${tradingPair}`;
       try {
         const response = await axios.get(url);
