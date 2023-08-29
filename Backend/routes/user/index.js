@@ -40,29 +40,29 @@ const {
 const errorHOC = require("../../utils/errorHOC");
 
 //auth routes
-router.post("/auth/register", formValidate(regSchema), Register);
-router.post("/auth/login", formValidate(loginSchema), Login);
+router.post("/auth/register", formValidate(regSchema), errorHOC(Register));
+router.post("/auth/login", formValidate(loginSchema), errorHOC(Login));
 router.post(
   "/auth/reset-password/:id/:token",
   formValidate(resetPasswordSchema),
-  ResetPassword
+  errorHOC(ResetPassword)
 );
-router.post("/auth/refresh-token", RefreshToken);
-router.post("/auth/logout", Logout);
+router.post("/auth/refresh-token", errorHOC(RefreshToken));
+router.post("/auth/logout", errorHOC(Logout));
 
 router.post(
   "/auth/forgot-password",
   formValidate(forgotPasswordSchema),
-  ForgotPassword
+  errorHOC(ForgotPassword)
 );
 router.post(
   "/auth/update-password",
   verifyjwt,
   formValidate(updatePasswordSchema),
-  UpdatePassword
+  errorHOC(UpdatePassword)
 );
 
-router.get("/auth/google", googleOAuth);
+router.get("/auth/google", errorHOC(googleOAuth));
 
 //wallet routes
 router.post(
@@ -71,48 +71,48 @@ router.post(
   formValidate(depositSchema),
   MpesaDeposit
 );
-router.post("/transact/tinypesa/webhook", TinypesaWebhook);
+router.post("/transact/tinypesa/webhook", errorHOC(TinypesaWebhook));
 router.post(
   "/transact/withdraw",
   verifyjwt,
   formValidate(withdrawalSchema),
-  MpesaWithdraw
+  errorHOC(MpesaWithdraw)
 );
 
-router.get("/history/deposit", verifyjwt, MpesaDepositHistory);
-router.get("/history/withdrawal", verifyjwt, WithdrawalHistory);
+router.get("/history/deposit", verifyjwt, errorHOC(MpesaDepositHistory));
+router.get("/history/withdrawal", verifyjwt, errorHOC(WithdrawalHistory));
 
 //portfolio routes
-router.get("/history/trade/:stockname", verifyjwt, tradeHistory); //if param return all sells for that stock by user else return all sells by user
+router.get("/history/trade/:stockname", verifyjwt, errorHOC(tradeHistory)); //if param return all sells for that stock by user else return all sells by user
 router.post(
   "/trade/sell-order",
   verifyjwt,
   formValidate(p2pOrderSchema),
-  createSellOrder
+  errorHOC(createSellOrder)
 );
 router.post(
   "/trade/buy-order",
   verifyjwt,
   formValidate(p2pOrderSchema),
-  createBuyOrder
+  errorHOC(createBuyOrder)
 );
 router.post(
   "/trade/sell-limit",
   verifyjwt,
   formValidate(p2pOrderSchema),
-  sellLimit
+  errorHOC(sellLimit)
 );
 router.post(
   "/trade/buy-limit",
   verifyjwt,
   formValidate(p2pOrderSchema),
-  buyLimit
+  errorHOC(buyLimit)
 );
 router.post(
   "/trade/cancel-order",
   verifyjwt,
   formValidate(cancelOrderSchema),
-  cancelOrder
+  errorHOC(cancelOrder)
 );
 
 router.post(

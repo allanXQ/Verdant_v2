@@ -5,14 +5,15 @@ const getHistoricalKlines = require("../../controllers/app/Assetinfo/getHistoric
 const formValidate = require("../../middleware/validate");
 
 const { historicalKlinesSchema } = require("../../yupschemas");
+const errorHOC = require("../../utils/errorHOC");
 
-router.get("/general-data", getAppData);
+router.get("/general-data", errorHOC(getAppData));
 
 router.post(
   "/historical-klines",
   verifyjwt,
   formValidate(historicalKlinesSchema),
-  getHistoricalKlines
+  errorHOC(getHistoricalKlines)
 );
 
 module.exports = router;

@@ -59,8 +59,8 @@ const createBuyOrder = async (req, res) => {
     });
   } catch (error) {
     session && (await session.abortTransaction());
-    console.log(error);
-    return res.json({ status: 500, message: Messages.serverError });
+    session && session.endSession();
+    throw error;
   } finally {
     session && session.endSession();
   }

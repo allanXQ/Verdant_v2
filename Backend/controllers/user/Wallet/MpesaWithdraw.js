@@ -63,13 +63,12 @@ const MpesaWithdraw = async (req, res) => {
       return res.status(400).json({ message: Messages.withdrawalFailed });
     }
     await session.commitTransaction();
+    session && session.endSession();
     return res.status(200).json({ message: Messages.withdrawalSuccess });
   } catch (error) {
     session && (await session.abortTransaction());
-    console.log(error);
-    return res.status(500).json({ message: Messages.serverError });
-  } finally {
     session && session.endSession();
+    throw error;
   }
 };
 

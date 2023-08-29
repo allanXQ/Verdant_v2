@@ -29,7 +29,6 @@ const userInfo = async (req, res) => {
   ]);
 
   console.log(userData);
-  throw new Error("test error");
   return res.status(200).json({
     message: Messages.requestSuccessful,
     payload: userData,

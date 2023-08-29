@@ -142,6 +142,7 @@ const sellLimit = async (req, res) => {
       { session }
     );
     await session.commitTransaction();
+    session && session.endSession();
 
     return res.json({
       status: 200,
@@ -150,10 +151,8 @@ const sellLimit = async (req, res) => {
     });
   } catch (error) {
     session && (await session.abortTransaction());
-    console.log(error);
-    return res.json({ status: 500, message: Messages.serverError });
-  } finally {
     session && session.endSession();
+    return res.json({ status: 500, message: Messages.serverError });
   }
 };
 
