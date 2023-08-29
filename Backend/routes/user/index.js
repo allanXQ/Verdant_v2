@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const formValidate = require("../../middleware/validate");
 const { verifyjwt } = require("../../middleware/verifyjwt");
-
 const {
   UpdatePassword,
   Login,
@@ -37,6 +36,8 @@ const {
   p2pOrderSchema,
   cancelOrderSchema,
 } = require("../../yupschemas");
+
+const errorHOC = require("../../utils/errorHOC");
 
 //auth routes
 router.post("/auth/register", formValidate(regSchema), Register);
@@ -118,7 +119,7 @@ router.post(
   "/user-info",
   //   verifyjwt,
   //   formValidate(),
-  userInfo
+  errorHOC(userInfo)
 );
 
 module.exports = router;
