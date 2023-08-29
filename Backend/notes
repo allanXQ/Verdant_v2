@@ -9,8 +9,6 @@ buylimit and selllimit
 #add admin portfolio. Is the default portfolio in which all new assets go to. admin can then sell to other users.
 #check getassets controller.
 
-#replace ids with default mongodb \_id
-
 #optimize getTrades querying style to be DRY
 #buyOrder,sellOrder validation schemas. amount should be greater than 0
 
