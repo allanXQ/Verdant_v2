@@ -12,8 +12,6 @@ const initialState = {
     email: null,
     phone: null,
     balance: 0,
-    token: null,
-    refreshToken: null,
     portfolio: [],
     trades: [],
     deposits: [],
