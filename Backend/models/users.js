@@ -27,7 +27,7 @@ const Users = mongoose.Schema({
   username: { type: String, required: isLocalAuth, unique: true },
   email: { type: String, required: true, unique: true },
   phone: { type: Number, required: isLocalAuth, unique: true },
-  accountBalance: { type: Number, default: 50 },
+  accountBalance: { type: Number, default: 0 },
   authMethod: {
     type: String,
     enum: ["local", "google"],
