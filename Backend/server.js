@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/app", require("./routes/app/index"));
+app.use("/api/v1/auth", require("./routes/auth/index"));
 app.use("/api/v1/user", require("./routes/user/index"));
 
 app.use("/api/v1/ZAdmin", require("./routes/admin"));

@@ -40,8 +40,12 @@ const googleOAuth = async (req, res) => {
     }
     return await UserSuccess(res, createUser, email);
   } catch (error) {
-    console.log(error);
-    return res.redirect(301, `${process.env.CLIENT_URL}/login`);
+    // console.log(error);
+    const message = Messages.loginFailed;
+    return res.redirect(
+      301,
+      `${process.env.CLIENT_URL}/login?message=${encodeURIComponent(message)}`
+    );
   }
 };
 
