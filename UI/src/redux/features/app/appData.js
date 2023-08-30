@@ -11,7 +11,7 @@ export const fetchAppData = createAsyncThunk(
   async () => {
     try {
       const appData = await fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/v1/app-data/general-data"
+        process.env.REACT_APP_SERVER_URL + "/api/v1/app/general-data"
       );
       console.log(appData);
       return appData.data.payload;

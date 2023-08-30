@@ -27,8 +27,8 @@ import {
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAppData, selectKlineIntervals } from "redux/features/app/appData";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { fetchUserData, selectUser } from "redux/features/user/userSlice";
 
 const stats = [
   {
@@ -218,15 +218,15 @@ const Services = [
 const secondaryCardWidth = "350px";
 const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
-const Dashboard = () => {
+const Dashboard = React.memo(() => {
   const theme = useTheme();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchAppData());
-  }, [dispatch]);
+    dispatch(fetchUserData());
+  }, []);
 
-  const klineIntervals = selectKlineIntervals;
-  console.log(klineIntervals);
+  const userData = useSelector(selectUser, shallowEqual);
+  console.log(userData.user);
 
   return (
     <Grid
@@ -425,6 +425,6 @@ const Dashboard = () => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default Dashboard;

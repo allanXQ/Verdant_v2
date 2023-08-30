@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   isLoggedIn: false,
@@ -27,6 +28,20 @@ const initialState = {
   },
 };
 
+export const fetchUserData = createAsyncThunk(
+  "user/fetchUserData",
+  async () => {
+    try {
+      const userData = await axios.post(
+        process.env.REACT_APP_SERVER_URL + "/api/v1/user/user-info"
+      );
+      return userData.data.payload;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -36,7 +51,26 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserData.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchUserData.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user.user = action.payload;
+      })
+      .addCase(fetchUserData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
 });
+
+export const selectUser = (state) => state.user.user;
+export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
+export const selectUserStatus = (state) => state.user.status;
+export const selectUserError = (state) => state.user.error;
 
 export const { login } = userSlice.actions;
 export default userSlice.reducer;
