@@ -83,12 +83,12 @@ const navlinks = [
     icon: <History />,
     submenu: [
       {
-        name: "Deposit History",
+        name: "Deposits",
         icon: <Receipt />,
         path: "/deposit-history",
       },
       {
-        name: "Withdrawal History",
+        name: "Withdrawals",
         icon: <Receipt />,
         path: "/withdrawal-history",
       },
@@ -103,7 +103,7 @@ const navlinks = [
         path: "/loan-payments",
       },
       {
-        name: "Loan History",
+        name: "Loans",
         icon: <Receipt />,
         path: "/loan-history",
       },
