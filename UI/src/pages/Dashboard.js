@@ -26,9 +26,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
-import React, { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { fetchUserData, selectUser } from "redux/features/user/userSlice";
+import React from "react";
 
 const stats = [
   {
@@ -220,13 +218,6 @@ const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
 const Dashboard = React.memo(() => {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, []);
-
-  const userData = useSelector(selectUser, shallowEqual);
-  console.log(userData.user);
 
   return (
     <Grid

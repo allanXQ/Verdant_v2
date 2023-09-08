@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   klineIntervals: [],
   assets: [],
+  status: "idle",
   error: null,
 };
 

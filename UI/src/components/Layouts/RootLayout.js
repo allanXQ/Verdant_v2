@@ -3,13 +3,15 @@ import { Sidenav, Topbar } from "../Navigation/Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "redux/features/user/userSlice";
 
 const drawerWidth = "200px";
 const topBarHeight = "50px";
 const drawerHeight = "100vh";
 
 const RootLayout = () => {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  console.log(isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -4,12 +4,13 @@ import Dashboard from "./pages/Dashboard";
 import DepositHistory from "pages/TransactionHistory/DepositHistory";
 import Login from "pages/Auth/login";
 import Trade from "pages/Trade";
+import GoogleCallback from "pages/Auth/googleCallback";
 
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route path="google-callback" element={<h1>Google callback</h1>} />
+      <Route path="google-callback" element={<GoogleCallback />} />
 
       <Route element={<RootLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />

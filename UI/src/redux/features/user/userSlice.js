@@ -3,8 +3,10 @@ import axios from "axios";
 
 const initialState = {
   isLoggedIn: false,
+  status: "idle",
+  error: null,
   user: {
-    id: 0,
+    id: null,
     username: null,
     googleName: null,
     firstName: null,
@@ -24,7 +26,6 @@ const initialState = {
     loanRepayments: [],
     swapOrders: [],
     referrals: [],
-    error: null,
   },
 };
 
@@ -37,6 +38,7 @@ export const fetchUserData = createAsyncThunk(
       );
       return userData.data.payload;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
@@ -46,9 +48,27 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action) => {
+    loginSuccess(state, action) {
       state.isLoggedIn = true;
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.status = "succeeded";
+    },
+    loginFailed(state, action) {
+      state.isLoggedIn = false;
+      state.status = "failed";
+      state.error = action.payload.error;
+    },
+    logout(state) {
+      state.isLoggedIn = false;
+      state.user = initialState.user;
+      state.token = null;
+      state.status = "idle";
+    },
+    updateUser(state, action) {
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -58,7 +78,8 @@ export const userSlice = createSlice({
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user.user = action.payload;
+        state.isLoggedIn = true;
+        state.user.user = action.payload[0];
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.status = "failed";
@@ -72,5 +93,6 @@ export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectUserStatus = (state) => state.user.status;
 export const selectUserError = (state) => state.user.error;
 
-export const { login } = userSlice.actions;
+export const { loginSuccess, loginFailed, logout, updateUser } =
+  userSlice.actions;
 export default userSlice.reducer;
