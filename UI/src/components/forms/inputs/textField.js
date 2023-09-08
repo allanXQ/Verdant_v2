@@ -10,8 +10,8 @@ const MUITextField = ({ label, ...props }) => {
       label={label}
       {...field}
       {...props}
-      error={meta.touched && Boolean(meta.error)}
-      helperText={meta.touched && meta.error}
+      error={meta.touched && !!meta.error}
+      helperText={meta.touched && meta.error ? meta.error : ""}
     />
   );
 };

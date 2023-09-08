@@ -1,4 +1,4 @@
-import { Field, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
 import MUITextField from "../inputs/textField";
@@ -49,19 +49,22 @@ const getValidationSchema = (model) => {
   return Yup.object().shape(schema);
 };
 
+//prevent default
+const onSubmit = (values, { setSubmitting }) => {
+  console.log(values);
+  setSubmitting(false);
+};
+
 const createForm = (formName, model) => {
-  console.log(getInitialValues(model));
   return (
     <Formik
       initialValues={getInitialValues(model)}
       validationSchema={getValidationSchema(model)}
+      onSubmit={onSubmit}
     >
-      {({ values, errors, touched }) => (
-        <form>
+      {({ isSubmitting }) => (
+        <Form>
           {model.map((field, index) => {
-            field.value = values[field.name];
-            field.error = errors[field.name];
-            field.touched = touched[field.name];
             switch (field.type) {
               case "email":
               case "password":
@@ -82,7 +85,10 @@ const createForm = (formName, model) => {
                 return null;
             }
           })}
-        </form>
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </Form>
       )}
     </Formik>
   );
