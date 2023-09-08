@@ -16,25 +16,34 @@ const getValidationSchema = (model) => {
   let schema = {};
 
   model.forEach((field) => {
+    let validator;
+
     switch (field.type) {
       case "email":
-        schema[field.name] = schema[field.name].email("Invalid email format");
+        validator = Yup.string().email("Invalid email format");
         break;
       case "password":
-        schema[field.name] = schema[field.name]
+        validator = Yup.string()
           .min(8, "Password must be at least 8 characters")
           .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
             "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
           );
         break;
+      case "number":
+        validator = Yup.number().typeError("Must be a number");
+        break;
+      case "text":
       default:
+        validator = Yup.string();
         break;
     }
 
     if (field.required) {
-      schema[field.name] = Yup.string().required("This field is required");
+      validator = validator.required("This field is required");
     }
+
+    schema[field.name] = validator;
   });
 
   return Yup.object().shape(schema);
