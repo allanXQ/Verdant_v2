@@ -30,14 +30,14 @@ const initialState = {
 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
-  async () => {
+  async (token, thunkAPI) => {
     try {
       const userData = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/api/v1/user/user-info"
       );
       return userData.data.payload;
     } catch (error) {
-      return error.message;
+      return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
 );

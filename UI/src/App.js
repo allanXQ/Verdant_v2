@@ -9,6 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
+      <Route path="google-callback" element={<h1>Google callback</h1>} />
 
       <Route element={<RootLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />
