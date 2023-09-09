@@ -46,26 +46,27 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
+export const userLogout = createAsyncThunk(
+  "user/logout",
+  async (token, thunkAPI) => {
+    try {
+      const logout = await axios.post(
+        process.env.REACT_APP_SERVER_URL + "/api/v1/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+      return logout.data.payload;
+    } catch (error) {
+      // console.log(error);
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginSuccess(state, action) {
-      state.isLoggedIn = true;
-      state.user = action.payload.user;
-      state.status = "succeeded";
-    },
-    loginFailed(state, action) {
-      state.isLoggedIn = false;
-      state.status = "failed";
-      state.error = action.payload.error;
-    },
-    logout(state) {
-      state.isLoggedIn = false;
-      state.user = initialState.user;
-      state.token = null;
-      state.status = "idle";
-    },
     updateUser(state, action) {
       state.user = {
         ...state.user,
@@ -87,6 +88,19 @@ export const userSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       });
+    builder
+      .addCase(userLogout.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(userLogout.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.isLoggedIn = false;
+        state.user = initialState.user;
+      })
+      .addCase(userLogout.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
@@ -95,6 +109,5 @@ export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectUserStatus = (state) => state.user.status;
 export const selectUserError = (state) => state.user.error;
 
-export const { loginSuccess, loginFailed, logout, updateUser } =
-  userSlice.actions;
+export const { loginSuccess, loginFailed, updateUser } = userSlice.actions;
 export default userSlice.reducer;

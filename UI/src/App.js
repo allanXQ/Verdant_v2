@@ -5,11 +5,13 @@ import DepositHistory from "pages/TransactionHistory/DepositHistory";
 import Login from "pages/Auth/login";
 import Trade from "pages/Trade";
 import GoogleCallback from "pages/Auth/googleCallback";
+import Logout from "pages/Auth/logout";
 
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
       <Route path="google-callback" element={<GoogleCallback />} />
 
       <Route element={<RootLayout />}>
