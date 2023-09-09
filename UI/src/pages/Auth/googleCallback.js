@@ -24,8 +24,6 @@ const GoogleCallback = () => {
   const user = useSelector(selectUser);
   const userError = useSelector(selectUserError);
 
-  console.log(user, userError);
-
   useEffect(() => {
     if (userStatus === "succeeded" && user && user.userid) {
       navigate("/dashboard");

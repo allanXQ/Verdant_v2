@@ -34,7 +34,9 @@ export const fetchUserData = createAsyncThunk(
   async (token, thunkAPI) => {
     try {
       const userData = await axios.post(
-        process.env.REACT_APP_SERVER_URL + "/api/v1/user/user-info"
+        process.env.REACT_APP_SERVER_URL + "/api/v1/user/user-info",
+        {},
+        { withCredentials: true }
       );
       return userData.data.payload;
     } catch (error) {

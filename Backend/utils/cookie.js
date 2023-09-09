@@ -14,6 +14,7 @@ const generateTokens = (user) => {
 };
 
 const setCookies = (res, tokens) => {
+  // console.log("tokens", tokens);
   res.cookie("accessToken", tokens.accessToken, {
     httpOnly: true,
     sameSite: "strict",
