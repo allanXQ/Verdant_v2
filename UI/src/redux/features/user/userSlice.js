@@ -38,7 +38,7 @@ export const fetchUserData = createAsyncThunk(
       );
       return userData.data.payload;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
@@ -79,7 +79,7 @@ export const userSlice = createSlice({
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.isLoggedIn = true;
-        state.user.user = action.payload[0];
+        state.user = action.payload[0];
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.status = "failed";
