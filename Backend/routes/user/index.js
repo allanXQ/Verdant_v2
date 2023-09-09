@@ -76,6 +76,6 @@ router.post(
   errorHOC(cancelOrder)
 );
 
-router.post("/user-info", verifyjwt, formValidate(), errorHOC(userInfo));
+router.post("/user-info", verifyjwt, errorHOC(userInfo));
 
 module.exports = router;
