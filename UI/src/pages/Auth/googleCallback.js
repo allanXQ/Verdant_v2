@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   fetchUserData,
@@ -19,7 +19,7 @@ const GoogleCallback = () => {
     if (userStatus === "idle") {
       dispatch(fetchUserData());
     }
-  }, [userStatus]);
+  }, [userStatus, dispatch]);
 
   const user = useSelector(selectUser);
   const userError = useSelector(selectUserError);
@@ -31,7 +31,7 @@ const GoogleCallback = () => {
       dispatch(loginFailed({ error: userError }));
       navigate(`/login?error=${encodeURIComponent(userError)}`);
     }
-  }, [user, userStatus, userError]);
+  }, [user, userStatus, userError, navigate, dispatch]);
 
   return <div>Processing...</div>; // You can show a loader here
 };

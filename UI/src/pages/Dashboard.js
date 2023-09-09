@@ -4,7 +4,6 @@
 //credit score
 
 //active loan requests
-import { useTheme } from "@emotion/react";
 import {
   CreditCardOutlined,
   Groups2Outlined,
@@ -20,10 +19,8 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  Divider,
   Grid,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
@@ -176,9 +173,7 @@ const Assets = [
   },
 ];
 
-Assets.map((asset) => {
-  asset.Trade = <Button>Trade</Button>;
-});
+Assets.map((asset) => (asset.Trade = <Button>Trade</Button>));
 
 const Services = [
   {
@@ -217,8 +212,6 @@ const secondaryCardWidth = "350px";
 const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
 
 const Dashboard = React.memo(() => {
-  const theme = useTheme();
-
   return (
     <Grid
       container
