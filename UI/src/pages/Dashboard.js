@@ -46,10 +46,6 @@ const stats = [
     value: "750",
     percentageChange: -10,
   },
-  // {
-  //   name: "Active Loan Requests",
-  //   value: "1000000",
-  // },
 ];
 
 const columns = [

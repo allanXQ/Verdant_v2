@@ -30,7 +30,7 @@ router.post(
   errorHOC(ResetPassword)
 );
 router.post("/refresh-token", errorHOC(RefreshToken));
-router.post("/logout", Logout);
+router.post("/logout", errorHOC(Logout));
 
 router.post(
   "/forgot-password",
