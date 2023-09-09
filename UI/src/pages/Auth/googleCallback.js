@@ -5,27 +5,35 @@ import {
   fetchUserData,
   loginFailed,
   selectUser,
+  selectUserError,
+  selectUserStatus,
 } from "redux/features/user/userSlice";
 
 const GoogleCallback = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, []);
-  const user = useSelector(selectUser, shallowEqual);
-
-  console.log(user);
+  const userStatus = useSelector(selectUserStatus);
 
   useEffect(() => {
-    if (user) {
-      navigate("/dashboard");
-    } else {
-      // Handle error case
-      dispatch(loginFailed({ error: "Login failed" }));
-      navigate("/login?error=Login failed");
+    // Dispatch the fetchUserData action only if the status is 'idle' to avoid unnecessary fetches
+    if (userStatus === "idle") {
+      dispatch(fetchUserData());
     }
-  }, [user]);
+  }, [userStatus]);
+
+  const user = useSelector(selectUser);
+  const userError = useSelector(selectUserError);
+
+  console.log(user, userError);
+
+  useEffect(() => {
+    if (userStatus === "succeeded" && user && user.userid) {
+      navigate("/dashboard");
+    } else if (userStatus === "failed") {
+      dispatch(loginFailed({ error: userError }));
+      navigate(`/login?error=${encodeURIComponent(userError)}`);
+    }
+  }, [user, userStatus, userError]);
 
   return <div>Processing...</div>; // You can show a loader here
 };
