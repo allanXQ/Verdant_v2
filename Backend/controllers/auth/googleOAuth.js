@@ -33,6 +33,7 @@ const googleOAuth = async (req, res) => {
       userid: id,
       email,
       googleName: name,
+      status: "active",
       authMethod: "google",
     });
     if (!createUser) {

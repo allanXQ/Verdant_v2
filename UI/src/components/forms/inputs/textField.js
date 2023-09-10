@@ -7,11 +7,15 @@ const MUITextField = ({ label, ...props }) => {
 
   return (
     <TextField
+      variant="standard"
       label={label}
       {...field}
       {...props}
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error ? meta.error : ""}
+      sx={{
+        width: "25rem",
+      }}
     />
   );
 };

@@ -15,7 +15,6 @@ const Login = () => {
   }, [isLoggedIn, navigate]);
   return (
     <div>
-      <h1>Login</h1>
       <LoginForm />
       <a href={getGoogleOAuthUrl()}>Login with google</a>
     </div>
