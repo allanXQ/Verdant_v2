@@ -9,6 +9,7 @@ import Logout from "pages/Auth/logout";
 import Register from "pages/Auth/register";
 import ForgotPassword from "pages/Auth/forgotPassword";
 import Deposit from "pages/Transact/deposit";
+import Withdrawal from "pages/Transact/withdraw";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="deposit-history" element={<DepositHistory />} />
         <Route path="transact">
           <Route path="deposit" element={<Deposit />} />
+          <Route path="withdraw" element={<Withdrawal />} />
         </Route>
         <Route path="trade" element={<Trade />} />
       </Route>

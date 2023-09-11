@@ -1,8 +1,8 @@
 import CreateForm from "../utils/createForm";
 
-const DepositModel = {
-  name: "Deposit",
-  endpoint: "/user/transact/mpesa/deposit",
+const WithdrawalModel = {
+  name: "Withdraw",
+  endpoint: "/user/transact/withdraw",
   method: "post",
 
   fields: [
@@ -23,8 +23,8 @@ const DepositModel = {
   ],
 };
 
-const DepositForm = () => {
-  return CreateForm("Deposit", DepositModel);
+const WithdrawalForm = () => {
+  return CreateForm("Withdrawal", WithdrawalModel);
 };
 
-export default DepositForm;
+export default WithdrawalForm;

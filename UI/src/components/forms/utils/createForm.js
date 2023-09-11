@@ -5,7 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
 import { userAPI } from "redux/features/user/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 //input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
@@ -20,6 +20,9 @@ const getInitialValues = (fields) => {
 
 const CreateForm = (formName, model) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const path = location.pathname;
+
   const fields = model.fields;
   return (
     <Box
@@ -88,15 +91,17 @@ const CreateForm = (formName, model) => {
                     }
                   })}
                 </Box>
-                <Box>
-                  <Typography
-                    variant="caption"
-                    component={Link}
-                    to="/forgot-password"
-                  >
-                    Forgot password?
-                  </Typography>
-                </Box>
+                {path === "/login" && (
+                  <Box>
+                    <Typography
+                      variant="caption"
+                      component={Link}
+                      to="/forgot-password"
+                    >
+                      Forgot password?
+                    </Typography>
+                  </Box>
+                )}
               </Box>
               <Button
                 variant="contained"
