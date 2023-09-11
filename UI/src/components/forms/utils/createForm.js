@@ -1,7 +1,7 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 
 import MUITextField from "../inputs/textField";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
 import { userAPI } from "redux/features/user/userSlice";

@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsLoggedIn,
-  userAPI,
-  userLogout,
-} from "redux/features/user/userSlice";
+import { selectIsLoggedIn, userAPI } from "redux/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {

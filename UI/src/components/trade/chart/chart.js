@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CrosshairMode, createChart } from "lightweight-charts";
 import axios from "axios";
-import { io } from "socket.io-client";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
@@ -11,7 +10,8 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
   const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    if (chartContainerRef.current) {
+    const currentChartContainer = chartContainerRef.current;
+    if (currentChartContainer) {
       const chartInstance = createChart(chartContainerRef.current, {
         autoSize: true,
         layout: {
@@ -54,7 +54,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
         const { width, height } = entries[0].contentRect;
         chartInstance.applyOptions({ width, height });
       });
-      resizeObserver.current.observe(chartContainerRef.current);
+      resizeObserver.current.observe(currentChartContainer);
 
       const fetchHistoricalData = async () => {
         let historicalData;
@@ -103,11 +103,11 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
     return () => {
       chart && chart.remove();
-      chartContainerRef.current && (chartContainerRef.current.innerHTML = "");
       ws && ws.close();
+      currentChartContainer && (currentChartContainer.innerHTML = "");
       resizeObserver.current && resizeObserver.current.disconnect();
     };
-  }, []);
+  }, [assetName, klineInterval, chart, ws]);
 
   return (
     <div

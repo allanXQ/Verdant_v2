@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography, styled } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import RegisterForm from "components/forms/models/register";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
