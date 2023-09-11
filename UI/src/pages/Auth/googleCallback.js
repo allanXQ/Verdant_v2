@@ -20,7 +20,7 @@ const GoogleCallback = () => {
       dispatch(
         userAPI({
           endpoint: "/user/user-info",
-          method: "get",
+          method: "post",
           data: {},
         })
       );
