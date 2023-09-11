@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Watchlist = new mongoose.Schema({
-  userid: { type: String, required: true },
+  userId: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: Number, required: true },
   status: { type: String, default: "cleared" },

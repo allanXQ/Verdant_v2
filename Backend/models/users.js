@@ -19,7 +19,7 @@ const Referrals = mongoose.Schema({
 
 //add kyc
 const Users = mongoose.Schema({
-  userid: { type: String },
+  userId: { type: String },
   role: { type: String, default: roles.user },
   firstname: { type: String },
   lastname: { type: String },

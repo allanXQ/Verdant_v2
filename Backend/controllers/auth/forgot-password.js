@@ -13,11 +13,11 @@ const ForgotPassword = async (req, res) => {
   }
   const secret = process.env.JWT_SECRET;
   const payload = {
-    id: findUser.userid,
+    id: findUser.userId,
   };
   const token = jwt.sign(payload, secret, { expiresIn: "15m" });
   const url = process.env.APP_URL;
-  const id = findUser.userid;
+  const id = findUser.userId;
 
   findUser.passwordResetToken = token;
 

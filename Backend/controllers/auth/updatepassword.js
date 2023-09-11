@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const Messages = require("../../utils/messages");
 
 const UpdatePassword = async (req, res) => {
-  const { userid, oldPassword, newPassword: plainPassword } = req.body;
-  const getUser = await User.findOne({ userid });
+  const { userId, oldPassword, newPassword: plainPassword } = req.body;
+  const getUser = await User.findOne({ userId });
   if (!getUser) {
     return res.status(400).json({ message: Messages.userNotFound });
   }
@@ -15,7 +15,7 @@ const UpdatePassword = async (req, res) => {
   }
   hashedPassword = await bcrypt.hash(plainPassword, 10);
   const userUpdate = await User.updateOne(
-    { userid },
+    { userId },
     {
       $set: { password: hashedPassword },
     }

@@ -29,7 +29,7 @@ const Logout = async (req, res) => {
     return res.status(401).json({ message: Messages.invalidToken });
   }
   const user = await User.findOneAndUpdate(
-    { userid: verify.id },
+    { userId: verify.id },
     {
       $set: { refreshToken: null },
     },

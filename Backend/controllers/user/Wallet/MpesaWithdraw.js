@@ -1,11 +1,16 @@
 const { default: mongoose } = require("mongoose");
 const { WalletConfig } = require("../../../config");
 const Messages = require("../../../utils/messages");
+const User = require("../../../models/users");
+const Withdraw = require("../../../models/withdrawals");
+
+//include withdrrawal fees
 
 const MpesaWithdraw = async (req, res) => {
   let session;
   try {
     const { phone, amount } = req.body;
+    console.log(phone, amount);
     const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
     let intAmount = parseInt(amount);
     const getUser = await User.findOne({ phone });
@@ -46,9 +51,11 @@ const MpesaWithdraw = async (req, res) => {
 
     await Withdraw.create(
       {
+        userId: getUser.userId,
         username,
         phone,
         amount: intAmount,
+        mode: "mpesa",
       },
       { session }
     );

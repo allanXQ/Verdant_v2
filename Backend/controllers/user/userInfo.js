@@ -6,16 +6,16 @@ const userInfo = async (req, res) => {
     {
       $lookup: {
         from: "mpesaDeposits",
-        localField: "userid",
-        foreignField: "userid",
+        localField: "userId",
+        foreignField: "userId",
         as: "mpesaDeposits",
       },
     },
     {
       $lookup: {
         from: "withdrawals",
-        localField: "userid",
-        foreignField: "userid",
+        localField: "userId",
+        foreignField: "userId",
         as: "withdrawals",
       },
     },

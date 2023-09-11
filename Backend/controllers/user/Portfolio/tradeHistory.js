@@ -1,7 +1,7 @@
 const closedTrades = require("../../../models/p2p/closedTrades");
 const Messages = require("../../../utils/messages");
 
-//implement filter by stockname and userid,transaction status,
+//implement filter by stockname and userId,transaction status,
 // sorting by price,date,
 //pagination
 const tradeHistory = async (req, res) => {

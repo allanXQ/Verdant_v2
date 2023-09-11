@@ -30,7 +30,7 @@ const googleOAuth = async (req, res) => {
     const findUser = await User.findOne({ email });
     if (findUser) return await UserSuccess(res, findUser, email);
     const createUser = await User.create({
-      userid: id,
+      userId: id,
       email,
       googleName: name,
       status: "Verified",

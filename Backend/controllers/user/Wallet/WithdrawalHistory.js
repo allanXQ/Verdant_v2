@@ -2,8 +2,8 @@ const Withdrawals = require("../../../models/withdrawals");
 const Messages = require("../../../utils/messages");
 
 const WithdrawalHistory = async (req, res) => {
-  const { userid } = req.body;
-  const getWithdrawals = await Withdrawals.find({ userid });
+  const { userId } = req.body;
+  const getWithdrawals = await Withdrawals.find({ userId });
 
   return res
     .status(200)
