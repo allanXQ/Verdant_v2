@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik";
 import MUITextField from "../inputs/textField";
 import { Box, Button, Typography } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
+import { useDispatch } from "react-redux";
 
 //input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
@@ -14,12 +15,9 @@ const getInitialValues = (fields) => {
 };
 
 //prevent default
-const onSubmit = (values, { setSubmitting }) => {
-  console.log(values);
-  setSubmitting(false);
-};
 
 const createForm = (formName, model) => {
+  // const dispatch = useDispatch();
   const fields = model.fields;
   return (
     <Box
@@ -31,11 +29,12 @@ const createForm = (formName, model) => {
         // gap: "1rem",
       }}
     >
-      <Typography>{model.name}</Typography>
       <Formik
         initialValues={getInitialValues(fields)}
         validationSchema={getValidationSchema(fields)}
-        onSubmit={onSubmit}
+        onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(false);
+        }}
       >
         {({ isSubmitting }) => (
           <Form>
@@ -45,15 +44,16 @@ const createForm = (formName, model) => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "1rem",
+                gap: 3,
               }}
             >
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  // alignItems: "center",
-                  // justifyContent: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
                 }}
               >
                 {fields.map((field, index) => {

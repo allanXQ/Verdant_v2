@@ -13,6 +13,7 @@ const MUITextField = ({ label, ...props }) => {
       {...props}
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error ? meta.error : ""}
+      autoComplete="off"
       sx={{
         width: "25rem",
         "& .Mui-focused": {
