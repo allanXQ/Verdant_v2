@@ -1,10 +1,11 @@
 import { Form, Formik } from "formik";
 
 import MUITextField from "../inputs/textField";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
 import { userAPI } from "redux/features/user/userSlice";
+import { Link } from "react-router-dom";
 
 //input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
@@ -55,36 +56,47 @@ const CreateForm = (formName, model) => {
                 gap: 3,
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                }}
-              >
-                {fields.map((field, index) => {
-                  switch (field.type) {
-                    case "email":
-                    case "password":
-                    case "text":
-                    case "number":
-                      return (
-                        <MUITextField
-                          key={field.name}
-                          type={field.type}
-                          required={field.required}
-                          label={field.label}
-                          name={field.name}
-                          value={field.value}
-                          placeholder={field.placeholder}
-                        />
-                      );
-                    default:
-                      return null;
-                  }
-                })}
+              <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  {fields.map((field, index) => {
+                    switch (field.type) {
+                      case "email":
+                      case "password":
+                      case "text":
+                      case "number":
+                        return (
+                          <MUITextField
+                            key={field.name}
+                            type={field.type}
+                            required={field.required}
+                            label={field.label}
+                            name={field.name}
+                            value={field.value}
+                            placeholder={field.placeholder}
+                          />
+                        );
+                      default:
+                        return null;
+                    }
+                  })}
+                </Box>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    component={Link}
+                    to="/forgot-password"
+                  >
+                    Forgot password?
+                  </Typography>
+                </Box>
               </Box>
               <Button
                 variant="contained"

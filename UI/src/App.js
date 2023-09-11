@@ -7,12 +7,15 @@ import Trade from "pages/Trade";
 import GoogleCallback from "pages/Auth/googleCallback";
 import Logout from "pages/Auth/logout";
 import Register from "pages/Auth/register";
+import ForgotPassword from "pages/Auth/forgotPassword";
 
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+
       <Route path="logout" element={<Logout />} />
       <Route path="google-callback" element={<GoogleCallback />} />
 

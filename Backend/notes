@@ -1,3 +1,5 @@
+\*\*the password reset link isnt working. email is sent but the reset url is wrong
+
 #implement filter,sort, pagination
 sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
