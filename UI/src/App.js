@@ -8,6 +8,7 @@ import GoogleCallback from "pages/Auth/googleCallback";
 import Logout from "pages/Auth/logout";
 import Register from "pages/Auth/register";
 import ForgotPassword from "pages/Auth/forgotPassword";
+import Deposit from "pages/Transact/deposit";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="deposit-history" element={<DepositHistory />} />
+        <Route path="transact">
+          <Route path="deposit" element={<Deposit />} />
+        </Route>
         <Route path="trade" element={<Trade />} />
       </Route>
     </Routes>
