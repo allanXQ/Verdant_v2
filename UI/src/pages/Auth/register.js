@@ -3,15 +3,21 @@ import RegisterForm from "components/forms/models/register";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { selectIsLoggedIn } from "redux/features/user/userSlice";
+import {
+  selectIsLoggedIn,
+  selectIsRegistered,
+} from "redux/features/user/userSlice";
 import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
 const Register = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isRegistered = useSelector(selectIsRegistered);
   const navigate = useNavigate();
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/dashboard");
+    } else if (isRegistered) {
+      navigate("/login");
     }
   }, [isLoggedIn, navigate]);
   return (

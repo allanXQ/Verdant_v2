@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   isLoggedIn: false,
+  isRegistered: false,
   status: "idle",
   error: null,
   user: {
@@ -79,13 +80,16 @@ export const userSlice = createSlice({
           state.status = "succeeded";
           switch (action.meta.arg.endpoint) {
             case "/auth/register":
+              state.isRegistered = true;
+              break;
+            case "/auth/login":
+              state.isLoggedIn = true;
               break;
             case "/auth/logout":
               state.isLoggedIn = false;
               state.user = initialState.user;
               break;
             case "/user/user-info":
-              state.isLoggedIn = true;
               state.user = action.payload[0];
               break;
             default:
@@ -105,6 +109,7 @@ export const userSlice = createSlice({
 
 export const selectUser = (state) => state.user.user;
 export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
+export const selectIsRegistered = (state) => state.user.isRegistered;
 export const selectUserStatus = (state) => state.user.status;
 export const selectUserError = (state) => state.user.error;
 
