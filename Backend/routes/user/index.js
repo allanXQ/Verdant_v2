@@ -30,7 +30,7 @@ router.post(
   "/transact/mpesa/deposit",
   verifyjwt,
   formValidate(depositSchema),
-  MpesaDeposit
+  errorHOC(MpesaDeposit)
 );
 router.post("/transact/tinypesa/webhook", errorHOC(TinypesaWebhook));
 router.post(

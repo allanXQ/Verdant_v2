@@ -1,5 +1,5 @@
 \*\*the password reset link isnt working. email is sent but the reset url is wrong
-\*\* check on refresh token issue
+\*\* check on refresh token issue. check if error is 401 and then request refresh token. client is still redirecting to dashboard even if token is expired since it only checks for islogged in state
 
 #implement filter,sort, pagination
 sellorder and buy order

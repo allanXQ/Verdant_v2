@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { WalletConfig } = require("../../../config");
 const Messages = require("../../../utils/messages");
 
