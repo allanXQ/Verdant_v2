@@ -5,7 +5,7 @@ const Messages = require("../utils/messages");
 const errorHandler = (error, req, res, next) => {
   switch (error.name) {
     case "YupValidationError":
-      logger.error(error.message);
+      logger.error(error.message, { metadata: error, stack: error.stack });
       return res.status(400).json({ message: error.message });
     default:
       logger.error(error.message);
