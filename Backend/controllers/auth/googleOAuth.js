@@ -33,7 +33,7 @@ const googleOAuth = async (req, res) => {
       userid: id,
       email,
       googleName: name,
-      status: "active",
+      status: "Verified",
       authMethod: "google",
     });
     if (!createUser) {

@@ -15,6 +15,14 @@ const MUITextField = ({ label, ...props }) => {
       helperText={meta.touched && meta.error ? meta.error : ""}
       sx={{
         width: "25rem",
+        "& .Mui-focused": {
+          backgroundColor: "transparent",
+        },
+        "& .MuiInputBase-input": {
+          "&:focus": {
+            backgroundColor: "transparent",
+          },
+        },
       }}
     />
   );
