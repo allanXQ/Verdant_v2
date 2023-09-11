@@ -12,12 +12,12 @@ const MpesaWithdraw = async (req, res) => {
     const { phone, amount } = req.body;
     console.log(phone, amount);
     const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
-    let intAmount = parseInt(amount);
+    let intAmount = parseInt(amount) || 0;
     const getUser = await User.findOne({ phone });
     if (!getUser) {
       return res.status(400).json({ message: Messages.userNotFound });
     }
-    const getBalance = parseInt(getUser.accountBalance);
+    const getBalance = parseInt(getUser.accountBalance) || 0;
     const username = getUser.username;
     const taxAmount = intAmount * withdrawalFeePercentage;
     const totalAmount = intAmount + taxAmount;
@@ -49,14 +49,18 @@ const MpesaWithdraw = async (req, res) => {
     session = await mongoose.startSession();
     session.startTransaction();
 
+    console.log(username, phone, intAmount, getUser.userId);
+
     await Withdraw.create(
-      {
-        userId: getUser.userId,
-        username,
-        phone,
-        amount: intAmount,
-        mode: "mpesa",
-      },
+      [
+        {
+          userId: getUser.userId,
+          username,
+          phone,
+          amount: intAmount,
+          mode: "mpesa",
+        },
+      ],
       { session }
     );
     const updateUser = await User.updateOne(

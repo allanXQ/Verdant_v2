@@ -31,24 +31,28 @@ const createBuyOrder = async (req, res) => {
     await user.save({ session });
     const orderId = crypto.randomBytes(6).toString("hex");
     await Escrow.create(
-      {
-        orderId,
-        orderType: orderTypes.Buy,
-        userId,
-        cashAmount: assetValue,
-      },
+      [
+        {
+          orderId,
+          orderType: orderTypes.Buy,
+          userId,
+          cashAmount: assetValue,
+        },
+      ],
       { session }
     );
 
     const buyOrder = await buyOrders.create(
-      {
-        orderId,
-        buyerId: userId,
-        buyerName: username,
-        stockName,
-        stockAmount,
-        price,
-      },
+      [
+        {
+          orderId,
+          buyerId: userId,
+          buyerName: username,
+          stockName,
+          stockAmount,
+          price,
+        },
+      ],
       { session }
     );
     await session.commitTransaction();

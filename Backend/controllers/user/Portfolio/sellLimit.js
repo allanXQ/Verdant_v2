@@ -131,14 +131,16 @@ const sellLimit = async (req, res) => {
     //create closed trade
 
     const sellLimit = await closedTrades.create(
-      {
-        orderId,
-        sellerId: userId,
-        buyerId,
-        stockName,
-        stockAmount,
-        price,
-      },
+      [
+        {
+          orderId,
+          sellerId: userId,
+          buyerId,
+          stockName,
+          stockAmount,
+          price,
+        },
+      ],
       { session }
     );
     await session.commitTransaction();

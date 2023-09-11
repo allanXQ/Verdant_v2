@@ -18,12 +18,14 @@ const TinypesaWebhook = async (req, res) => {
     session.startTransaction();
 
     await Deposit.create(
-      {
-        phone: PhoneString,
-        amount: Amount,
-        mpesaRef: MpesaReceiptNumber,
-        created: TransactionDate,
-      },
+      [
+        {
+          phone: PhoneString,
+          amount: Amount,
+          mpesaRef: MpesaReceiptNumber,
+          created: TransactionDate,
+        },
+      ],
       { session }
     );
     const phoneNumber = PhoneString;

@@ -30,23 +30,30 @@ const createSellOrder = async (req, res) => {
     stock.stockAmount = parseInt(stock.stockAmount) - parseInt(stockAmount);
     await user.save({ session });
     const orderId = createId();
-    await Escrow.create({
-      orderId,
-      orderType: orderTypes.Sell,
-      userId,
-      stockName,
-      stockAmount,
-    });
+    await Escrow.create(
+      [
+        {
+          orderId,
+          orderType: orderTypes.Sell,
+          userId,
+          stockName,
+          stockAmount,
+        },
+      ],
+      { session }
+    );
 
     const sellOrder = await SellOrders.create(
-      {
-        orderId,
-        sellerId: userId,
-        sellerName: username,
-        stockName,
-        stockAmount,
-        price,
-      },
+      [
+        {
+          orderId,
+          sellerId: userId,
+          sellerName: username,
+          stockName,
+          stockAmount,
+          price,
+        },
+      ],
       { session }
     );
     await session.commitTransaction();
