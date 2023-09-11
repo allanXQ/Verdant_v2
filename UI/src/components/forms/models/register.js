@@ -2,6 +2,8 @@ import CreateForm from "../utils/createForm";
 
 const registerModel = {
   name: "Sign Up",
+  endpoint: "/auth/register",
+  method: "post",
 
   fields: [
     {

@@ -12,7 +12,6 @@ const Register = async (req, res) => {
     phone,
     password: plainPassword,
   } = req.body;
-  const id = id;
 
   const getUser = await User.findOne({ username });
   const getPhone = await User.findOne({ phone });
@@ -34,6 +33,7 @@ const Register = async (req, res) => {
     phone,
     referrer,
     password,
+    authMethod: "local",
   });
   return res.status(200).json({ message: Messages.userCreatedSuccessfully });
 };
