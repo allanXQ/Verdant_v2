@@ -29,52 +29,18 @@ const initialState = {
   },
 };
 
-export const fetchUserData = createAsyncThunk(
-  "user/fetchUserData",
-  async (token, thunkAPI) => {
+export const userAPI = createAsyncThunk(
+  "user/api",
+  async ({ endpoint, method, data }, thunkAPI) => {
     try {
-      const userData = await axios.post(
-        process.env.REACT_APP_SERVER_URL + "/api/v1/user/user-info",
-        {},
-        { withCredentials: true }
-      );
-      return userData.data.payload;
-    } catch (error) {
-      // console.log(error);
-      return thunkAPI.rejectWithValue({ error: error.message });
-    }
-  }
-);
-
-export const userLogout = createAsyncThunk(
-  "user/logout",
-  async (token, thunkAPI) => {
-    try {
-      const logout = await axios.post(
-        process.env.REACT_APP_SERVER_URL + "/api/v1/auth/logout",
-        {},
-        { withCredentials: true }
-      );
-      return logout.data.payload;
-    } catch (error) {
-      // console.log(error);
-      return thunkAPI.rejectWithValue({ error: error.message });
-    }
-  }
-);
-
-export const userRegister = createAsyncThunk(
-  "user/register",
-  async (data, thunkAPI) => {
-    try {
-      const register = await axios.post(
-        process.env.REACT_APP_SERVER_URL + "/api/v1/auth/register",
+      const response = await axios({
+        method,
+        url: `${process.env.REACT_APP_SERVER_URL}/api/v1${endpoint}`,
         data,
-        { withCredentials: true }
-      );
-      return register.data.payload;
+        withCredentials: true,
+      });
+      return response.data.payload;
     } catch (error) {
-      // console.log(error);
       return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
@@ -101,43 +67,39 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.isLoggedIn = true;
-        state.user = action.payload[0];
-      })
-      .addCase(fetchUserData.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
-    builder
-      .addCase(userLogout.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(userLogout.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.isLoggedIn = false;
-        state.user = initialState.user;
-      })
-      .addCase(userLogout.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
-
-    builder
-      .addCase(userRegister.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(userRegister.fulfilled, (state, action) => {
-        state.status = "succeeded";
-      })
-      .addCase(userRegister.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
+      .addMatcher(
+        (action) => action.type.startsWith("user/api/pending"),
+        (state, action) => {
+          state.status = "loading";
+        }
+      )
+      .addMatcher(
+        (action) => action.type.startsWith("user/api/fulfilled"),
+        (state, action) => {
+          state.status = "succeeded";
+          switch (action.meta.arg.endpoint) {
+            case "/auth/register":
+              break;
+            case "/auth/logout":
+              state.isLoggedIn = false;
+              state.user = initialState.user;
+              break;
+            case "/user/user-info":
+              state.isLoggedIn = true;
+              state.user = action.payload[0];
+              break;
+            default:
+              break;
+          }
+        }
+      )
+      .addMatcher(
+        (action) => action.type.startsWith("user/api/rejected"),
+        (state, action) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        }
+      );
   },
 });
 

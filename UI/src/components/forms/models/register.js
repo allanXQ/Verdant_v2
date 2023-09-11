@@ -1,4 +1,4 @@
-import createForm from "../utils/createForm";
+import CreateForm from "../utils/createForm";
 
 const registerModel = {
   name: "Sign Up",
@@ -43,7 +43,7 @@ const registerModel = {
 };
 
 const RegisterForm = () => {
-  return createForm("register", registerModel);
+  return CreateForm("register", registerModel);
 };
 
 export default RegisterForm;

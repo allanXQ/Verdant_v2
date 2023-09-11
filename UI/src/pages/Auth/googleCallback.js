@@ -7,6 +7,7 @@ import {
   selectUser,
   selectUserError,
   selectUserStatus,
+  userAPI,
 } from "redux/features/user/userSlice";
 
 const GoogleCallback = () => {
@@ -17,7 +18,13 @@ const GoogleCallback = () => {
   useEffect(() => {
     // Dispatch the fetchUserData action only if the status is 'idle' to avoid unnecessary fetches
     if (userStatus === "idle") {
-      dispatch(fetchUserData());
+      dispatch(
+        userAPI({
+          endpoint: "/user/user-info",
+          method: "get",
+          data: {},
+        })
+      );
     }
   }, [userStatus, dispatch]);
 

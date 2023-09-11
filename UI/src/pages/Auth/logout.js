@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn, userLogout } from "redux/features/user/userSlice";
+import {
+  selectIsLoggedIn,
+  userAPI,
+  userLogout,
+} from "redux/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
@@ -11,7 +15,14 @@ const Logout = () => {
   useEffect(() => {
     const logoutAsync = () => {
       try {
-        isLoggedIn && dispatch(userLogout());
+        isLoggedIn &&
+          dispatch(
+            userAPI({
+              endpoint: "/auth/logout",
+              method: "post",
+              data: {},
+            })
+          );
 
         // If the logout was successful, navigate to the login page
         !isLoggedIn && navigate("/login");

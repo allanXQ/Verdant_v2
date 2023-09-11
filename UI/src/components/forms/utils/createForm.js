@@ -4,6 +4,7 @@ import MUITextField from "../inputs/textField";
 import { Box, Button, Typography } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
+import { userAPI } from "redux/features/user/userSlice";
 
 //input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
@@ -16,8 +17,8 @@ const getInitialValues = (fields) => {
 
 //prevent default
 
-const createForm = (formName, model) => {
-  // const dispatch = useDispatch();
+const CreateForm = (formName, model) => {
+  const dispatch = useDispatch();
   const fields = model.fields;
   return (
     <Box
@@ -33,6 +34,13 @@ const createForm = (formName, model) => {
         initialValues={getInitialValues(fields)}
         validationSchema={getValidationSchema(fields)}
         onSubmit={(values, { setSubmitting }) => {
+          dispatch(
+            userAPI({
+              endpoint: model.endpoint,
+              method: model.method,
+              data: values,
+            })
+          );
           setSubmitting(false);
         }}
       >
@@ -97,4 +105,4 @@ const createForm = (formName, model) => {
   );
 };
 
-export default createForm;
+export default CreateForm;
