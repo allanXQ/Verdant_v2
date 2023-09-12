@@ -157,7 +157,6 @@ const DepositHistory = () => {
     );
   }, [dispatch]);
 
-  console.log(userData);
   return (
     <Box
       sx={{

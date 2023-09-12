@@ -26,6 +26,11 @@ const Login = async (req, res) => {
   setCookies(res, tokens);
   return res.status(200).json({
     message: Messages.loginSuccess,
+    payload: {
+      userId: user.userId,
+      role: user.role,
+      status: user.status,
+    },
   });
 };
 

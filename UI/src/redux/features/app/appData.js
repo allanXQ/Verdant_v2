@@ -14,7 +14,6 @@ export const fetchAppData = createAsyncThunk(
       const appData = await fetch(
         process.env.REACT_APP_SERVER_URL + "/api/v1/app/general-data"
       );
-      console.log(appData);
       return appData.data.payload;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });

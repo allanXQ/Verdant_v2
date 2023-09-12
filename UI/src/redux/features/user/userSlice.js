@@ -34,7 +34,6 @@ export const userAPI = createAsyncThunk(
   "user/api",
   async ({ endpoint, method, data }, thunkAPI) => {
     try {
-      console.log(endpoint, method, data);
       const response = await axios({
         method,
         url: `${process.env.REACT_APP_SERVER_URL}/api/v1${endpoint}`,
@@ -85,6 +84,7 @@ export const userSlice = createSlice({
               break;
             case "/auth/login":
               state.isLoggedIn = true;
+              state.user = action.payload;
               break;
             case "/auth/logout":
               state.isLoggedIn = false;

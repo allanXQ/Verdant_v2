@@ -41,8 +41,18 @@ router.post(
   errorHOC(MpesaWithdraw)
 );
 
-router.get("/history/deposit", verifyjwt, errorHOC(MpesaDepositHistory));
-router.get("/history/withdrawal", verifyjwt, errorHOC(WithdrawalHistory));
+router.post(
+  "/history/deposits",
+  verifyjwt,
+  formValidate(userInfoSchema),
+  errorHOC(MpesaDepositHistory)
+);
+router.post(
+  "/history/withdrawals",
+  verifyjwt,
+  formValidate(userInfoSchema),
+  errorHOC(WithdrawalHistory)
+);
 
 //portfolio routes
 router.get("/history/trade/:stockname", verifyjwt, errorHOC(tradeHistory)); //if param return all sells for that stock by user else return all sells by user

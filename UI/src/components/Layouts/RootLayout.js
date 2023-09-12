@@ -15,7 +15,6 @@ const RootLayout = () => {
   const drawerHeight = useSelector(selectDrawerHeight);
   const drawerWidth = useSelector(selectDrawerWidth);
   const topBarHeight = useSelector(selectTopBarHeight);
-  console.log(drawerHeight, drawerWidth, topBarHeight);
   const navigate = useNavigate();
 
   useEffect(() => {
