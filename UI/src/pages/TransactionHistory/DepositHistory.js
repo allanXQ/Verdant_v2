@@ -1,9 +1,9 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { selectUser, userAPI } from "redux/features/user/userSlice";
+import { useDispatch } from "react-redux";
+import { userAPI } from "redux/features/user/userSlice";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
@@ -13,104 +13,56 @@ const columns = [
   { field: "Date", headerName: "Date", width: 210 },
 ];
 
-const rows = [
-  {
-    id: 1,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 2,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 3,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 4,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 5,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 6,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 1,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 2,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 3,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 4,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 5,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-  {
-    id: 6,
-    Gateway: "Mpesa",
-    ReferenceNumber: "123456789",
-    Amount: "Ksh 1000",
-    Status: "Success",
-    Date: "12/10/2021",
-  },
-];
+// const rows = [
+//   {
+//     id: 1,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+//   {
+//     id: 2,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+//   {
+//     id: 3,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+//   {
+//     id: 4,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+//   {
+//     id: 5,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+//   {
+//     id: 6,
+//     Gateway: "Mpesa",
+//     ReferenceNumber: "123456789",
+//     Amount: "Ksh 1000",
+//     Status: "Success",
+//     Date: "12/10/2021",
+//   },
+// ];
 
 const Overview = () => {
   return (
@@ -145,17 +97,28 @@ const Overview = () => {
 
 const DepositHistory = () => {
   const dispatch = useDispatch();
-  const userData = useSelector(selectUser);
+  const userData = useUserData();
 
   useEffect(() => {
     dispatch(
       userAPI({
-        endpoint: "/user/user-info", // Replace with your endpoint
-        method: "post", // Replace with your HTTP method
-        data: { userId: userData.userId }, // Replace with your data, if any
+        endpoint: "/user/user-info",
+        method: "post",
+        data: { userId: userData.userId },
       })
     );
-  }, [dispatch]);
+  }, [dispatch, userData.userId]);
+
+  const rows = userData.deposits.map((deposit) => {
+    return {
+      id: deposit._id,
+      Gateway: "Mpesa",
+      ReferenceNumber: deposit.mpesaRef,
+      Amount: `KSH ${deposit.amount}`,
+      Status: "success",
+      Date: deposit.created,
+    };
+  });
 
   return (
     <Box
