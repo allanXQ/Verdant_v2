@@ -66,14 +66,14 @@ const WithdrawalHistory = () => {
       userAPI({
         endpoint: "/user/user-info",
         method: "post",
-        data: { userId: userData?.userId },
+        data: { userId: userData.userId },
       })
     );
-  }, [dispatch, userData?.userId]);
+  }, [dispatch, userData.userId]);
 
   const rows =
     Array.isArray(userData?.withdrawals) &&
-    userData?.withdrawals.map((withdrawal) => {
+    userData.withdrawals.map((withdrawal) => {
       return {
         id: withdrawal._id,
         Gateway: "Mpesa",

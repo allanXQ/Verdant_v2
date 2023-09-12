@@ -66,14 +66,14 @@ const DepositHistory = () => {
       userAPI({
         endpoint: "/user/user-info",
         method: "post",
-        data: { userId: userData?.userId },
+        data: { userId: userData.userId },
       })
     );
-  }, [dispatch, userData?.userId]);
+  }, [dispatch, userData.userId]);
 
   const rows =
     Array.isArray(userData?.deposits) &&
-    userData?.deposits.map((deposit) => {
+    userData.deposits.map((deposit) => {
       return {
         id: deposit._id,
         Gateway: "Mpesa",
