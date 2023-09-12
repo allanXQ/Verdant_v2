@@ -18,7 +18,14 @@ const UserSuccess = async (res, findUser, email) => {
     return res.status(400).json({ message: Messages.loginFailed });
   }
   setCookies(res, tokens);
-  return res.redirect(301, `${process.env.CLIENT_URL}/google-callback`);
+  const payloadString = Buffer.from(JSON.stringify(findUser.userId)).toString(
+    "base64"
+  );
+
+  return res.redirect(
+    301,
+    `${process.env.CLIENT_URL}/google-callback?userId=${payloadString}`
+  );
 };
 
 const googleOAuth = async (req, res) => {

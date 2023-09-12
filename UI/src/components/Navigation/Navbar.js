@@ -85,12 +85,12 @@ const navlinks = [
       {
         name: "Deposits",
         icon: <Receipt />,
-        path: "/deposit-history",
+        path: "/history/deposits",
       },
       {
         name: "Withdrawals",
         icon: <Receipt />,
-        path: "/withdrawal-history",
+        path: "/history/withdrawals",
       },
       {
         name: "Loan Requests",

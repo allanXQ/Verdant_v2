@@ -3,6 +3,7 @@ import { selectUser } from "redux/features/user/userSlice";
 
 const useUserData = () => {
   const user = useSelector(selectUser);
+  if (!user) return {};
   const {
     userId,
     firstName,

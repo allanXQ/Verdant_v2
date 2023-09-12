@@ -1,9 +1,10 @@
+import useUserData from "Hooks/useUserData";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   loginFailed,
-  selectUser,
+  loginSuccess,
   selectUserError,
   selectUserStatus,
   userAPI,
@@ -13,34 +14,38 @@ const GoogleCallback = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userStatus = useSelector(selectUserStatus);
-  const userData = useSelector(selectUser);
+  const userData = useUserData();
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const userId = params.get("userId");
+  if (!userId) {
+    dispatch(loginFailed({ error: "No user ID" }));
+    navigate("/login");
+  }
+
+  const userError = useSelector(selectUserError);
 
   useEffect(() => {
-    // Dispatch the fetchUserData action only if the status is 'idle' to avoid unnecessary fetches
     if (userStatus === "idle") {
       dispatch(
         userAPI({
           endpoint: "/user/user-info",
           method: "post",
           data: {
-            userId: userData.userid,
+            userId,
           },
         })
       );
     }
-  }, [userStatus, dispatch]);
 
-  const user = useSelector(selectUser);
-  const userError = useSelector(selectUserError);
-
-  useEffect(() => {
-    if (userStatus === "succeeded" && user && user.userid) {
+    if (userStatus === "succeeded" && userData && userId) {
+      dispatch(loginSuccess({ user: userData }));
       navigate("/dashboard");
     } else if (userStatus === "failed") {
       dispatch(loginFailed({ error: userError }));
       navigate(`/login?error=${encodeURIComponent(userError)}`);
     }
-  }, [user, userStatus, userError, navigate, dispatch]);
+  }, [userStatus, userError, navigate, dispatch]);
 
   return <div>Processing...</div>; // You can show a loader here
 };

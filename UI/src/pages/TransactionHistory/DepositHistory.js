@@ -3,68 +3,20 @@ import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { userAPI } from "redux/features/user/userSlice";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
   { field: "ReferenceNumber", headerName: "Reference Number", width: 210 },
   { field: "Amount", headerName: "Amount", width: 210 },
-  { field: "Status", headerName: "Status", width: 210 },
+  { field: "Status", headerName: "Status", width: 200 },
   { field: "Date", headerName: "Date", width: 210 },
 ];
 
-// const rows = [
-//   {
-//     id: 1,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-//   {
-//     id: 2,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-//   {
-//     id: 3,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-//   {
-//     id: 4,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-//   {
-//     id: 5,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-//   {
-//     id: 6,
-//     Gateway: "Mpesa",
-//     ReferenceNumber: "123456789",
-//     Amount: "Ksh 1000",
-//     Status: "Success",
-//     Date: "12/10/2021",
-//   },
-// ];
+const Overview = ({ userData }) => {
+  const navigate = useNavigate();
 
-const Overview = () => {
   return (
     <Box
       sx={{
@@ -77,7 +29,7 @@ const Overview = () => {
     >
       <Box>
         <Typography variant="subtitle1">Available Balance</Typography>
-        <Typography variant="h6">KSH 1000</Typography>
+        <Typography variant="h6">KSH {userData?.accountBalance}</Typography>
       </Box>
 
       <Box
@@ -88,8 +40,18 @@ const Overview = () => {
           justifyContent: "center",
         }}
       >
-        <Button variant="contained">Deposit</Button>
-        <Button variant="contained">WIthdraw</Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/transact/deposit")}
+        >
+          Deposit
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/transact/withdraw")}
+        >
+          WIthdraw
+        </Button>
       </Box>
     </Box>
   );
@@ -104,21 +66,23 @@ const DepositHistory = () => {
       userAPI({
         endpoint: "/user/user-info",
         method: "post",
-        data: { userId: userData.userId },
+        data: { userId: userData?.userId },
       })
     );
-  }, [dispatch, userData.userId]);
+  }, [dispatch, userData?.userId]);
 
-  const rows = userData.deposits.map((deposit) => {
-    return {
-      id: deposit._id,
-      Gateway: "Mpesa",
-      ReferenceNumber: deposit.mpesaRef,
-      Amount: `KSH ${deposit.amount}`,
-      Status: "success",
-      Date: deposit.created,
-    };
-  });
+  const rows =
+    Array.isArray(userData?.deposits) &&
+    userData?.deposits.map((deposit) => {
+      return {
+        id: deposit._id,
+        Gateway: "Mpesa",
+        ReferenceNumber: deposit.mpesaRef,
+        Amount: `KSH ${deposit.amount}`,
+        Status: "success",
+        Date: deposit.created,
+      };
+    });
 
   return (
     <Box
@@ -128,6 +92,7 @@ const DepositHistory = () => {
         margin: "auto",
         marginTop: "2rem",
         gap: "2rem",
+        overflow: "hidden",
       }}
     >
       {/* search bar 
@@ -135,7 +100,7 @@ const DepositHistory = () => {
       red and green status
       add filters(gateway, status, date)
       */}
-      <Overview />
+      <Overview userData={userData} />
 
       <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
     </Box>

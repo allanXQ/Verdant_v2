@@ -21,7 +21,7 @@ const MUIDataGrid = ({ title, rows, columns }) => {
       <Typography variant="h6">{title}</Typography>
       <Box
         sx={{
-          height: 400,
+          height: 390,
         }}
       >
         <StyledDataGrid

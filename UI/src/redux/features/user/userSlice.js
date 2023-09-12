@@ -53,6 +53,7 @@ export const userSlice = createSlice({
   reducers: {
     loginSuccess(state, action) {
       state.isLoggedIn = true;
+      console.log(action.payload);
       state.user = action.payload;
     },
     loginFailed(state, action) {
@@ -91,7 +92,9 @@ export const userSlice = createSlice({
               state.user = initialState.user;
               break;
             case "/user/user-info":
-              state.user = action.payload[0];
+              state.user = {
+                ...action.payload[0],
+              } || { ...action.payload };
               break;
             default:
               break;

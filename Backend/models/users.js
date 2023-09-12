@@ -33,7 +33,7 @@ const Users = mongoose.Schema({
     enum: ["local", "google"],
     required: true,
   },
-  status: { type: String, default: "inactive" },
+  status: { type: String, default: "Unverified" },
   referrer: { type: String, default: "none" },
   refreshToken: { type: String },
   passwordResetToken: { type: String },

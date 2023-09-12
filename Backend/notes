@@ -1,11 +1,11 @@
 \*\*the password reset link isnt working. email is sent but the reset url is wrong
 \*\* check on refresh token issue. check if error is 401 and then request refresh token. client is still redirecting to dashboard even if token is expired since it only checks for islogged in state
 
+\*most commonly used react router hooks
+
 #implement filter,sort, pagination
 sellorder and buy order
 #sellOrder and buyOrder are too similar. Create a single function to handle both
-#update components using withdrawal schema and withdrawal fees to include new changes to models(widthrawal mode, userId-withdrawal-fees)
-#replace stock name with assetName in schema and yup schema
 buylimit and selllimit
 #selllimit and buylimit are too similar. Create a single function to handle both
 #check if we can get buyer or seller id based on the orderId and prevent sending of these ids when creating buy or sell limit order
