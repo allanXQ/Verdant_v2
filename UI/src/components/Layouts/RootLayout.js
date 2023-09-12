@@ -4,14 +4,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "redux/features/user/userSlice";
-
-const drawerWidth = "200px";
-const topBarHeight = "50px";
-const drawerHeight = "100vh";
+import {
+  selectDrawerHeight,
+  selectDrawerWidth,
+  selectTopBarHeight,
+} from "redux/features/app/configSlice";
 
 const RootLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  console.log(isLoggedIn);
+  const drawerHeight = useSelector(selectDrawerHeight);
+  const drawerWidth = useSelector(selectDrawerWidth);
+  const topBarHeight = useSelector(selectTopBarHeight);
+  console.log(drawerHeight, drawerWidth, topBarHeight);
   const navigate = useNavigate();
 
   useEffect(() => {

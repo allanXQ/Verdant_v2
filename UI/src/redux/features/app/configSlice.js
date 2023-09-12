@@ -4,11 +4,17 @@ const initialState = {
   theme: "light",
 
   sideBar: {
-    width: 0,
+    width: "200px",
     isOpen: false,
     isCollapsed: false,
   },
-  topBarHeight: 0,
+  topBar: {
+    height: "50px",
+  },
+  drawer: {
+    width: "200px",
+    height: "100vh",
+  },
 };
 
 export const configSlice = createSlice({
@@ -22,5 +28,13 @@ export const configSlice = createSlice({
 });
 
 export const { updateTheme } = configSlice.actions;
+export const selectTheme = (state) => state.config.theme;
+export const selectSideBarWidth = (state) => state.config.sideBar.width;
+export const selectSideBarIsOpen = (state) => state.config.sideBar.isOpen;
+export const selectSideBarIsCollapsed = (state) =>
+  state.config.sideBar.isCollapsed;
+export const selectTopBarHeight = (state) => state.config.topBar.height;
+export const selectDrawerHeight = (state) => state.config.drawer.height;
+export const selectDrawerWidth = (state) => state.config.drawer.width;
 
 export default configSlice.reducer;

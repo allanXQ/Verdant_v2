@@ -16,16 +16,17 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 
 const MUIDataGrid = ({ rows, columns }) => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  console.log(columns);
   return (
     <StyledDataGrid
       rows={rows}
       columns={
         isSmallScreen
           ? columns.filter((column) => {
-              column.smallScreenScreen === true
+              column.smallScreen === true
                 ? (column.width = 120)
-                : (column.width = 500);
-              return column.smallScreenScreen === true;
+                : (column.width = 1000);
+              return column.smallScreen === true;
             })
           : columns
       }
