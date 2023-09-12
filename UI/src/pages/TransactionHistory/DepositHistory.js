@@ -1,16 +1,65 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const columns = [
-  { field: "Gateway", headerName: "Gateway", width: 208 },
-  { field: "ReferenceNumber", headerName: "Reference Number", width: 208 },
-  { field: "Amount", headerName: "Amount", width: 208 },
-  { field: "Status", headerName: "Status", width: 208 },
-  { field: "Date", headerName: "Date", width: 208 },
+  { field: "Gateway", headerName: "Gateway", width: 210 },
+  { field: "ReferenceNumber", headerName: "Reference Number", width: 210 },
+  { field: "Amount", headerName: "Amount", width: 210 },
+  { field: "Status", headerName: "Status", width: 210 },
+  { field: "Date", headerName: "Date", width: 210 },
 ];
 
 const rows = [
+  {
+    id: 1,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
+  {
+    id: 2,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
+  {
+    id: 3,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
+  {
+    id: 4,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
+  {
+    id: 5,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
+  {
+    id: 6,
+    Gateway: "Mpesa",
+    ReferenceNumber: "123456789",
+    Amount: "Ksh 1000",
+    Status: "Success",
+    Date: "12/10/2021",
+  },
   {
     id: 1,
     Gateway: "Mpesa",
@@ -67,18 +116,26 @@ const Overview = () => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
+
+        maxWidth: "95%",
       }}
     >
       <Box>
-        <Typography>
-          Balance <span> Ksh 1000</span>
-        </Typography>
+        <Typography variant="subtitle1">Available Balance</Typography>
+        <Typography variant="h6">KSH 1000</Typography>
       </Box>
-      <Divider orientation="vertical" flexItem />
-      <Box>
-        <Typography>
-          Deposits <span> Ksh 500</span>
-        </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: "1rem",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button variant="contained">Deposit</Button>
+        <Button variant="contained">WIthdraw</Button>
       </Box>
     </Box>
   );
@@ -88,7 +145,11 @@ const DepositHistory = () => {
   return (
     <Box
       sx={{
-        width: "90%",
+        display: "flex",
+        flexDirection: "column",
+        margin: "auto",
+        marginTop: "2rem",
+        gap: "2rem",
       }}
     >
       {/* search bar 
@@ -97,21 +158,8 @@ const DepositHistory = () => {
       add filters(gateway, status, date)
       */}
       <Overview />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          Deposit History
-        </Typography>
-        <Button variant="contained" sx={{ mt: 2 }}>
-          Deposit
-        </Button>
-      </Box>
 
-      <MUIDataGrid columns={columns} rows={rows} />
+      <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
     </Box>
   );
 };

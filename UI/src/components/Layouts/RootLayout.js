@@ -33,6 +33,7 @@ const RootLayout = () => {
           sx={{
             display: "flex",
             flexWrap: "nowrap",
+            overflow: "hidden",
           }}
         >
           <Grid item>
