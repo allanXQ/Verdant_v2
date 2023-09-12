@@ -25,6 +25,10 @@ const loginSchema = yup.object().shape({
   password: yup.string().required(),
 });
 
+const userInfoSchema = yup.object().shape({
+  userId: yup.string().required(),
+});
+
 const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email().required(),
 });
@@ -99,6 +103,7 @@ const historicalKlinesSchema = yup.object().shape({
 module.exports = {
   regSchema,
   loginSchema,
+  userInfoSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
   updatePasswordSchema,

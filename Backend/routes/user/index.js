@@ -21,6 +21,7 @@ const {
   withdrawalSchema,
   p2pOrderSchema,
   cancelOrderSchema,
+  userInfoSchema,
 } = require("../../yupschemas");
 
 const errorHOC = require("../../utils/errorHOC");
@@ -76,6 +77,11 @@ router.post(
   errorHOC(cancelOrder)
 );
 
-router.post("/user-info", verifyjwt, errorHOC(userInfo));
+router.post(
+  "/user-info",
+  verifyjwt,
+  formValidate(userInfoSchema),
+  errorHOC(userInfo)
+);
 
 module.exports = router;

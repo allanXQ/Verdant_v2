@@ -2,7 +2,13 @@ const User = require("../../models/users");
 const Messages = require("../../utils/messages");
 
 const userInfo = async (req, res) => {
+  const { userId } = req.body;
   const userData = await User.aggregate([
+    {
+      $match: {
+        userId,
+      },
+    },
     {
       $lookup: {
         from: "mpesaDeposits",

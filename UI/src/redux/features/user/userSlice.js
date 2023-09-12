@@ -7,7 +7,7 @@ const initialState = {
   status: "idle",
   error: null,
   user: {
-    id: null,
+    userId: null,
     username: null,
     googleName: null,
     firstName: null,
@@ -34,6 +34,7 @@ export const userAPI = createAsyncThunk(
   "user/api",
   async ({ endpoint, method, data }, thunkAPI) => {
     try {
+      console.log(endpoint, method, data);
       const response = await axios({
         method,
         url: `${process.env.REACT_APP_SERVER_URL}/api/v1${endpoint}`,

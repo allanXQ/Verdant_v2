@@ -13,6 +13,7 @@ const GoogleCallback = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userStatus = useSelector(selectUserStatus);
+  const userData = useSelector(selectUser);
 
   useEffect(() => {
     // Dispatch the fetchUserData action only if the status is 'idle' to avoid unnecessary fetches
@@ -21,7 +22,9 @@ const GoogleCallback = () => {
         userAPI({
           endpoint: "/user/user-info",
           method: "post",
-          data: {},
+          data: {
+            userId: userData.userid,
+          },
         })
       );
     }

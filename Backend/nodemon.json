@@ -1,0 +1,12 @@
+{
+  "ignore": [
+    "/*.json",
+    "node_modules/*",
+    "public/*",
+    "src/*",
+    "test/*",
+    "tsconfig.json",
+    "tslint.json",
+    "webpack.config.js"
+  ]
+}

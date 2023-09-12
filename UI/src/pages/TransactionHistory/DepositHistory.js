@@ -1,9 +1,9 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { userAPI } from "redux/features/user/userSlice";
+import { selectUser, userAPI } from "redux/features/user/userSlice";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
@@ -145,8 +145,19 @@ const Overview = () => {
 
 const DepositHistory = () => {
   const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
 
-  // const userdata = dispatch(userAPI);
+  useEffect(() => {
+    dispatch(
+      userAPI({
+        endpoint: "/user/user-info", // Replace with your endpoint
+        method: "post", // Replace with your HTTP method
+        data: { userId: userData.userId }, // Replace with your data, if any
+      })
+    );
+  }, [dispatch]);
+
+  console.log(userData);
   return (
     <Box
       sx={{
