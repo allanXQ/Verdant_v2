@@ -24,6 +24,27 @@ const useUserData = () => {
 
   const deposits = mpesaDeposits; //[...mpesaDeposits, ...stripeDeposits];
 
+  const portfolioValue = Array.isArray(portfolio)
+    ? portfolio.reduce((acc, asset) => {
+        const { price, amount } = asset;
+        return acc + price * amount;
+      }, 0)
+    : 0;
+
+  const totalDeposits = Array.isArray(deposits)
+    ? deposits.reduce((acc, deposit) => {
+        const { amount } = deposit;
+        return acc + amount;
+      }, 0)
+    : 0;
+
+  const totalWithdrawals = Array.isArray(withdrawals)
+    ? withdrawals.reduce((acc, withdrawal) => {
+        const { amount } = withdrawal;
+        return acc + amount;
+      }, 0)
+    : 0;
+
   return {
     userId,
     firstName,
@@ -32,9 +53,12 @@ const useUserData = () => {
     phoneNumber,
     status,
     portfolio,
+    portfolioValue,
     trades,
     deposits,
+    totalDeposits,
     withdrawals,
+    totalWithdrawals,
     transfers,
     accountBalance: accountBalance || 0,
     referrer,
