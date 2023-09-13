@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import {
   AccountBalanceOutlined as AccountBalance,
-  BackHandOutlined as BackHand,
   CalculateOutlined as Calculate,
   ChatOutlined as Chat,
   DashboardOutlined as Dashboard,
