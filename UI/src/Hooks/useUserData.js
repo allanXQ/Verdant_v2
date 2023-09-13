@@ -36,7 +36,7 @@ const useUserData = () => {
     deposits,
     withdrawals,
     transfers,
-    accountBalance,
+    accountBalance: accountBalance || 0,
     referrer,
     referrals,
   };

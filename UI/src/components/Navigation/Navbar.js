@@ -21,6 +21,7 @@ import {
   RedeemOutlined as Redeem,
   RequestPageOutlined as RequestPage,
   RequestQuoteOutlined as RequestQuote,
+  ShowChartOutlined as ShowChart,
 } from "@mui/icons-material";
 import { Avatar, Badge, useTheme } from "@mui/material";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
@@ -51,11 +52,6 @@ const navlinks = [
         path: "/transact/withdraw",
       },
       {
-        name: "Bid",
-        icon: <BackHand />,
-        path: "/transact/bid",
-      },
-      {
         name: "Request Loan",
         icon: <RequestQuote />,
         path: "/transact/request-loan",
@@ -64,6 +60,22 @@ const navlinks = [
         name: "Pay Loan",
         icon: <Payment />,
         path: "/transact/pay-loan",
+      },
+    ],
+  },
+  {
+    name: "Trade",
+    icon: <ShowChart />,
+    submenu: [
+      {
+        name: "Spot",
+        icon: <AccountBalance />,
+        path: "/trade/spot",
+      },
+      {
+        name: "P2P",
+        icon: <Redeem />,
+        path: "/trade/p2p",
       },
     ],
   },

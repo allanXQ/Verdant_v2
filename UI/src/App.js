@@ -33,7 +33,10 @@ function App() {
           <Route path="deposit" element={<Deposit />} />
           <Route path="withdraw" element={<Withdrawal />} />
         </Route>
-        <Route path="trade" element={<Trade />} />
+        <Route path="trade">
+          <Route path="spot" element={<Trade />} />
+          <Route path="p2p" element={<Trade />} />
+        </Route>
       </Route>
     </Routes>
   );
