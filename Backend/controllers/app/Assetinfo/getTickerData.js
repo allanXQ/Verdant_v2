@@ -4,7 +4,7 @@ const { klineIntervals } = require("./config");
 const Assets = require("../../../models/Assets");
 const { default: axios } = require("axios");
 
-const getAppData = async (req, res, next) => {
+const getTickerData = async (req, res, next) => {
   const assets = await findQuery(Assets);
   const assetUpdate = assets.map(async (asset) => {
     const tradingPair = asset.coinPair;
@@ -32,4 +32,4 @@ const getAppData = async (req, res, next) => {
   });
 };
 
-module.exports = getAppData;
+module.exports = getTickerData;

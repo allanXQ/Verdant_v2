@@ -2,6 +2,7 @@
 \*\*\* check on refresh token issue. check if error is 401 and then request refresh token. client is still redirecting to dashboard even if token is expired since it only checks for islogged in state
 
 \*\*check if we can combine all the client history pages into one component
+\*\*check on the reusable mongoose queries
 
 \*most commonly used react router hooks
 
