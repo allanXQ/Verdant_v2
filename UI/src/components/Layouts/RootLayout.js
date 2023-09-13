@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidenav, Topbar } from "../Navigation/Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "redux/features/user/userSlice";
@@ -13,9 +13,14 @@ import {
 const RootLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const drawerHeight = useSelector(selectDrawerHeight);
-  const drawerWidth = useSelector(selectDrawerWidth);
+  let drawerWidth = useSelector(selectDrawerWidth);
   const topBarHeight = useSelector(selectTopBarHeight);
   const navigate = useNavigate();
+  //check if path contains trade/spot using useLocation hook
+  const location = useLocation();
+  const path = location.pathname;
+  const isTrade = path.includes("trade/spot");
+  isTrade ? (drawerWidth = "0px") : (drawerWidth = drawerWidth);
 
   useEffect(() => {
     if (!isLoggedIn) {

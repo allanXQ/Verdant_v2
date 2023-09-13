@@ -9,6 +9,30 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
   const [chart, setChart] = useState(null);
   const [ws, setWs] = useState(null);
 
+  const fetchHistoricalData = async (candlestickSeries) => {
+    let historicalData;
+    await axios
+      .post(
+        "http://localhost:5000/api/v1/app/historical-klines",
+        {
+          assetName,
+          klineInterval,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        historicalData = res.data.payload;
+        candlestickSeries.setData(historicalData);
+      })
+      .catch((err) => {
+        return [];
+      });
+
+    return historicalData;
+  };
+
   useEffect(() => {
     const currentChartContainer = chartContainerRef.current;
     if (currentChartContainer) {
@@ -39,14 +63,6 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
           borderColor: "#485c7b",
         },
       });
-      const candlestickSeries = chartInstance.addCandlestickSeries({
-        upColor: "#4bffb5",
-        downColor: "#ff4976",
-        borderDownColor: "#ff4976",
-        borderUpColor: "#4bffb5",
-        wickDownColor: "#838ca1",
-        wickUpColor: "#838ca1",
-      });
 
       setChart(chartInstance);
 
@@ -56,26 +72,16 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       });
       resizeObserver.current.observe(currentChartContainer);
 
-      const fetchHistoricalData = async () => {
-        let historicalData;
-        await axios
-          .post("http://localhost:5000/api/v1/asset-info/historical-klines", {
-            assetName,
-            klineInterval,
-          })
-          .then((res) => {
-            historicalData = res.data.payload;
-            console.log(historicalData);
-            candlestickSeries.setData(historicalData);
-          })
-          .catch((err) => {
-            console.log(err);
-            return [];
-          });
+      const candlestickSeries = chartInstance.addCandlestickSeries({
+        upColor: "#4bffb5",
+        downColor: "#ff4976",
+        borderDownColor: "#ff4976",
+        borderUpColor: "#4bffb5",
+        wickDownColor: "#838ca1",
+        wickUpColor: "#838ca1",
+      });
 
-        return historicalData;
-      };
-      fetchHistoricalData();
+      fetchHistoricalData(candlestickSeries);
 
       // const socket = io("http://localhost:2000", {
       //   withCredentials: true,
@@ -102,17 +108,22 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
     }
 
     return () => {
-      chart && chart.remove();
-      ws && ws.close();
       currentChartContainer && (currentChartContainer.innerHTML = "");
       resizeObserver.current && resizeObserver.current.disconnect();
     };
-  }, [assetName, klineInterval, chart, ws]);
+  }, [assetName, klineInterval]);
+
+  useEffect(() => {
+    return () => {
+      chart && chart.remove();
+      ws && ws.close();
+    };
+  }, [chart, ws]); // Only chart and ws in the dependency array for cleanup
 
   return (
     <div
       ref={chartContainerRef}
-      style={{ width: "90vw", height: "500px" }}
+      style={{ width: "100vw", height: "500px" }}
     ></div>
   );
 };

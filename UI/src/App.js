@@ -36,7 +36,7 @@ function App() {
           <Route path="withdraw" element={<Withdrawal />} />
         </Route>
         <Route path="trade">
-          <Route path="spot:asset" element={<Trade />} />
+          <Route path="spot" element={<Trade />} />
           <Route path="p2p" element={<PeerTrading />} />
           <Route path="swap" element={<Swap />} />
         </Route>
