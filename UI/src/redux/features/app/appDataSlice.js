@@ -23,21 +23,6 @@ export const appDataSlice = createSlice({
       );
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(fetchAppData.pending, (state, action) => {
-  //       state.status = "loading";
-  //     })
-  //     .addCase(fetchAppData.fulfilled, (state, action) => {
-  //       state.status = "succeeded";
-  //       state.klineIntervals = action.payload.klineIntervals;
-  //       state.assets = action.payload.assets;
-  //     })
-  //     .addCase(fetchAppData.rejected, (state, action) => {
-  //       state.status = "failed";
-  //       state.error = action.error.message;
-  //     });
-  // },
   extraReducers: (builder) => {
     builder
       .addMatcher(
