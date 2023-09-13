@@ -32,6 +32,7 @@ const GoogleCallback = () => {
           endpoint: "user/user-info",
           method: "post",
           data: {
+            google: "google",
             userId,
           },
           slice: "userData",
@@ -39,7 +40,7 @@ const GoogleCallback = () => {
       );
     }
 
-    if (userStatus === "succeeded" && userData && userId) {
+    if (userStatus === "succeeded" && userData.userId) {
       dispatch(loginSuccess({ user: userData }));
       navigate("/dashboard");
     } else if (userStatus === "failed") {
