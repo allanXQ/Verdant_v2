@@ -10,26 +10,6 @@ const initialState = {
   error: null,
 };
 
-export const fetchAppData = createAsyncThunk(
-  "appData/api",
-  async ({ endpoint, method, data }, thunkAPI) => {
-    try {
-      const response = await axios({
-        method,
-        url: `${process.env.REACT_APP_SERVER_URL}/api/v1/app/${endpoint}`,
-        data,
-        withCredentials: true,
-      });
-      console.log(response.data.payload);
-      return response.data.payload;
-    } catch (error) {
-      return thunkAPI.rejectWithValue({
-        error: error.response?.data.message || error.message,
-      });
-    }
-  }
-);
-
 export const appDataSlice = createSlice({
   name: "appData",
   initialState,
@@ -61,14 +41,16 @@ export const appDataSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(
-        (action) => action.type.startsWith("appData/api/pending"),
+        (action) => action.type.startsWith("api/call/pending"),
         (state, action) => {
           state.status = "loading";
         }
       )
       .addMatcher(
-        (action) => action.type.startsWith("appData/api/fulfilled"),
+        (action) => action.type.startsWith("api/call/fulfilled"),
         (state, action) => {
+          if (action.payload.slice !== "appData") return;
+
           state.status = "succeeded";
           switch (action.meta.arg.endpoint) {
             case "p2p-trades":
@@ -89,8 +71,9 @@ export const appDataSlice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.startsWith("appData/api/rejected"),
+        (action) => action.type.startsWith("api/call/rejected"),
         (state, action) => {
+          if (action.payload.slice !== "appData") return;
           state.status = "failed";
           state.error = action.error.message;
         }

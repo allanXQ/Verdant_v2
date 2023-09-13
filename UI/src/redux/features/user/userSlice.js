@@ -30,25 +30,6 @@ const initialState = {
   },
 };
 
-export const userAPI = createAsyncThunk(
-  "user/api",
-  async ({ endpoint, method, data }, thunkAPI) => {
-    try {
-      const response = await axios({
-        method,
-        url: `${process.env.REACT_APP_SERVER_URL}/api/v1${endpoint}`,
-        data,
-        withCredentials: true,
-      });
-      return response.data.payload;
-    } catch (error) {
-      return thunkAPI.rejectWithValue({
-        error: error.response?.data.message || error.message,
-      });
-    }
-  }
-);
-
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -71,14 +52,15 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(
-        (action) => action.type.startsWith("user/api/pending"),
+        (action) => action.type.startsWith("api/call/pending"),
         (state, action) => {
           state.status = "loading";
         }
       )
       .addMatcher(
-        (action) => action.type.startsWith("user/api/fulfilled"),
+        (action) => action.type.startsWith("api/call/fulfilled"),
         (state, action) => {
+          if (action.payload.slice !== "userData") return;
           state.status = "succeeded";
           switch (action.meta.arg.endpoint) {
             case "/auth/register":
@@ -103,8 +85,9 @@ export const userSlice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.startsWith("user/api/rejected"),
+        (action) => action.type.startsWith("api/call/rejected"),
         (state, action) => {
+          if (action.payload.slice !== "userData") return;
           state.status = "failed";
           state.error = action.error.message;
         }
