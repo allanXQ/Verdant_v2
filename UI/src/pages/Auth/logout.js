@@ -21,11 +21,12 @@ const Logout = () => {
               slice: "userData",
             })
           );
-
+        localStorage.removeItem("persist:root");
         // If the logout was successful, navigate to the login page
         !isLoggedIn && navigate("/login");
       } catch (error) {
         // Handle any errors if needed
+        localStorage.removeItem("persist:root");
         console.error("Logout failed: ", error);
       }
     };
