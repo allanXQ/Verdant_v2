@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const fetchAppData = createAsyncThunk(
-  "appData/fetchAppData",
+  "appData/api",
   async ({ endpoint, method, data }, thunkAPI) => {
     try {
       const response = await axios({
@@ -20,6 +20,7 @@ export const fetchAppData = createAsyncThunk(
         data,
         withCredentials: true,
       });
+      console.log(response.data.payload);
       return response.data.payload;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });

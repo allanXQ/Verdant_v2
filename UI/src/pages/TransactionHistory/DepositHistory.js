@@ -95,11 +95,6 @@ const DepositHistory = () => {
         overflow: "hidden",
       }}
     >
-      {/* search bar 
-      add gateway icon
-      red and green status
-      add filters(gateway, status, date)
-      */}
       <Overview userData={userData} />
 
       <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
