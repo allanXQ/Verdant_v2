@@ -23,7 +23,9 @@ export const fetchAppData = createAsyncThunk(
       console.log(response.data.payload);
       return response.data.payload;
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return thunkAPI.rejectWithValue({
+        error: error.response?.data.message || error.message,
+      });
     }
   }
 );
@@ -34,14 +36,11 @@ export const appDataSlice = createSlice({
   reducers: {
     updateDefaultKlineOption: (state, action) => {
       const { value } = action.payload;
-      state.klineIntervals.forEach((option) => {
-        // add new default value, remove an old default value that isn't main/new default value
-        if (option.value === value) {
-          option.default = true;
-        } else {
-          option.default = false;
-        }
-      });
+      state.klineIntervals = state.klineIntervals.map((option) =>
+        option.value === value
+          ? { ...option, default: true }
+          : { ...option, default: false }
+      );
     },
   },
   // extraReducers: (builder) => {

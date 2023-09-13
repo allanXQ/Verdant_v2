@@ -42,7 +42,9 @@ export const userAPI = createAsyncThunk(
       });
       return response.data.payload;
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return thunkAPI.rejectWithValue({
+        error: error.response?.data.message || error.message,
+      });
     }
   }
 );
@@ -53,7 +55,6 @@ export const userSlice = createSlice({
   reducers: {
     loginSuccess(state, action) {
       state.isLoggedIn = true;
-      console.log(action.payload);
       state.user = action.payload;
     },
     loginFailed(state, action) {
