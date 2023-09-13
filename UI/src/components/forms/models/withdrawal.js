@@ -2,7 +2,7 @@ import CreateForm from "../utils/createForm";
 
 const WithdrawalModel = {
   name: "Withdraw",
-  endpoint: "/user/transact/withdraw",
+  endpoint: "user/transact/withdraw",
   method: "post",
 
   fields: [

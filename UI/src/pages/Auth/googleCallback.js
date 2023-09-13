@@ -2,12 +2,12 @@ import useUserData from "Hooks/useUserData";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { apiCall } from "redux/async/asyncThunk";
 import {
   loginFailed,
   loginSuccess,
   selectUserError,
   selectUserStatus,
-  userAPI,
 } from "redux/features/user/userSlice";
 
 const GoogleCallback = () => {
@@ -28,12 +28,13 @@ const GoogleCallback = () => {
   useEffect(() => {
     if (userStatus === "idle") {
       dispatch(
-        userAPI({
-          endpoint: "/user/user-info",
+        apiCall({
+          endpoint: "user/user-info",
           method: "post",
           data: {
             userId,
           },
+          slice: "userData",
         })
       );
     }

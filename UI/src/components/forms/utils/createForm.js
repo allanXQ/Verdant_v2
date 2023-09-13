@@ -4,8 +4,8 @@ import MUITextField from "../inputs/textField";
 import { Box, Button, Typography } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
-import { userAPI } from "redux/features/user/userSlice";
 import { Link, useLocation } from "react-router-dom";
+import { apiCall } from "redux/async/asyncThunk";
 
 //input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
@@ -39,10 +39,11 @@ const CreateForm = (formName, model) => {
         validationSchema={getValidationSchema(fields)}
         onSubmit={(values, { setSubmitting }) => {
           dispatch(
-            userAPI({
+            apiCall({
               endpoint: model.endpoint,
               method: model.method,
               data: values,
+              slice: "userData",
             })
           );
           setSubmitting(false);

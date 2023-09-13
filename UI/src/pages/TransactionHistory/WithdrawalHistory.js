@@ -4,7 +4,7 @@ import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { userAPI } from "redux/features/user/userSlice";
+import { apiCall } from "redux/async/asyncThunk";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
@@ -63,10 +63,11 @@ const WithdrawalHistory = () => {
 
   useEffect(() => {
     dispatch(
-      userAPI({
-        endpoint: "/user/user-info",
+      apiCall({
+        endpoint: "user/user-info",
         method: "post",
         data: { userId: userData.userId },
+        slice: "userData",
       })
     );
   }, [dispatch, userData.userId]);

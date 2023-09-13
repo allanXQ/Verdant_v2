@@ -1,12 +1,8 @@
-import { useEffect } from "react";
 import CreateForm from "../utils/createForm";
-import { useSelector } from "react-redux";
-import { selectUser, selectUserStatus } from "redux/features/user/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const loginModel = {
   name: "Sign In",
-  endpoint: "/auth/login",
+  endpoint: "auth/login",
   method: "post",
 
   fields: [

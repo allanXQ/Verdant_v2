@@ -4,7 +4,8 @@ import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchAppData, selectP2PTrades } from "redux/features/app/appDataSlice";
+import { apiCall } from "redux/async/asyncThunk";
+import { selectP2PTrades } from "redux/features/app/appDataSlice";
 
 const ActionButton = ({ type }) => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const PeerTrading = () => {
   const userData = useUserData();
 
   useEffect(() => {
-    dispatch(fetchAppData({ endpoint: "p2p-trades", method: "GET" }));
+    dispatch(apiCall({ endpoint: "app/p2p-trades", method: "GET" }));
   }, [dispatch]);
 
   const p2pTrades = useSelector(selectP2PTrades);

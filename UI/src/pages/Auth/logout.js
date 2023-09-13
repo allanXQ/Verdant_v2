@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn, userAPI } from "redux/features/user/userSlice";
+import { selectIsLoggedIn } from "redux/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { apiCall } from "redux/async/asyncThunk";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,11 @@ const Logout = () => {
       try {
         isLoggedIn &&
           dispatch(
-            userAPI({
-              endpoint: "/auth/logout",
+            apiCall({
+              endpoint: "auth/logout",
               method: "post",
               data: {},
+              slice: "userData",
             })
           );
 

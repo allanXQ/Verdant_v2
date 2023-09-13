@@ -2,7 +2,7 @@ import CreateForm from "../utils/createForm";
 
 const DepositModel = {
   name: "Deposit",
-  endpoint: "/user/transact/mpesa/deposit",
+  endpoint: "user/transact/mpesa/deposit",
   method: "post",
 
   fields: [
