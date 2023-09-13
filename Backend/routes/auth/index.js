@@ -20,6 +20,7 @@ const {
 } = require("../../yupschemas");
 
 const errorHOC = require("../../utils/errorHOC");
+const { isLoggedIn } = require("../../controllers/auth/isLoggedIn");
 
 // routes
 router.post("/register", formValidate(regSchema), errorHOC(Register));
@@ -29,6 +30,7 @@ router.post(
   formValidate(resetPasswordSchema),
   errorHOC(ResetPassword)
 );
+router.get("/verify", verifyjwt, errorHOC(isLoggedIn));
 router.post("/refresh-token", errorHOC(RefreshToken));
 router.post("/logout", errorHOC(Logout));
 
