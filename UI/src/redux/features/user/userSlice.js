@@ -67,7 +67,7 @@ export const userSlice = createSlice({
               break;
             case "auth/login":
               state.isLoggedIn = true;
-              state.user = action.payload;
+              state.user = action.payload.data;
               break;
             case "auth/logout":
               state.isLoggedIn = false;
@@ -75,8 +75,8 @@ export const userSlice = createSlice({
               break;
             case "user/user-info":
               state.user = {
-                ...action.payload[0],
-              } || { ...action.payload };
+                ...action.payload.data[0],
+              } || { ...action.payload.data };
               break;
             default:
               break;
@@ -94,7 +94,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUser = (state) => state.user.user.data;
+export const selectUser = (state) => state.user.user;
 export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectIsRegistered = (state) => state.user.isRegistered;
 export const selectUserStatus = (state) => state.user.status;
