@@ -76,6 +76,11 @@ const navlinks = [
         icon: <Redeem />,
         path: "/trade/p2p",
       },
+      {
+        name: "Swap",
+        icon: <Redeem />,
+        path: "/trade/swap",
+      },
     ],
   },
   {
