@@ -3,7 +3,7 @@ import RootLayout from "./components/Layouts/RootLayout";
 import Dashboard from "./pages/Dashboard";
 import DepositHistory from "pages/TransactionHistory/DepositHistory";
 import Login from "pages/Auth/login";
-import Trade from "pages/Trade";
+import Trade from "pages/Trade/spot";
 import GoogleCallback from "pages/Auth/googleCallback";
 import Logout from "pages/Auth/logout";
 import Register from "pages/Auth/register";
