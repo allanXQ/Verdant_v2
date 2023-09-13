@@ -24,6 +24,20 @@ import {
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const ActionButton = ({ asset }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Button
+      variant="contained"
+      onClick={() => navigate(`/trade/spot/${asset}`)}
+    >
+      Trade
+    </Button>
+  );
+};
 
 const stats = [
   {
@@ -80,10 +94,13 @@ const columns = [
     width: 200,
   },
   {
-    field: "Trade",
-    headerName: "Trade",
+    field: "action",
+    headerName: "Action",
     smallScreenScreen: false,
     width: 200,
+    renderCell: (params) => {
+      return <ActionButton asset={params.row.Asset} />;
+    },
   },
 ];
 
@@ -168,8 +185,6 @@ const Assets = [
     percentageChange: 10,
   },
 ];
-
-Assets.map((asset) => (asset.Trade = <Button>Trade</Button>));
 
 const Services = [
   {
