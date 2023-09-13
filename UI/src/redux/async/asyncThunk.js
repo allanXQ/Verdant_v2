@@ -16,6 +16,7 @@ export const apiCall = createAsyncThunk(
       return thunkAPI.rejectWithValue({
         error: error.response?.data.message || error.message,
         slice,
+        status: error.response?.status,
       });
     }
   }
