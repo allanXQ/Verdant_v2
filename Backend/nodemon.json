@@ -2,6 +2,7 @@
   "ignore": [
     "/*.json",
     "node_modules/*",
+    "testdata/*",
     "public/*",
     "src/*",
     "test/*",
