@@ -12,6 +12,7 @@ import Deposit from "pages/Transact/deposit";
 import Withdrawal from "pages/Transact/withdraw";
 import WithdrawalHistory from "pages/TransactionHistory/WithdrawalHistory";
 import PeerTrading from "pages/Trade/peer";
+import Swap from "pages/Trade/swap";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="trade">
           <Route path="spot" element={<Trade />} />
           <Route path="p2p" element={<PeerTrading />} />
+          <Route path="swap" element={<Swap />} />
         </Route>
       </Route>
     </Routes>

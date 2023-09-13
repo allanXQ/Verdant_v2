@@ -6,11 +6,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAppData, selectP2PTrades } from "redux/features/app/appDataSlice";
 
+const ActionButton = ({ type }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Button
+      variant="contained"
+      onClick={() => navigate(type.toLowerCase() === "sell" ? "/buy" : "/sell")}
+    >
+      {type.toLowerCase() === "sell" ? "Buy" : "Sell"}
+    </Button>
+  );
+};
+
 const columns = [
   { field: "Type", headerName: "Type", width: 210 },
   { field: "Asset", headerName: "Asset", width: 210 },
   { field: "Amount", headerName: "Amount", width: 210 },
   { field: "Price", headerName: "Price", width: 200 },
+  {
+    field: "action",
+    headerName: "Action",
+    width: 210,
+    renderCell: (params) => {
+      return <ActionButton type={params.row.Type} />;
+    },
+  },
 ];
 
 const Overview = ({ userData }) => {
