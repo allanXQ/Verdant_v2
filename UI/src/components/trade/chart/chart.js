@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CrosshairMode, createChart } from "lightweight-charts";
 import axios from "axios";
+import { Box } from "@mui/material";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
@@ -121,10 +122,10 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
   }, [chart, ws]); // Only chart and ws in the dependency array for cleanup
 
   return (
-    <div
+    <Box
       ref={chartContainerRef}
-      style={{ width: "100vw", height: "500px" }}
-    ></div>
+      style={{ width: "98vw", height: "500px" }}
+    ></Box>
   );
 };
 

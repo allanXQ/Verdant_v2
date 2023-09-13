@@ -40,7 +40,12 @@ const RootLayout = () => {
             overflow: "hidden",
           }}
         >
-          <Grid item>
+          <Grid
+            item
+            sx={{
+              display: isTrade && "none",
+            }}
+          >
             <Sidenav
               drawerHeight={drawerHeight}
               drawerWidth={drawerWidth}
@@ -58,7 +63,7 @@ const RootLayout = () => {
             <Grid
               container
               sx={{
-                mt: `calc(${topBarHeight} + 1rem)`,
+                mt: isTrade ? topBarHeight : `calc(${topBarHeight} + 1rem)`,
                 width: { md: `calc(100vw - ${drawerWidth})` },
               }}
             >
