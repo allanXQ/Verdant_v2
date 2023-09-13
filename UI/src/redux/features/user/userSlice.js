@@ -63,18 +63,18 @@ export const userSlice = createSlice({
           if (action.payload.slice !== "userData") return;
           state.status = "succeeded";
           switch (action.meta.arg.endpoint) {
-            case "/auth/register":
+            case "auth/register":
               state.isRegistered = true;
               break;
-            case "/auth/login":
+            case "auth/login":
               state.isLoggedIn = true;
               state.user = action.payload;
               break;
-            case "/auth/logout":
+            case "auth/logout":
               state.isLoggedIn = false;
               state.user = initialState.user;
               break;
-            case "/user/user-info":
+            case "user/user-info":
               state.user = {
                 ...action.payload[0],
               } || { ...action.payload };
@@ -95,7 +95,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUser = (state) => state.user.user;
+export const selectUser = (state) => state.user.user.data;
 export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectIsRegistered = (state) => state.user.isRegistered;
 export const selectUserStatus = (state) => state.user.status;
