@@ -90,40 +90,74 @@ const RangePicker = () => {
     <Box
       sx={{
         display: "flex",
-        gap: "0.5rem",
-        p: "1rem",
+        alignItems: "center",
+        justifyContent: "space-between",
+
         backgroundColor: "#253248",
       }}
     >
-      {klineIntervals.map(
-        (interval) =>
-          interval.default && (
-            <Button
-              variant="outlined"
-              sx={{
-                width: "0.5rem",
-                borderRadius: "0",
-              }}
-            >
-              {interval.label}
-            </Button>
-          )
-      )}
-      <IconButton onClick={handleClick}>
-        <MoreVertOutlined color="primary" />
-      </IconButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+      <Box
+        sx={{
+          display: "flex",
+          gap: "0.5rem",
+          pt: "1rem",
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover>
+        {klineIntervals.map(
+          (interval) =>
+            interval.default && (
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "0.5rem",
+                  borderRadius: "0",
+                }}
+              >
+                {interval.label}
+              </Button>
+            )
+        )}
+        <IconButton onClick={handleClick}>
+          <MoreVertOutlined color="primary" />
+        </IconButton>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        </Popover>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "1rem",
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            width: "0.5rem",
+            borderRadius: "0",
+          }}
+        >
+          Buy
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
+            width: "0.5rem",
+            borderRadius: "0",
+          }}
+        >
+          Sell
+        </Button>
+      </Box>
     </Box>
   );
 };
