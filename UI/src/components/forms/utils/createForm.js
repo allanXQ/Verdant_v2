@@ -59,7 +59,15 @@ const CreateForm = (formName, model, children) => {
                 gap: 3,
               }}
             >
-              <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                }}
+              >
                 <Box
                   sx={{
                     display: "flex",

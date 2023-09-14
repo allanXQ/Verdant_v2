@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, Modal, TextField } from "@mui/material";
 import BuyForm from "components/forms/models/spot/buy";
 import React, { useEffect } from "react";
 import createWebSocket from "../utils/websocket";
@@ -49,7 +42,21 @@ const Buy = ({ state, dispatch }) => {
         <Card sx={style}>
           <CardContent>
             <BuyForm>
-              <Button>aaaaaaaaaaaaaaaaaa</Button>
+              <TextField
+                label="Price"
+                autoComplete="off"
+                sx={{
+                  width: "25rem",
+                  "& .Mui-focused": {
+                    backgroundColor: "transparent",
+                  },
+                  "& .MuiInputBase-input": {
+                    "&:focus": {
+                      backgroundColor: "transparent",
+                    },
+                  },
+                }}
+              />
             </BuyForm>
           </CardContent>
         </Card>
