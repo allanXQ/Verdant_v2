@@ -1,20 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "utils/axiosInstance";
 
 export const apiCall = createAsyncThunk(
   "api/call",
   async ({ endpoint, method, data, slice }, thunkAPI) => {
     try {
-      const response = await axios({
+      const response = await axiosInstance({
         method,
-        url: `${process.env.REACT_APP_SERVER_URL}/api/v1/${endpoint}`,
+        url: `${endpoint}`,
         data,
         withCredentials: true,
       });
       return { data: response.data.payload, slice };
     } catch (error) {
+      const errorMsg = error.response?.data?.message || error.message;
       return thunkAPI.rejectWithValue({
-        error: error.response?.data.message || error.message,
+        error: errorMsg,
         slice,
         status: error.response?.status,
       });

@@ -7,7 +7,7 @@ const verifyjwt = (req, res, next) => {
     // console.log(req.cookies);
     const { accessToken } = req.cookies;
     if (!accessToken) {
-      return res.status(401).json({ message: "Messages.invalidToken" });
+      return res.status(401).json({ message: Messages.invalidToken });
     }
     jwt.verify(accessToken, process.env.JWT_SECRET, (err, user) => {
       if (err) {
