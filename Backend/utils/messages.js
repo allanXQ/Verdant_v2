@@ -9,6 +9,7 @@ const Messages = {
   invalidRefreshToken: "Invalid Refresh Token",
   tokenRefreshed: "Token Refreshed",
   tokenRefreshFailed: "Token Refresh Failed",
+  tokenExpired: "Token Expired",
   refreshTokenExpired: "Refresh Token Expired",
 
   invalidUsername: "Invalid username",

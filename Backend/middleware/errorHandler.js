@@ -11,6 +11,14 @@ const errorHandler = (error, req, res, next) => {
         name: error.name,
       });
       return res.status(400).json({ message: error.message });
+    case "TokenExpiredError":
+      logger.error(error.message, {
+        metadata: error,
+        stack: error.stack,
+        name: error.name,
+      });
+      return res.status(401).json({ message: Messages.tokenExpired });
+
     case "RefreshTokenExpiredError":
       logger.error(error.message, {
         metadata: error,
