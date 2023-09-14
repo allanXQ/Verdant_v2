@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Card,
@@ -7,10 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import BuyForm from "components/forms/models/spot/buy";
-import React, { useEffect } from "react";
-import createWebSocket from "../utils/websocket";
-import MUITextField from "components/forms/inputs/textField";
 import SellForm from "components/forms/models/spot/sell";
+import createWebSocket from "../utils/websocket";
 
 const style = {
   position: "absolute",
@@ -53,25 +52,11 @@ const Child = () => {
   );
 };
 
-export const Buy = ({ state, dispatch }) => {
-  //   useEffect(() => {
-  //     if (state.buy) {
-  //       const socket = createWebSocket();
-  //       socket.on("connect", () => {
-  //         socket.emit("requestPrice", {
-  //           assetName,
-  //         });
-
-  //         socket.on("priceData", (data) => {
-  //           console.log(data);
-  //         });
-  //       });
-  //     }
-  //   });
+const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
   return (
-    state.buy && (
+    state && (
       <Modal
-        open={state.buy}
+        open={state}
         onClose={() => dispatch({ type: "close" })}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -86,10 +71,10 @@ export const Buy = ({ state, dispatch }) => {
               gap: 1,
             }}
           >
-            <Typography variant="h5">Buy</Typography>
-            <BuyForm>
+            <Typography variant="h5">{title}</Typography>
+            <FormComponent>
               <Child />
-            </BuyForm>
+            </FormComponent>
           </CardContent>
         </Card>
       </Modal>
@@ -97,46 +82,28 @@ export const Buy = ({ state, dispatch }) => {
   );
 };
 
-export const Sell = ({ state, dispatch }) => {
-  //   useEffect(() => {
-  //     if (state.buy) {
-  //       const socket = createWebSocket();
-  //       socket.on("connect", () => {
-  //         socket.emit("requestPrice", {
-  //           assetName,
-  //         });
+export const Buy = ({ state, dispatch }) => {
+  // Place any Buy-specific logic here if needed
 
-  //         socket.on("priceData", (data) => {
-  //           console.log(data);
-  //         });
-  //       });
-  //     }
-  //   });
   return (
-    state.sell && (
-      <Modal
-        open={state.sell}
-        onClose={() => dispatch({ type: "close" })}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Card sx={style}>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignContent: "center",
-              gap: 1,
-            }}
-          >
-            <Typography variant="h5">Sell</Typography>
-            <SellForm>
-              <Child />
-            </SellForm>
-          </CardContent>
-        </Card>
-      </Modal>
-    )
+    <ModalComponent
+      state={state.buy}
+      dispatch={dispatch}
+      title="Buy"
+      FormComponent={BuyForm}
+    />
+  );
+};
+
+export const Sell = ({ state, dispatch }) => {
+  // Place any Sell-specific logic here if needed
+
+  return (
+    <ModalComponent
+      state={state.sell}
+      dispatch={dispatch}
+      title="Sell"
+      FormComponent={SellForm}
+    />
   );
 };
