@@ -6,7 +6,7 @@ const WebSocket = require("ws");
 const { Server } = require("socket.io");
 
 const DBconn = require("../config/dbConn");
-const { coinLabelMap } = require("../controllers/account/Assetinfo/config");
+const { coinLabelMap } = require("../controllers/app/Assetinfo/config");
 // const binanceClient = require("./utils/binanceClient");
 
 const port = process.env.WSPORT || 2000;

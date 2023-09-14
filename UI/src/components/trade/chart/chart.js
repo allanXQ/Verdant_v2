@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { CrosshairMode, createChart } from "lightweight-charts";
 import axios from "axios";
 import { Box } from "@mui/material";
+import axiosInstance from "utils/axiosInstance";
+import { useSelector } from "react-redux";
+import { selectTopBarHeight } from "redux/features/app/configSlice";
+import { io } from "socket.io-client";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
@@ -9,29 +13,26 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
   const [chart, setChart] = useState(null);
   const [ws, setWs] = useState(null);
+  const topBarHeight = useSelector(selectTopBarHeight);
 
   const fetchHistoricalData = async (candlestickSeries) => {
     let historicalData;
-    await axios
-      .post(
-        "http://localhost:5000/api/v1/app/historical-klines",
-        {
+    try {
+      const response = await axiosInstance({
+        method: "POST",
+        url: "http://localhost:5000/api/v1/app/historical-klines",
+        data: {
           assetName,
           klineInterval,
         },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        historicalData = res.data.payload;
-        candlestickSeries.setData(historicalData);
-      })
-      .catch((err) => {
-        return [];
+        withCredentials: true,
       });
-
-    return historicalData;
+      historicalData = response.data.payload;
+      candlestickSeries.setData(historicalData);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   };
 
   useEffect(() => {
@@ -73,6 +74,8 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       });
       resizeObserver.current.observe(currentChartContainer);
 
+      chartInstance.timeScale().scrollToPosition(5, true);
+
       const candlestickSeries = chartInstance.addCandlestickSeries({
         upColor: "#4bffb5",
         downColor: "#ff4976",
@@ -94,7 +97,6 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       // socket.on("connect", () => {
       //   console.log(`Connected to /ws/${assetName}/${klineInterval}`);
 
-      // Request klines data
       //   socket.emit("requestKlines", {
       //     assetName,
       //     klineInterval,
@@ -124,7 +126,12 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
   return (
     <Box
       ref={chartContainerRef}
-      style={{ width: "98vw", height: "500px" }}
+      sx={{
+        width: "99.7vw",
+        height: `calc(100vh - 3.5rem - ${topBarHeight})`,
+        margin: "0",
+        padding: "0",
+      }}
     ></Box>
   );
 };
