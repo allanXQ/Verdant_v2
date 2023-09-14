@@ -89,8 +89,13 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       fetchHistoricalData(candlestickSeries);
 
       const socket = createWebSocket();
+      socket.connect();
+
       socket.on("connect_error", (error) => {
-        console.log("Connection Error: ", error);
+        console.error("Connection Error: ", error.message);
+        if (error.message === "server error") {
+          socket.close();
+        }
       });
 
       socket.on("connect", () => {
