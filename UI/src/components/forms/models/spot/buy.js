@@ -21,13 +21,6 @@ const BuyModel = {
       placeholder: "min 100",
       required: true,
     },
-    {
-      name: "price",
-      type: "number",
-      label: "Price",
-      placeholder: "Price per unit",
-      required: true,
-    },
   ],
 };
 

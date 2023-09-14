@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React, { useReducer } from "react";
 import CandleStickChart from "./chart";
 import RangePicker from "./rangePicker";
-import Buy from "./modals/buy";
+import { Buy, Sell } from "./modals/trade";
 
 const MainChart = () => {
   const assetName = "verdant";
@@ -37,6 +37,7 @@ const MainChart = () => {
       <RangePicker dispatch={dispatch} />
       <CandleStickChart assetName={assetName} klineInterval={klineInterval} />
       <Buy state={state} dispatch={dispatch} />
+      <Sell state={state} dispatch={dispatch} />
     </Box>
   );
 };
