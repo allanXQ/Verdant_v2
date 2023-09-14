@@ -8,6 +8,8 @@ const Messages = {
   invalidToken: "Invalid Token",
   invalidRefreshToken: "Invalid Refresh Token",
   tokenRefreshed: "Token Refreshed",
+  tokenRefreshFailed: "Token Refresh Failed",
+  refreshTokenExpired: "Refresh Token Expired",
 
   invalidUsername: "Invalid username",
   invalidEmail: "Invalid email",

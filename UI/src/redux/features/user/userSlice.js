@@ -41,6 +41,10 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.error = action.payload.error;
     },
+    logout(state) {
+      state.isLoggedIn = false;
+      state.user = initialState.user;
+    },
     updateUser(state, action) {
       state.user = {
         ...state.user,
@@ -100,5 +104,6 @@ export const selectIsRegistered = (state) => state.user.isRegistered;
 export const selectUserStatus = (state) => state.user.status;
 export const selectUserError = (state) => state.user.error;
 
-export const { loginSuccess, loginFailed, updateUser } = userSlice.actions;
+export const { loginSuccess, loginFailed, updateUser, logout } =
+  userSlice.actions;
 export default userSlice.reducer;

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { logout } from "redux/features/user/userSlice";
+import { store } from "redux/store";
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -27,6 +29,13 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
+      if (error.response.data.message === "Refresh Token Expired") {
+        // Your logic to redirect to the login page
+        store.dispatch(logout());
+        window.location.href = "/login";
+
+        return Promise.reject(error);
+      }
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
