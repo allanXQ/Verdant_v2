@@ -16,6 +16,9 @@ const createWebSocket = (
     socket = io(url, options);
     socket.on("connect_error", (error) => {
       console.error("Connection Error: ", error.message);
+      if (error.message === "server error") {
+        socket.close();
+      }
       if (retries < maxRetries) {
         retries++;
         setTimeout(connect, retryInterval);
