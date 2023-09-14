@@ -6,6 +6,7 @@ import axiosInstance from "utils/axiosInstance";
 import { useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
 import { io } from "socket.io-client";
+import createWebSocket from "./utils/websocket";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
@@ -87,41 +88,37 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
       fetchHistoricalData(candlestickSeries);
 
-      // const socket = io("http://localhost:2000", {
-      //   withCredentials: true,
-      // });
-      // socket.on("connect_error", (error) => {
-      //   console.log("Connection Error: ", error);
-      // });
+      const socket = createWebSocket();
+      socket.on("connect_error", (error) => {
+        console.log("Connection Error: ", error);
+      });
 
-      // socket.on("connect", () => {
-      //   console.log(`Connected to /ws/${assetName}/${klineInterval}`);
+      socket.on("connect", () => {
+        console.log(`Connected to /ws/${assetName}/${klineInterval}`);
 
-      //   socket.emit("requestKlines", {
-      //     assetName,
-      //     klineInterval,
-      //   });
+        socket.emit("requestKlines", {
+          assetName,
+          klineInterval,
+        });
 
-      //   socket.on("klineData", (data) => {
-      //     candlestickSeries.update(data.candlestick);
-      //     console.log(data);
-      //   });
-      // });
-      // setWs(socket);
+        socket.on("klineData", (data) => {
+          candlestickSeries.update(data.candlestick);
+          console.log(data);
+        });
+      });
+      return () => {
+        currentChartContainer && (currentChartContainer.innerHTML = "");
+        resizeObserver.current && resizeObserver.current.disconnect();
+        socket && socket.close();
+      };
     }
-
-    return () => {
-      currentChartContainer && (currentChartContainer.innerHTML = "");
-      resizeObserver.current && resizeObserver.current.disconnect();
-    };
   }, [assetName, klineInterval]);
 
   useEffect(() => {
     return () => {
       chart && chart.remove();
-      ws && ws.close();
     };
-  }, [chart, ws]); // Only chart and ws in the dependency array for cleanup
+  }, [chart]); // Only chart and ws in the dependency array for cleanup
 
   return (
     <Box
