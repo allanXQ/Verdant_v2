@@ -31,4 +31,20 @@ const setCookies = (res, tokens) => {
   });
 };
 
-module.exports = { generateTokens, setCookies };
+const clearTokens = (res) => {
+  res.cookie("accessToken", "", {
+    expires: new Date(0),
+    httpOnly: true,
+    // secure: true,
+    sameSite: "strict",
+  });
+  res.cookie("refreshToken", "", {
+    expires: new Date(0),
+    httpOnly: true,
+    path: "/api/v1/auth/refresh-token",
+    // secure: true,
+    sameSite: "strict",
+  });
+};
+
+module.exports = { generateTokens, setCookies, clearTokens };

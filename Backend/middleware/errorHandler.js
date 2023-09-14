@@ -1,3 +1,4 @@
+const { clearTokens } = require("../utils/cookie");
 const logger = require("../utils/logger");
 const Messages = require("../utils/messages");
 
@@ -12,6 +13,11 @@ const errorHandler = (error, req, res, next) => {
       });
       return res.status(400).json({ message: error.message });
     case "TokenExpiredError":
+      //check if route is logout then clear cookies
+      const { path } = req.route;
+      if (path === "/api/v1/auth/logout") {
+        clearTokens(res);
+      }
       logger.error(error.message, {
         metadata: error,
         stack: error.stack,

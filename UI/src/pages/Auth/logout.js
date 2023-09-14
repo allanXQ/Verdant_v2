@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "redux/features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { apiCall } from "redux/async/asyncThunk";
+import useUserData from "Hooks/useUserData";
 
 const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const userData = useUserData();
 
   useEffect(() => {
     const logoutAsync = () => {
@@ -17,7 +19,7 @@ const Logout = () => {
             apiCall({
               endpoint: "auth/logout",
               method: "post",
-              data: {},
+              data: { userId: userData.userId },
               slice: "userData",
             })
           );
@@ -32,7 +34,7 @@ const Logout = () => {
     };
 
     logoutAsync();
-  }, [dispatch, navigate, isLoggedIn]);
+  }, [dispatch, navigate, isLoggedIn, userData.userId]);
 
   return <div>Logout</div>;
 };

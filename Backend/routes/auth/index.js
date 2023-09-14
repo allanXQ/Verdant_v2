@@ -17,6 +17,7 @@ const {
   updatePasswordSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
+  userInfoSchema,
 } = require("../../yupschemas");
 
 const errorHOC = require("../../utils/errorHOC");
@@ -32,7 +33,7 @@ router.post(
 );
 router.get("/verify", verifyjwt, errorHOC(isLoggedIn));
 router.post("/refresh-token", errorHOC(RefreshToken));
-router.post("/logout", errorHOC(Logout));
+router.post("/logout", formValidate(userInfoSchema), errorHOC(Logout));
 
 router.post(
   "/forgot-password",
