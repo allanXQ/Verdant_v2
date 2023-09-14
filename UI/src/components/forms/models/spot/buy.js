@@ -31,8 +31,8 @@ const BuyModel = {
   ],
 };
 
-const BuyForm = () => {
-  return CreateForm("Buy", BuyModel);
+const BuyForm = ({ children }) => {
+  return CreateForm("Buy", BuyModel, children);
 };
 
 export default BuyForm;

@@ -46,7 +46,17 @@ const Login = () => {
           gap: "1rem",
         }}
       >
-        <LoginForm />
+        <LoginForm>
+          <Box>
+            <Typography
+              variant="caption"
+              component={Link}
+              to="/forgot-password"
+            >
+              Forgot password?
+            </Typography>
+          </Box>
+        </LoginForm>
         <Divider
           orientation="vertical"
           variant="middle"

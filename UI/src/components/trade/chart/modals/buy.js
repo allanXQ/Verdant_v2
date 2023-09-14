@@ -1,6 +1,15 @@
-import { Box, Card, CardContent, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Modal,
+  Typography,
+} from "@mui/material";
 import BuyForm from "components/forms/models/spot/buy";
-import React from "react";
+import React, { useEffect } from "react";
+import createWebSocket from "../utils/websocket";
+import MUITextField from "components/forms/inputs/textField";
 
 const style = {
   position: "absolute",
@@ -15,6 +24,20 @@ const style = {
 };
 
 const Buy = ({ state, dispatch }) => {
+  //   useEffect(() => {
+  //     if (state.buy) {
+  //       const socket = createWebSocket();
+  //       socket.on("connect", () => {
+  //         socket.emit("requestPrice", {
+  //           assetName,
+  //         });
+
+  //         socket.on("priceData", (data) => {
+  //           console.log(data);
+  //         });
+  //       });
+  //     }
+  //   });
   return (
     state.buy && (
       <Modal
@@ -25,7 +48,9 @@ const Buy = ({ state, dispatch }) => {
       >
         <Card sx={style}>
           <CardContent>
-            <BuyForm />
+            <BuyForm>
+              <Button>aaaaaaaaaaaaaaaaaa</Button>
+            </BuyForm>
           </CardContent>
         </Card>
       </Modal>

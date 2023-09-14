@@ -23,8 +23,8 @@ const loginModel = {
   ],
 };
 
-const LoginForm = () => {
-  return CreateForm("login", loginModel);
+const LoginForm = ({ children }) => {
+  return CreateForm("login", loginModel, children);
 };
 
 export default LoginForm;

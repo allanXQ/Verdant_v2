@@ -16,9 +16,8 @@ const getInitialValues = (fields) => {
   }, {});
 };
 
-//prevent default
-
-const CreateForm = (formName, model) => {
+//add children
+const CreateForm = (formName, model, children) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname;
@@ -93,17 +92,7 @@ const CreateForm = (formName, model) => {
                     }
                   })}
                 </Box>
-                {path === "/login" && (
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      component={Link}
-                      to="/forgot-password"
-                    >
-                      Forgot password?
-                    </Typography>
-                  </Box>
-                )}
+                {children}
               </Box>
               <Button
                 variant="contained"
