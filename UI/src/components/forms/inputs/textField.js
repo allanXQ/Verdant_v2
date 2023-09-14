@@ -4,10 +4,10 @@ import React from "react";
 
 const MUITextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-
+  console.log(props);
   return (
     <TextField
-      variant="standard"
+      variant={props.variant || "standard"}
       label={label}
       {...field}
       {...props}

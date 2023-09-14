@@ -85,6 +85,7 @@ const CreateForm = (formName, model) => {
                             name={field.name}
                             value={field.value}
                             placeholder={field.placeholder}
+                            variant={model.variant}
                           />
                         );
                       default:

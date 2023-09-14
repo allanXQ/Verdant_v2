@@ -4,6 +4,7 @@ const BuyModel = {
   name: "Buy",
   endpoint: "user/trade/spot/buy-limit",
   method: "post",
+  variant: "outlined",
 
   fields: [
     {
