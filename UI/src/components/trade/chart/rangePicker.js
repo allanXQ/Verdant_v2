@@ -73,7 +73,7 @@ const klineIntervals = [
   },
 ];
 
-const RangePicker = () => {
+const RangePicker = ({ dispatch }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -145,6 +145,7 @@ const RangePicker = () => {
             width: "0.5rem",
             borderRadius: "0",
           }}
+          onClick={() => dispatch({ type: "buy" })}
         >
           Buy
         </Button>
@@ -154,6 +155,7 @@ const RangePicker = () => {
             width: "0.5rem",
             borderRadius: "0",
           }}
+          onClick={() => dispatch({ type: "sell" })}
         >
           Sell
         </Button>

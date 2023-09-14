@@ -1,5 +1,15 @@
 const coinLabelMap = {
   verdant: "ETHUSDT",
+  azureCorp: "BTCUSDT",
+  sapphireHoldings: "BNBUSDT",
+  crimsonEnterprise: "ADAUSDT",
+  goldenVentures: "XAUUSDT",
+  silverSolutions: "XAGUSDT",
+  emeraldInc: "DOTUSDT",
+  rubyLtd: "LTCUSDT",
+  topazGroup: "LINKUSDT",
+  amberAssociation: "XRPUSDT",
+  pearlCo: "UNIUSDT",
 };
 
 const klineIntervals = {
