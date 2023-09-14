@@ -5,13 +5,25 @@ const Messages = require("../utils/messages");
 const errorHandler = (error, req, res, next) => {
   switch (error.name) {
     case "YupValidationError":
-      logger.error(error.message, { metadata: error, stack: error.stack });
+      logger.error(error.message, {
+        metadata: error,
+        stack: error.stack,
+        name: error.name,
+      });
       return res.status(400).json({ message: error.message });
     case "RefreshTokenExpiredError":
-      logger.error(error.message, { metadata: error, stack: error.stack });
+      logger.error(error.message, {
+        metadata: error,
+        stack: error.stack,
+        name: error.name,
+      });
       return res.status(401).json({ message: Messages.refreshTokenExpired });
     default:
-      logger.error(error.message, { metadata: error, stack: error.stack });
+      logger.error(error.message, {
+        metadata: error,
+        stack: error.stack,
+        name: error.name,
+      });
       return res.status(500).json({ message: Messages.serverError });
   }
 };
