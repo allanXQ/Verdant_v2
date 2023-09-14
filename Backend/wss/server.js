@@ -55,6 +55,26 @@ wss.on("connection", (socket) => {
     };
   });
 
+  socket.on("requestPrice", (data) => {
+    const { assetName } = data;
+    const tradingPair = coinLabelMap[assetName].toLowerCase();
+    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@ticker`;
+    binanceClient = new WebSocket(url);
+
+    binanceClient.onerror = (error) => {
+      console.log(error);
+    };
+    binanceClient.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      const price = parseFloat(data.c);
+      console.log(price);
+      socket.emit("priceData", {
+        price,
+        /* mock data here, potentially based on coinPair */
+      });
+    };
+  });
+
   socket.on("disconnect", () => {
     binanceClient.close();
   });
