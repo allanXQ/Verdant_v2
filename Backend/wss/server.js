@@ -4,6 +4,7 @@ const WebSocket = require("ws");
 const { Server } = require("socket.io");
 const DBconn = require("../config/dbConn");
 const { coinLabelMap } = require("../controllers/app/Assetinfo/config");
+const { logger } = require("../utils/logger");
 
 const port = process.env.WSPORT || 2000;
 
@@ -44,6 +45,7 @@ wss.on("connection", (socket) => {
 
     binanceClient.onerror = (error) => {
       console.error("WebSocket error:", error);
+      logger.error(error);
 
       if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
         setTimeout(
