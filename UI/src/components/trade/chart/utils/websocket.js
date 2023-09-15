@@ -2,18 +2,15 @@
 
 import { io } from "socket.io-client";
 
-const createWebSocket = (
-  url,
-  options,
-  maxRetries = 3,
-  retryInterval = 2000
-) => {
+const createWebSocket = (maxRetries = 3, retryInterval = 2000) => {
   let socket;
   let retries = 0;
   let shouldRetry = true;
 
   const connect = () => {
-    socket = io(url, options);
+    socket = io("http://localhost:2000", {
+      withCredentials: true,
+    });
     socket.on("connect_error", (error) => {
       if (error.message === "server error") {
         socket.close();

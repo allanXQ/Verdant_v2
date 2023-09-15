@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Card,
@@ -35,7 +35,27 @@ const textFieldStyle = {
   },
 };
 
-const Child = () => {
+const Child = ({ state }) => {
+  const [price, setPrice] = React.useState("");
+  const assetName = "verdant";
+  useEffect(() => {
+    if (!state) return;
+    const socket = createWebSocket();
+    socket.connect();
+    socket.on("connect", () => {
+      console.log("connected");
+      socket.emit("requestPrice", { assetName });
+    });
+    socket.on("priceData", (data) => {
+      console.log("price data");
+      setPrice(data.price);
+    });
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -46,7 +66,12 @@ const Child = () => {
         gap: "0.5rem",
       }}
     >
-      <TextField label="Price" autoComplete="off" sx={textFieldStyle} />
+      <TextField
+        label="Price"
+        autoComplete="off"
+        sx={textFieldStyle}
+        value={price}
+      />
       <TextField label="Total" autoComplete="off" sx={textFieldStyle} />
     </Box>
   );
@@ -73,7 +98,7 @@ const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
           >
             <Typography variant="h5">{title}</Typography>
             <FormComponent>
-              <Child />
+              <Child state={state} />
             </FormComponent>
           </CardContent>
         </Card>
