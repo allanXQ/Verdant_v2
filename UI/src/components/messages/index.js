@@ -1,9 +1,12 @@
-const { Modal, Box, Typography } = require("@mui/material");
-const { useSelector } = require("react-redux");
-const {
-  selectMessageModal,
-  updateMessageModal,
-} = require("redux/features/app/configSlice");
+import { useEffect, useState } from "react";
+import { clearError, selectError } from "redux/features/app/error";
+
+const { Modal, Box, Typography, Snackbar, Alert } = require("@mui/material");
+const { useSelector, useDispatch } = require("react-redux");
+// const {
+//   selectMessageModal,
+//   updateMessageModal,
+// } = require("redux/features/app/configSlice");
 
 const style = {
   position: "absolute",
@@ -12,35 +15,43 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 450,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-const messageModal = ({ type, message }) => {
-  const messageModalState = useSelector(selectMessageModal);
+const MessageModal = ({ type, message }) => {
+  //   const messageModalState = useSelector(selectMessageModal);
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (error?.message) {
+      console.log(error.type);
+      setIsOpen(true);
+    }
+  }, [error]);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setIsOpen(false);
+    setTimeout(() => {
+      dispatch(clearError());
+    }, 1000);
+  };
   return (
-    messageModalState?.isOpen && (
-      <Modal
-        open={messageModalState.isOpen}
-        onClose={() => {
-          dispatch(
-            updateMessageModal({ isOpen: false, type: "", message: "" })
-          );
-        }}
+    <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+      <Alert
+        onClose={handleClose}
+        severity={error?.type}
+        sx={{ width: "100%" }}
       >
-        <Box sx={style}>
-          <Typography variant="h6" component="h2">
-            {type}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {message}
-          </Typography>
-        </Box>
-      </Modal>
-    )
+        {error?.message}
+      </Alert>
+    </Snackbar>
   );
 };
 
-export default messageModal;
+export default MessageModal;

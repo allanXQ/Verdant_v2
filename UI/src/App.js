@@ -13,35 +13,39 @@ import Withdrawal from "pages/Transact/withdraw";
 import WithdrawalHistory from "pages/TransactionHistory/WithdrawalHistory";
 import PeerTrading from "pages/Trade/peer";
 import Swap from "pages/Trade/swap";
+import MessageModal from "components/messages";
 
 function App() {
   return (
-    <Routes>
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route path="forgot-password" element={<ForgotPassword />} />
+    <>
+      <MessageModal />
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
 
-      <Route path="logout" element={<Logout />} />
-      <Route path="google-callback" element={<GoogleCallback />} />
+        <Route path="logout" element={<Logout />} />
+        <Route path="google-callback" element={<GoogleCallback />} />
 
-      <Route element={<RootLayout />}>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="history">
-          <Route path="deposits" element={<DepositHistory />} />
-          <Route path="withdrawals" element={<WithdrawalHistory />} />
+        <Route element={<RootLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="history">
+            <Route path="deposits" element={<DepositHistory />} />
+            <Route path="withdrawals" element={<WithdrawalHistory />} />
+          </Route>
+          <Route path="transact">
+            <Route path="deposit" element={<Deposit />} />
+            <Route path="withdraw" element={<Withdrawal />} />
+          </Route>
+          <Route path="trade">
+            <Route path="spot" element={<Trade />} />
+            <Route path="p2p" element={<PeerTrading />} />
+            <Route path="swap" element={<Swap />} />
+          </Route>
         </Route>
-        <Route path="transact">
-          <Route path="deposit" element={<Deposit />} />
-          <Route path="withdraw" element={<Withdrawal />} />
-        </Route>
-        <Route path="trade">
-          <Route path="spot" element={<Trade />} />
-          <Route path="p2p" element={<PeerTrading />} />
-          <Route path="swap" element={<Swap />} />
-        </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
