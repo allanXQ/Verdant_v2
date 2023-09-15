@@ -1,6 +1,5 @@
 const express = require("express");
 const http = require("http");
-const cors = require("cors");
 const WebSocket = require("ws");
 const { Server } = require("socket.io");
 const DBconn = require("../config/dbConn");
