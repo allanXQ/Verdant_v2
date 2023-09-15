@@ -49,6 +49,12 @@ const Child = ({ state }) => {
       console.log("price data");
       setPrice(data.price);
     });
+    socket.on("connect_error", (error) => {
+      dispatch(reportError({ message: error.message, type: "error" }));
+      if (error.message === "server error") {
+        socket.close();
+      }
+    });
 
     return () => {
       socket.close();
