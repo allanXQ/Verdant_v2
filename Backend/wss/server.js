@@ -2,12 +2,9 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const WebSocket = require("ws");
-
 const { Server } = require("socket.io");
-
 const DBconn = require("../config/dbConn");
 const { coinLabelMap } = require("../controllers/app/Assetinfo/config");
-// const binanceClient = require("./utils/binanceClient");
 
 const port = process.env.WSPORT || 2000;
 
@@ -16,30 +13,50 @@ const server = http.createServer(app);
 
 const wss = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // replace with your client origin
+    origin: "http://localhost:3000",
     credentials: true,
   },
 });
 
-let binanceClient;
+const binanceClients = {};
 
 wss.on("connection", (socket) => {
-  // Extract the coin pair from the namespace.
-  let a = "p";
-  a.toLowerCase;
-  socket.on("requestKlines", (data) => {
-    console.log(data.assetName, data.klineInterval);
-    const { assetName, klineInterval } = data;
-    const tradingPair = coinLabelMap[assetName].toLowerCase();
-    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@kline_${klineInterval}`;
-    binanceClient = new WebSocket(url);
+  console.log(`Socket connected: ${socket.id}`);
 
-    // You can handle the data fetching for the coin pair here
-    binanceClient.onerror = (error) => {
-      console.log(error);
-    };
+  function createBinanceClient(endpoint, callback) {
+    if (binanceClients[socket.id]) {
+      binanceClients[socket.id].close();
+    }
+
+    const binanceClient = new WebSocket(endpoint);
+    binanceClients[socket.id] = binanceClient;
+
     binanceClient.onmessage = (message) => {
-      const data = JSON.parse(message.data);
+      try {
+        const data = JSON.parse(message.data);
+        callback(data);
+      } catch (error) {
+        console.error("JSON parse error:", error);
+      }
+    };
+
+    binanceClient.onerror = (error) => {
+      console.error("WebSocket error:", error);
+      socket.emit("error", { message: "WebSocket error" });
+    };
+  }
+
+  socket.on("requestKlines", (data) => {
+    const { assetName, klineInterval } = data;
+    const tradingPair = coinLabelMap[assetName]?.toLowerCase();
+
+    if (!tradingPair) {
+      return socket.emit("error", { message: "Invalid asset name" });
+    }
+
+    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@kline_${klineInterval}`;
+
+    createBinanceClient(url, (data) => {
       const candlestick = {
         time: data.k.t,
         open: parseFloat(data.k.o),
@@ -47,36 +64,32 @@ wss.on("connection", (socket) => {
         low: parseFloat(data.k.l),
         close: parseFloat(data.k.c),
       };
-      console.log(candlestick);
-      socket.emit("klineData", {
-        candlestick,
-        /* mock data here, potentially based on coinPair */
-      });
-    };
+      socket.emit("klineData", { candlestick });
+    });
   });
 
   socket.on("requestPrice", (data) => {
     const { assetName } = data;
-    const tradingPair = coinLabelMap[assetName].toLowerCase();
-    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@ticker`;
-    binanceClient = new WebSocket(url);
+    const tradingPair = coinLabelMap[assetName]?.toLowerCase();
 
-    binanceClient.onerror = (error) => {
-      console.log(error);
-    };
-    binanceClient.onmessage = (message) => {
-      const data = JSON.parse(message.data);
+    if (!tradingPair) {
+      return socket.emit("error", { message: "Invalid asset name" });
+    }
+
+    const url = `wss://stream.binance.com:9443/ws/${tradingPair}@ticker`;
+
+    createBinanceClient(url, (data) => {
       const price = parseFloat(data.c);
-      console.log(price);
-      socket.emit("priceData", {
-        price,
-        /* mock data here, potentially based on coinPair */
-      });
-    };
+      socket.emit("priceData", { price });
+    });
   });
 
   socket.on("disconnect", () => {
-    binanceClient.close();
+    if (binanceClients[socket.id]) {
+      binanceClients[socket.id].close();
+      delete binanceClients[socket.id];
+    }
+    console.log(`Socket disconnected: ${socket.id}`);
   });
 });
 
