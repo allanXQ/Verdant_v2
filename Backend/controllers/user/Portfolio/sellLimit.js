@@ -25,7 +25,7 @@ const sellLimit = async (req, res) => {
     session.startTransaction();
 
     //check order existence
-    const Order = await BuyOrders.findOne({ orderId });
+    const Order = await BuyOrders.findOne({ orderId, prrice });
     if (!Order) {
       return res.status(400).json({ message: Messages.invalidRequest });
     }
