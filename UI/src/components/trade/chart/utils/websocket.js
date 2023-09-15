@@ -12,7 +12,6 @@ const createWebSocket = (maxRetries = 3, retryInterval = 2000) => {
       withCredentials: true,
     });
     socket.on("connect_error", (error) => {
-      dispatch(reportError({ message: error.message, type: "error" }));
       if (error.message === "server error") {
         socket.close();
       }

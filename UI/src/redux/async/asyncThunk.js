@@ -14,7 +14,7 @@ export const apiCall = createAsyncThunk(
       });
       if (response.status >= 400) {
         const errorMsg = response.data.message;
-        thunkAPI.dispatch(reportError({ message: errorMsg, type: "info" }));
+        thunkAPI.dispatch(reportError({ message: errorMsg, type: "error" }));
         return thunkAPI.rejectWithValue({
           error: errorMsg,
           status: response?.status,
@@ -24,7 +24,7 @@ export const apiCall = createAsyncThunk(
       return { data: response.data.payload, slice };
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.message;
-      thunkAPI.dispatch(reportError({ message: errorMsg, type: "info" }));
+      thunkAPI.dispatch(reportError({ message: errorMsg, type: "error" }));
       return thunkAPI.rejectWithValue({
         error: errorMsg,
         slice,

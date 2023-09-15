@@ -4,6 +4,7 @@ import axiosInstance from "utils/axiosInstance";
 
 const useHistoricalKlines = async (assetName, klineInterval) => {
   let historicalData;
+  const dispatch = useDispatch();
   try {
     const response = await axiosInstance({
       method: "POST",
@@ -17,7 +18,7 @@ const useHistoricalKlines = async (assetName, klineInterval) => {
     historicalData = response.data.payload;
     return historicalData;
   } catch (error) {
-    useDispatch(reportError({ message: error.message, type: "error" }));
+    dispatch(reportError({ message: error.message, type: "error" }));
     return [];
   }
 };

@@ -10,6 +10,7 @@ import {
 import BuyForm from "components/forms/models/spot/buy";
 import SellForm from "components/forms/models/spot/sell";
 import createWebSocket from "../utils/websocket";
+import { useDispatch } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -36,6 +37,7 @@ const textFieldStyle = {
 };
 
 const Child = ({ state }) => {
+  const dispatch = useDispatch();
   const [price, setPrice] = React.useState("");
   const assetName = "verdant";
   useEffect(() => {
