@@ -6,16 +6,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
 import createWebSocket from "./utils/websocket";
 import { reportError } from "redux/features/app/error";
-import useHistoricalKlines from "Hooks/useHistoricalKlines";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
   const resizeObserver = useRef(null);
   const dispatch = useDispatch();
-  const historicalData = useHistoricalKlines(assetName, klineInterval);
 
   const [chart, setChart] = useState(null);
   const topBarHeight = useSelector(selectTopBarHeight);
+
+  const fetchHistoricalData = async (candlestickSeries) => {
+    let historicalData;
+    try {
+      const response = await axiosInstance({
+        method: "POST",
+        url: "http://localhost:5000/api/v1/app/historical-klines",
+        data: {
+          assetName,
+          klineInterval,
+        },
+        withCredentials: true,
+      });
+      historicalData = response.data.payload;
+      candlestickSeries.setData(historicalData);
+    } catch (error) {
+      dispatch(reportError({ message: error.message, type: "error" }));
+      return [];
+    }
+  };
 
   useEffect(() => {
     const currentChartContainer = chartContainerRef.current;
@@ -67,7 +85,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
         wickUpColor: "#838ca1",
       });
 
-      candlestickSeries.setData(historicalData);
+      fetchHistoricalData(candlestickSeries);
 
       const socket = createWebSocket();
       socket.connect();
