@@ -1,19 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CrosshairMode, createChart } from "lightweight-charts";
-import axios from "axios";
 import { Box } from "@mui/material";
 import axiosInstance from "utils/axiosInstance";
 import { useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
-import { io } from "socket.io-client";
 import createWebSocket from "./utils/websocket";
+import { reportError } from "redux/features/app/error";
 
 const CandleStickChart = ({ assetName, klineInterval }) => {
   const chartContainerRef = useRef(null);
   const resizeObserver = useRef(null);
+  const dispatch = useDispatch();
 
   const [chart, setChart] = useState(null);
-  const [ws, setWs] = useState(null);
   const topBarHeight = useSelector(selectTopBarHeight);
 
   const fetchHistoricalData = async (candlestickSeries) => {
@@ -31,7 +30,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       historicalData = response.data.payload;
       candlestickSeries.setData(historicalData);
     } catch (error) {
-      console.log(error);
+      dispatch(reportError({ message: error.message, type: "error" }));
       return [];
     }
   };
@@ -92,7 +91,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       socket.connect();
 
       socket.on("connect_error", (error) => {
-        console.error("Connection Error: ", error.message);
+        dispatch(reportError({ message: error.message, type: "error" }));
         if (error.message === "server error") {
           socket.close();
         }
