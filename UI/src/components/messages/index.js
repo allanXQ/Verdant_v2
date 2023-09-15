@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { clearError, selectError } from "redux/features/app/error";
 
-const { Modal, Box, Typography, Snackbar, Alert } = require("@mui/material");
+const { Snackbar, Alert } = require("@mui/material");
 const { useSelector, useDispatch } = require("react-redux");
 // const {
 //   selectMessageModal,
@@ -20,14 +21,16 @@ const style = {
 };
 
 const MessageModal = ({ type, message }) => {
-  //   const messageModalState = useSelector(selectMessageModal);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const errorParam = queryParams.get("error");
+
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (error?.message) {
-      console.log(error.type);
+    if (error?.message || errorParam) {
       setIsOpen(true);
     }
   }, [error]);
@@ -38,6 +41,7 @@ const MessageModal = ({ type, message }) => {
     }
     setIsOpen(false);
     setTimeout(() => {
+      errorParam && queryParams.delete("error");
       dispatch(clearError());
     }, 1000);
   };
@@ -45,10 +49,10 @@ const MessageModal = ({ type, message }) => {
     <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
       <Alert
         onClose={handleClose}
-        severity={error?.type}
+        severity={error?.type || "error"}
         sx={{ width: "100%" }}
       >
-        {error?.message}
+        {error?.message || errorParam}
       </Alert>
     </Snackbar>
   );
