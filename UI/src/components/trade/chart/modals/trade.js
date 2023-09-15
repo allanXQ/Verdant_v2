@@ -43,7 +43,6 @@ const Child = ({ state }) => {
     const socket = createWebSocket();
     socket.connect();
     socket.on("connect", () => {
-      console.log("connected");
       socket.emit("requestPrice", { assetName });
     });
     socket.on("priceData", (data) => {

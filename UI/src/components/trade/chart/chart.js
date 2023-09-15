@@ -99,8 +99,6 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
       });
 
       socket.on("connect", () => {
-        console.log(`Connected to /ws/${assetName}/${klineInterval}`);
-
         socket.emit("requestKlines", {
           assetName,
           klineInterval,
@@ -108,7 +106,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
         socket.on("klineData", (data) => {
           candlestickSeries.update(data.candlestick);
-          console.log(data);
+          console.log("kline data");
         });
       });
       return () => {
