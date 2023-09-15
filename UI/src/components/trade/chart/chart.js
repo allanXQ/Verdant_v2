@@ -92,7 +92,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
       socket.on("connect_error", (error) => {
         dispatch(reportError({ message: error.message, type: "error" }));
-        if (error.message === "server error") {
+        if (error.message === "xhr poll error") {
           socket.close();
         }
       });

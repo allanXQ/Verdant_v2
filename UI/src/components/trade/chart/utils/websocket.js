@@ -12,7 +12,7 @@ const createWebSocket = (maxRetries = 3, retryInterval = 2000) => {
       withCredentials: true,
     });
     socket.on("connect_error", (error) => {
-      if (error.message === "server error") {
+      if (error.message === "xhr poll error") {
         socket.close();
       }
       if (retries < maxRetries) {
