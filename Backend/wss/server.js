@@ -19,6 +19,9 @@ const wss = new Server(server, {
 });
 
 const binanceClients = {};
+const MAX_RECONNECT_ATTEMPTS = 5;
+const RECONNECT_INTERVAL = 1000;
+let reconnectAttempts = 0;
 
 wss.on("connection", (socket) => {
   console.log(`Socket connected: ${socket.id}`);
@@ -42,7 +45,16 @@ wss.on("connection", (socket) => {
 
     binanceClient.onerror = (error) => {
       console.error("WebSocket error:", error);
-      socket.emit("error", { message: "WebSocket error" });
+
+      if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+        setTimeout(
+          () => createBinanceClient(endpoint, callback),
+          RECONNECT_INTERVAL
+        );
+        reconnectAttempts += 1;
+      } else {
+        socket.emit("error", { message: "WebSocket error" });
+      }
     };
   }
 
