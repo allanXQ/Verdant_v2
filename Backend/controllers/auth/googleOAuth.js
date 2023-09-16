@@ -18,9 +18,7 @@ const UserSuccess = async (res, findUser, email) => {
     return res.status(400).json({ message: Messages.loginFailed });
   }
   setCookies(res, tokens);
-  const payloadString = Buffer.from(JSON.stringify(findUser.userId)).toString(
-    "base64"
-  );
+  const payloadString = findUser.userId;
 
   return res.redirect(
     301,

@@ -43,11 +43,12 @@ const GoogleCallback = () => {
     if (userStatus === "succeeded" && userData.userId) {
       dispatch(loginSuccess({ user: userData }));
       navigate("/dashboard");
-    } else if (userStatus === "failed") {
+    } else if (userStatus === "failed" && userError) {
       dispatch(loginFailed({ error: userError }));
       navigate(`/login?error=${encodeURIComponent(userError)}`);
     }
-  }, [userStatus, userError, navigate, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userStatus, userError, navigate]);
 
   return <div>Processing...</div>; // You can show a loader here
 };
