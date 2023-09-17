@@ -58,19 +58,7 @@ const Overview = ({ userData }) => {
 };
 
 const DepositHistory = () => {
-  const dispatch = useDispatch();
   const userData = useUserData();
-
-  useEffect(() => {
-    dispatch(
-      apiCall({
-        endpoint: "user/user-info",
-        method: "post",
-        data: { userId: userData.userId },
-        slice: "userData",
-      })
-    );
-  }, [dispatch, userData.userId]);
 
   const rows =
     Array.isArray(userData?.deposits) &&

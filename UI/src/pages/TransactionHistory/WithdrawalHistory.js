@@ -61,17 +61,6 @@ const WithdrawalHistory = () => {
   const dispatch = useDispatch();
   const userData = useUserData();
 
-  useEffect(() => {
-    dispatch(
-      apiCall({
-        endpoint: "user/user-info",
-        method: "post",
-        data: { userId: userData.userId },
-        slice: "userData",
-      })
-    );
-  }, [dispatch, userData.userId]);
-
   const rows =
     Array.isArray(userData?.withdrawals) &&
     userData.withdrawals.map((withdrawal) => {

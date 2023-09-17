@@ -21,32 +21,24 @@ const RootLayout = () => {
   let drawerWidth = useSelector(selectDrawerWidth);
   const topBarHeight = useSelector(selectTopBarHeight);
   const dispatch = useDispatch();
-  const userStatus = useSelector(selectUserStatus);
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
-  //check if path contains trade/spot using useLocation hook
   const location = useLocation();
   const path = location.pathname;
   const isTrade = path.includes("trade/spot");
   isTrade ? (drawerWidth = "0px") : (drawerWidth = drawerWidth);
 
   useEffect(() => {
-    if (userStatus === "idle") {
-      dispatch(
-        apiCall({
-          endpoint: "user/user-info",
-          method: "post",
-          data: {
-            userId: user.userId,
-          },
-          slice: "userData",
-        })
-      );
-    }
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, [isLoggedIn, navigate, userStatus, dispatch]);
+    dispatch(
+      apiCall({
+        endpoint: "user/user-info",
+        method: "post",
+        data: {
+          userId: user.userId,
+        },
+        slice: "userData",
+      })
+    );
+  }, []);
   const [open, setOpen] = useState(false);
 
   return (

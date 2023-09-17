@@ -29,6 +29,8 @@ const userInfo = async (req, res) => {
     {
       $project: {
         password: 0,
+        refreshToken: 0,
+        passwordResetToken: 0,
         // any other fields you want to exclude...
       },
     },
