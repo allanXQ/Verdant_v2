@@ -20,6 +20,7 @@ import {
   CardActionArea,
   CardContent,
   Grid,
+  TextField,
   Typography,
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
@@ -97,7 +98,7 @@ const columns = [
     field: "action",
     headerName: "Action",
     smallScreenScreen: false,
-    width: 200,
+    width: 100,
     renderCell: (params) => {
       return <ActionButton asset={params.row.Asset} />;
     },
@@ -189,6 +190,14 @@ const Assets = [
 const overviewWidth = `calc(100vw - 200px)`;
 
 const Dashboard = React.memo(() => {
+  const cardStyle = {
+    display: "flex",
+    flexDirection: "column",
+    width: { sm: "100vw", lg: `calc(${overviewWidth} - 2rem)` },
+    backgroundColor: "blue.secondary",
+    border: "none",
+    boxShadow: "none",
+  };
   return (
     <Grid
       container
@@ -197,24 +206,18 @@ const Dashboard = React.memo(() => {
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
         width: overviewWidth,
+        height: "100vh",
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
         flexWrap: "wrap",
         justifyContent: "center",
+        alignItems: "center",
+        pt: "50px",
       }}
     >
       <Grid item>
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: { sm: "100vw", lg: `calc(${overviewWidth} - 2rem)` },
-            backgroundColor: "blue.secondary",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
+        <Card sx={cardStyle}>
           <CardContent
             sx={{
               display: "flex",
@@ -222,9 +225,12 @@ const Dashboard = React.memo(() => {
               flexGrow: 1,
               justifyContent: "space-between",
               gap: 1,
+              maxHeight: "60px",
             }}
           >
-            <Typography variant="h5">Account Overview</Typography>
+            <Typography variant="h5" color="white.primary">
+              Account Overview
+            </Typography>
             <CardActionArea
               sx={{
                 display: "flex",
@@ -251,6 +257,7 @@ const Dashboard = React.memo(() => {
               flexWrap: "wrap",
               flexGrow: 1,
               flexFlow: "row wrap",
+              // maxHeight: "70px",
             }}
           >
             {stats.map((stat, index) => (
@@ -262,12 +269,19 @@ const Dashboard = React.memo(() => {
                     width: "150px",
                   }}
                 >
-                  <Typography variant="body2">{stat.name}</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "white.primary",
+                    }}
+                  >
+                    {stat.name}
+                  </Typography>
                   <Box>
                     {stat.percentageChange > 0 ? (
                       <Typography
                         variant="caption"
-                        color="green"
+                        color="green.primary"
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -284,7 +298,7 @@ const Dashboard = React.memo(() => {
                     ) : (
                       <Typography
                         variant="caption"
-                        color="red"
+                        color="red.primary"
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -301,41 +315,46 @@ const Dashboard = React.memo(() => {
                     )}
                   </Box>
                 </Box>
-                <Typography variant="h6" fontWeight="bold">
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  color="white.primary"
+                >
                   KSH {stat.value}
                 </Typography>
               </Box>
             ))}
           </CardContent>
-
-          <CardContent
-            sx={{
-              maxHeight: "400px",
-            }}
-          >
+        </Card>
+      </Grid>
+      <Grid item>
+        <Card sx={cardStyle}>
+          <CardContent>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                maxHeight: "20px",
               }}
             >
-              <Typography>Assets</Typography>
-              <Button variant="contained" color="primary">
+              <Typography color="white.primary">Assets</Typography>
+              <Button
+                variant="text"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                }}
+              >
                 See All
               </Button>
             </Box>
-            <Box
-              sx={{
-                maxWidth: "90vw",
-              }}
-            >
-              <MUIDataGrid
-                columns={columns}
-                rows={Assets.slice(0, 5)}
-                pagination={false}
-              />
-            </Box>
+            <MUIDataGrid
+              columns={columns}
+              rows={Assets.slice(0, 6)}
+              pagination={false}
+              height={450}
+            />
           </CardContent>
         </Card>
       </Grid>

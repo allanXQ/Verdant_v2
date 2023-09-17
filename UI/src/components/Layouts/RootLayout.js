@@ -66,19 +66,12 @@ const RootLayout = () => {
             />
           </Grid>
           <Grid container>
-            <Grid item>
-              <Topbar
-                topBarHeight={topBarHeight}
-                drawerWidth={drawerWidth}
-                isOpen={open}
-                setOpen={setOpen}
-              />
-            </Grid>
             <Grid
               item
               sx={{
-                mt: isTrade ? topBarHeight : `calc(${topBarHeight} + 1rem)`,
+                // mt: isTrade ? topBarHeight : `calc(${topBarHeight} + 1rem)`,
                 width: { md: `calc(100vw - ${drawerWidth})` },
+                height: "100vh",
               }}
             >
               <Outlet />

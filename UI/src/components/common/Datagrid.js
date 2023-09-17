@@ -25,14 +25,14 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   },
 }));
 
-const MUIDataGrid = ({ title, rows, columns }) => {
+const MUIDataGrid = ({ title, rows, columns, height }) => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
     <Box>
       <Typography variant="h6">{title}</Typography>
       <Box
         sx={{
-          height: 390,
+          height: height || 390,
         }}
       >
         <StyledDataGrid

@@ -244,10 +244,14 @@ export const Topbar = ({ drawerWidth, topBarHeight, isOpen, setOpen }) => {
       sx={{
         width: { md: `calc(100% - ${drawerWidth})` },
         ml: { md: `${drawerWidth}` },
-        height: topBarHeight,
+        maxHeight: topBarHeight,
       }}
     >
-      <Toolbar>
+      <Toolbar
+        sx={{
+          maxHeight: topBarHeight,
+        }}
+      >
         <IconButton
           size="large"
           edge="start"
