@@ -156,10 +156,12 @@ export const Sidenav = ({
         toggled={theme.breakpoints.down("md") ? isOpen : true}
         width={drawerWidth}
         breakPoint="900px"
-        backgroundColor="#16142a"
+        backgroundColor={theme.palette.blue.primary}
         style={{
           display: "flex",
           height: drawerHeight,
+          padding: "0",
+          margin: "0",
         }}
       >
         <Box

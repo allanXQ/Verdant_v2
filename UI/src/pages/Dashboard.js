@@ -377,7 +377,6 @@ const Dashboard = React.memo(() => {
           display: "flex",
           flexWrap: "wrap",
           gap: 1,
-          backgroundColor: "white",
           width: secondaryCardWidth,
         }}
       >
