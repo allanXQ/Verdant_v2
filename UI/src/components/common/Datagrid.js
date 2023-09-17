@@ -21,6 +21,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   "& .MuiDataGrid-cell": {
     color: theme.palette.white.secondary,
+    backgroundColor: theme.palette.blue.primary,
   },
 }));
 

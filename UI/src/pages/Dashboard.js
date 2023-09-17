@@ -186,40 +186,6 @@ const Assets = [
   },
 ];
 
-const Services = [
-  {
-    id: 1,
-    name: "P2P",
-    icon: <Groups2Outlined />,
-    Description: "Peer to Peer Trading",
-  },
-  {
-    id: 2,
-    name: "Referral",
-    icon: <Groups3Outlined />,
-    Description: "Refer and Earn",
-  },
-  {
-    id: 3,
-    name: "Transfer",
-    icon: <TransferWithinAStationOutlined />,
-    Description: "Transfer assets to other users",
-  },
-  {
-    id: 4,
-    name: "Loan",
-    icon: <CreditCardOutlined />,
-    Description: "Get a loan",
-  },
-  {
-    id: 5,
-    name: "Swap",
-    icon: <SwapHorizOutlined />,
-    Description: "Swap your assets",
-  },
-];
-
-const secondaryCardWidth = "0px";
 const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth})`;
 
 const Dashboard = React.memo(() => {
@@ -230,11 +196,12 @@ const Dashboard = React.memo(() => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        width: "fit-content",
+        width: overviewWidth,
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
         flexWrap: "wrap",
+        justifyContent: "center",
       }}
     >
       <Grid item>
@@ -242,7 +209,7 @@ const Dashboard = React.memo(() => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            width: { sm: "100vw", lg: overviewWidth },
+            width: { sm: "100vw", lg: `calc(${overviewWidth} - 2rem)` },
             backgroundColor: "blue.secondary",
             border: "none",
             boxShadow: "none",
@@ -372,52 +339,6 @@ const Dashboard = React.memo(() => {
           </CardContent>
         </Card>
       </Grid>
-      {/* <Grid
-        item
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 1,
-          width: secondaryCardWidth,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography variant="h5" sx={{}}>
-            More Services
-          </Typography>
-        </Box>
-
-        {Services.map((service, index) => (
-          <Card
-            key={index}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-              height: "80px",
-              minWidth: secondaryCardWidth,
-              border: "1px solid rgba(0,0,0,0.1)",
-              backgroundColor: "transparent",
-              boxShadow: "none",
-            }}
-          >
-            <CardContent sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              {service.icon}
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography variant="h6">{service.name}</Typography>
-                <Typography variant="body2">{service.Description}</Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        ))}
-      </Grid> */}
     </Grid>
   );
 });
