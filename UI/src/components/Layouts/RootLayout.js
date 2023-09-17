@@ -2,19 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Sidenav, Topbar } from "../Navigation/Navbar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "redux/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectIsLoggedIn,
+  selectUser,
+  selectUserStatus,
+} from "redux/features/user/userSlice";
 import {
   selectDrawerHeight,
   selectDrawerWidth,
   selectTopBarHeight,
 } from "redux/features/app/configSlice";
+import { apiCall } from "redux/async/asyncThunk";
 
 const RootLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const drawerHeight = useSelector(selectDrawerHeight);
   let drawerWidth = useSelector(selectDrawerWidth);
   const topBarHeight = useSelector(selectTopBarHeight);
+  const dispatch = useDispatch();
+  const userStatus = useSelector(selectUserStatus);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
   //check if path contains trade/spot using useLocation hook
   const location = useLocation();
@@ -23,10 +31,22 @@ const RootLayout = () => {
   isTrade ? (drawerWidth = "0px") : (drawerWidth = drawerWidth);
 
   useEffect(() => {
+    if (userStatus === "idle") {
+      dispatch(
+        apiCall({
+          endpoint: "user/user-info",
+          method: "post",
+          data: {
+            userId: user.userId,
+          },
+          slice: "userData",
+        })
+      );
+    }
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, userStatus, dispatch]);
   const [open, setOpen] = useState(false);
 
   return (
