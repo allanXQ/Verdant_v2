@@ -213,7 +213,6 @@ const Dashboard = React.memo(() => {
         flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
-        pt: "50px",
       }}
     >
       <Grid item>

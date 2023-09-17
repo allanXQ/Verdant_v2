@@ -240,16 +240,20 @@ export const Sidenav = ({
 export const Topbar = ({ drawerWidth, topBarHeight, isOpen, setOpen }) => {
   return (
     <AppBar
-      // position="relative"
+      position="relative"
       sx={{
         width: { md: `calc(100% - ${drawerWidth})` },
         ml: { md: `${drawerWidth}` },
-        maxHeight: topBarHeight,
+        height: topBarHeight,
+        backgroundColor: "transparent",
+        boxShadow: "none",
       }}
     >
       <Toolbar
         sx={{
-          maxHeight: topBarHeight,
+          // position
+          height: topBarHeight,
+          backgroundColor: "transparent",
         }}
       >
         <IconButton

@@ -66,6 +66,14 @@ const RootLayout = () => {
             />
           </Grid>
           <Grid container>
+            <Grid item>
+              <Topbar
+                topBarHeight={topBarHeight}
+                drawerWidth={drawerWidth}
+                isOpen={open}
+                setOpen={setOpen}
+              />
+            </Grid>
             <Grid
               item
               sx={{
