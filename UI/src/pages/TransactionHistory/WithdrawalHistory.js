@@ -1,10 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { apiCall } from "redux/async/asyncThunk";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
@@ -58,7 +55,6 @@ const Overview = ({ userData }) => {
 };
 
 const WithdrawalHistory = () => {
-  const dispatch = useDispatch();
   const userData = useUserData();
 
   const rows =
