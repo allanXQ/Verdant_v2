@@ -193,18 +193,15 @@ const Dashboard = React.memo(() => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        width: overviewWidth,
-        height: "100vh",
+        width: { lg: overviewWidth },
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
         flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <Grid item>
-        <Card sx={cardStyle}>
+        <Card sx={{ ...cardStyle, gap: { sm: 2 } }}>
           <CardContent
             sx={{
               display: "flex",
@@ -212,7 +209,7 @@ const Dashboard = React.memo(() => {
               flexGrow: 1,
               justifyContent: "space-between",
               gap: 1,
-              maxHeight: "60px",
+              maxHeight: { lg: "60px" },
             }}
           >
             <Typography variant="h5" color="white.primary">
@@ -322,6 +319,7 @@ const Dashboard = React.memo(() => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 maxHeight: "20px",
+                width: "100vw",
               }}
             >
               <Typography color="white.primary">Assets</Typography>
@@ -339,7 +337,7 @@ const Dashboard = React.memo(() => {
               columns={columns}
               rows={Assets.slice(0, 6)}
               pagination={false}
-              height={450}
+              height={370}
             />
           </CardContent>
         </Card>

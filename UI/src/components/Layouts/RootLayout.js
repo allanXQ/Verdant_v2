@@ -74,7 +74,7 @@ const RootLayout = () => {
               item
               sx={{
                 width: { md: `calc(100vw - ${drawerWidth})` },
-                height: "100vh",
+                // height: "100vh",
               }}
             >
               <Outlet />

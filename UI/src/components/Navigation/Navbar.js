@@ -266,7 +266,7 @@ export const Topbar = ({ drawerWidth, topBarHeight, isOpen, setOpen }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {/* {props.title} */}
+          Dashboard
         </Typography>
       </Toolbar>
     </AppBar>
