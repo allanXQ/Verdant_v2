@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Sidenav, Topbar } from "../Navigation/Navbar";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsLoggedIn,
-  selectUser,
-  selectUserStatus,
-} from "redux/features/user/userSlice";
+import { selectIsLoggedIn, selectUser } from "redux/features/user/userSlice";
 import {
   selectDrawerHeight,
   selectDrawerWidth,
@@ -77,7 +73,6 @@ const RootLayout = () => {
             <Grid
               item
               sx={{
-                // mt: isTrade ? topBarHeight : `calc(${topBarHeight} + 1rem)`,
                 width: { md: `calc(100vw - ${drawerWidth})` },
                 height: "100vh",
               }}

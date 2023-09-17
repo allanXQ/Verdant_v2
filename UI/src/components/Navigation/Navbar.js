@@ -251,7 +251,6 @@ export const Topbar = ({ drawerWidth, topBarHeight, isOpen, setOpen }) => {
     >
       <Toolbar
         sx={{
-          // position
           height: topBarHeight,
           backgroundColor: "transparent",
         }}

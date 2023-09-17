@@ -48,7 +48,6 @@ const Child = ({ state }) => {
       socket.emit("requestPrice", { assetName });
     });
     socket.on("priceData", (data) => {
-      console.log("price data");
       setPrice(data.price);
     });
     socket.on("connect_error", (error) => {
@@ -115,8 +114,6 @@ const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
 };
 
 export const Buy = ({ state, dispatch }) => {
-  // Place any Buy-specific logic here if needed
-
   return (
     <ModalComponent
       state={state.buy}
@@ -128,8 +125,6 @@ export const Buy = ({ state, dispatch }) => {
 };
 
 export const Sell = ({ state, dispatch }) => {
-  // Place any Sell-specific logic here if needed
-
   return (
     <ModalComponent
       state={state.sell}

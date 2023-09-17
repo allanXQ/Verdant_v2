@@ -47,10 +47,9 @@ const GoogleCallback = () => {
       dispatch(loginFailed({ error: userError }));
       navigate(`/login?error=${encodeURIComponent(userError)}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userStatus, userError, navigate]);
 
-  return <div>Processing...</div>; // You can show a loader here
+  return <div>Processing...</div>;
 };
 
 export default GoogleCallback;

@@ -1,24 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { clearError, selectError } from "redux/features/app/error";
 
 const { Snackbar, Alert } = require("@mui/material");
 const { useSelector, useDispatch } = require("react-redux");
-// const {
-//   selectMessageModal,
-//   updateMessageModal,
-// } = require("redux/features/app/configSlice");
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 450,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
 
 const MessageModal = ({ type, message }) => {
   const location = useLocation();

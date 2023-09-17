@@ -15,7 +15,6 @@ const theme = createTheme({
   typography: {
     navlink: {
       fontSize: "1rem",
-      // fontWeight: 500,
       color: "#fffffb",
       textDecoration: "none",
     },
