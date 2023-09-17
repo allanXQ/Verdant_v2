@@ -77,8 +77,7 @@ const MpesaWithdraw = async (req, res) => {
       session.endSession();
     }
 
-    let errorMessage = error.message || "An unknown error occurred";
-    return res.status(400).json({ message: errorMessage });
+    return res.status(400).json({ message: Messages.serverError });
   }
 };
 
