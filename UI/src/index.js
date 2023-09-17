@@ -29,7 +29,7 @@ const theme = createTheme({
     },
     white: {
       primary: "#fffffb",
-      secondary: "#9596ab",
+      secondary: "#c0c0bd",
     },
     green: {
       primary: "#00b341",

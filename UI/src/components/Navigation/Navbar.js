@@ -143,6 +143,7 @@ export const Sidenav = ({
   const MenuItemStyle = {
     paddingLeft: "5px",
     margin: "0",
+    color: theme.palette.white.secondary,
   };
   return (
     <Box
@@ -162,6 +163,7 @@ export const Sidenav = ({
           height: drawerHeight,
           padding: "0",
           margin: "0",
+          border: "none",
         }}
       >
         <Box
