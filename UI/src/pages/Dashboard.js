@@ -73,7 +73,7 @@ const columns = [
   {
     field: "percentageChange",
     headerName: "24h Change",
-    smallScreenScreen: true,
+    smallScreenScreen: false,
     width: 200,
   },
   {

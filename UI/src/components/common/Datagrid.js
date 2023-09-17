@@ -37,16 +37,7 @@ const MUIDataGrid = ({ title, rows, columns, height }) => {
       >
         <StyledDataGrid
           rows={rows}
-          columns={
-            isSmallScreen
-              ? columns.filter((column) => {
-                  column.smallScreen === true
-                    ? (column.width = 120)
-                    : (column.width = 1000);
-                  return column.smallScreen === true;
-                })
-              : columns
-          }
+          columns={columns}
           pagination={false}
           disableSelectionOnClick
         />
