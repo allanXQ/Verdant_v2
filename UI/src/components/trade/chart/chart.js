@@ -105,7 +105,6 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
 
         socket.on("klineData", (data) => {
           candlestickSeries.update(data.candlestick);
-          console.log("kline data");
         });
       });
       return () => {
@@ -120,8 +119,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
     return () => {
       chart && chart.remove();
     };
-  }, [chart]); // Only chart and ws in the dependency array for cleanup
-
+  }, [chart]);
   return (
     <Box
       ref={chartContainerRef}

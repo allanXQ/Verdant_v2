@@ -22,7 +22,6 @@ const createWebSocket = (maxRetries = 3, retryInterval = 2000) => {
     });
 
     socket.on("connect", () => {
-      console.log("Connected!");
       retries = 0;
     });
 

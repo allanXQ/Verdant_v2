@@ -1,17 +1,6 @@
-//account balance
-//loans taken
-//loans given
-//credit score
-
-//active loan requests
 import {
-  CreditCardOutlined,
-  Groups2Outlined,
-  Groups3Outlined,
   KeyboardArrowDownOutlined,
   KeyboardArrowUpOutlined,
-  SwapHorizOutlined,
-  TransferWithinAStationOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -20,7 +9,6 @@ import {
   CardActionArea,
   CardContent,
   Grid,
-  TextField,
   Typography,
 } from "@mui/material";
 import MUIDataGrid from "components/common/Datagrid";
@@ -256,7 +244,6 @@ const Dashboard = React.memo(() => {
               flexWrap: "wrap",
               flexGrow: 1,
               flexFlow: "row wrap",
-              // maxHeight: "70px",
             }}
           >
             {stats.map((stat, index) => (

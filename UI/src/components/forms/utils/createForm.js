@@ -1,13 +1,10 @@
 import { Form, Formik } from "formik";
 
 import MUITextField from "../inputs/textField";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
 import { apiCall } from "redux/async/asyncThunk";
-
-//input types: text, checkbox, radio, select, textarea, date, email, password, number, file
 
 const getInitialValues = (fields) => {
   return fields.reduce((values, field) => {
@@ -16,12 +13,8 @@ const getInitialValues = (fields) => {
   }, {});
 };
 
-//add children
 const CreateForm = (formName, model, children) => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const path = location.pathname;
-
   const fields = model.fields;
   return (
     <Box
@@ -30,7 +23,6 @@ const CreateForm = (formName, model, children) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // gap: "1rem",
       }}
     >
       <Formik

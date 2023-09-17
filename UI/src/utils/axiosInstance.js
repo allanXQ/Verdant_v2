@@ -18,7 +18,7 @@ const processQueue = (error, token = null) => {
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/api/v1/`,
-  timeout: 10000, // Adjust based on your needs
+  timeout: 10000,
   withCredentials: true,
 });
 
@@ -30,7 +30,6 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       if (error.response.data.message === "Refresh Token Expired") {
-        // Your logic to redirect to the login page
         store.dispatch(logout());
         window.location.href = "/login";
 
