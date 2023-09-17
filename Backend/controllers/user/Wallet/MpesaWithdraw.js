@@ -7,6 +7,7 @@ const Withdraw = require("../../../models/withdrawals");
 //include withdrrawal fees
 const MpesaWithdraw = async (req, res) => {
   let session;
+  let isCommited = false;
   try {
     const { phone, amount } = req.body;
     const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
@@ -44,13 +45,15 @@ const MpesaWithdraw = async (req, res) => {
     }
 
     await Withdraw.create(
-      {
-        userId: updatedUser.userId,
-        username: updatedUser.username,
-        phone,
-        amount: intAmount,
-        mode: "mpesa",
-      },
+      [
+        {
+          userId: updatedUser.userId,
+          username: updatedUser.username,
+          phone,
+          amount: intAmount,
+          mode: "mpesa",
+        },
+      ],
       { session }
     );
 
@@ -59,9 +62,9 @@ const MpesaWithdraw = async (req, res) => {
     }).session(session);
 
     await session.commitTransaction();
-    session.endSession();
+    isCommited = true;
     const user = {
-      ...updatedUser,
+      ...updatedUser.toObject(),
       withdrawals,
     };
 
@@ -72,12 +75,13 @@ const MpesaWithdraw = async (req, res) => {
       },
     });
   } catch (error) {
-    if (session) {
+    if (session && !isCommited) {
       await session.abortTransaction();
-      session.endSession();
     }
 
     return res.status(400).json({ message: Messages.serverError });
+  } finally {
+    session.endSession();
   }
 };
 
