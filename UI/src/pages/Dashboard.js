@@ -186,7 +186,7 @@ const Assets = [
   },
 ];
 
-const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth})`;
+const overviewWidth = `calc(100vw - 200px)`;
 
 const Dashboard = React.memo(() => {
   return (
