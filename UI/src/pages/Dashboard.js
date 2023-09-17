@@ -219,8 +219,8 @@ const Services = [
   },
 ];
 
-const secondaryCardWidth = "350px";
-const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth} - 2rem)`;
+const secondaryCardWidth = "0px";
+const overviewWidth = `calc(100vw - 200px - ${secondaryCardWidth})`;
 
 const Dashboard = React.memo(() => {
   return (
@@ -243,7 +243,7 @@ const Dashboard = React.memo(() => {
             display: "flex",
             flexDirection: "column",
             width: { sm: "100vw", lg: overviewWidth },
-            backgroundColor: "transparent",
+            backgroundColor: "blue.secondary",
             border: "none",
             boxShadow: "none",
           }}
@@ -263,6 +263,7 @@ const Dashboard = React.memo(() => {
                 display: "flex",
                 justifyContent: "space-evenly",
                 maxWidth: { sm: "250px" },
+                pl: 2,
                 gap: 2,
                 flexGrow: 1,
               }}
@@ -371,7 +372,7 @@ const Dashboard = React.memo(() => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid
+      {/* <Grid
         item
         sx={{
           display: "flex",
@@ -416,7 +417,7 @@ const Dashboard = React.memo(() => {
             </CardContent>
           </Card>
         ))}
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 });
