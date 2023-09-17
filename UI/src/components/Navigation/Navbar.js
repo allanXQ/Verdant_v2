@@ -149,7 +149,6 @@ export const Sidenav = ({
       display="flex"
       flexDirection="column"
       alignItems="center"
-      backgroundColor="white"
       gap={2}
       width={{ md: drawerWidth }}
     >
@@ -157,7 +156,7 @@ export const Sidenav = ({
         toggled={theme.breakpoints.down("md") ? isOpen : true}
         width={drawerWidth}
         breakPoint="900px"
-        backgroundColor="white"
+        backgroundColor="#16142a"
         style={{
           display: "flex",
           height: drawerHeight,

@@ -12,6 +12,16 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .MuiDataGrid-footerContainer": {
     display: "none",
   },
+  "& .MuiSvgIcon-root": {
+    color: theme.palette.white.primary,
+  },
+  "& .MuiDataGrid-columnHeader": {
+    color: theme.palette.white.primary,
+    fontWeight: 600,
+  },
+  "& .MuiDataGrid-cell": {
+    color: theme.palette.white.secondary,
+  },
 }));
 
 const MUIDataGrid = ({ title, rows, columns }) => {

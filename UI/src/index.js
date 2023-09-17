@@ -16,8 +16,32 @@ const theme = createTheme({
     navlink: {
       fontSize: "1rem",
       // fontWeight: 500,
-      color: "#1d1b1b",
+      color: "#fffffb",
       textDecoration: "none",
+    },
+  },
+
+  palette: {
+    blue: {
+      primary: "#0c0d1f",
+      secondary: "#16142a",
+      sky: "#0d7cf2",
+    },
+    white: {
+      primary: "#fffffb",
+      secondary: "#9596ab",
+    },
+    green: {
+      primary: "#00b341",
+      secondary: "#00b341",
+    },
+    red: {
+      primary: "#ff0000",
+      secondary: "#ff0000",
+    },
+    yellow: {
+      primary: "#f2c94c",
+      secondary: "#f2c94c",
     },
   },
 });
