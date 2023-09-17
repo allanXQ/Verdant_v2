@@ -4,7 +4,7 @@ const initialState = {
   theme: "light",
 
   sideBar: {
-    width: "200px",
+    width: "210px",
     isOpen: false,
     isCollapsed: false,
   },
