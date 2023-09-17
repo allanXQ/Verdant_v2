@@ -23,65 +23,65 @@ const RootLayout = () => {
   const isTrade = path.includes("trade/spot");
   isTrade ? (drawerWidth = "0px") : (drawerWidth = drawerWidth);
 
-  useEffect(() => {
-    dispatch(
-      apiCall({
-        endpoint: "user/user-info",
-        method: "post",
-        data: {
-          userId: user.userId,
-        },
-        slice: "userData",
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     apiCall({
+  //       endpoint: "user/user-info",
+  //       method: "post",
+  //       data: {
+  //         userId: user.userId,
+  //       },
+  //       slice: "userData",
+  //     })
+  //   );
+  // }, []);
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {isLoggedIn && (
+      {/* {isLoggedIn && ( */}
+      <Grid
+        container
+        sx={{
+          display: "flex",
+          flexWrap: "nowrap",
+          overflow: "hidden",
+        }}
+      >
         <Grid
-          container
+          item
           sx={{
-            display: "flex",
-            flexWrap: "nowrap",
-            overflow: "hidden",
+            display: isTrade && "none",
           }}
         >
+          <Sidenav
+            drawerHeight={drawerHeight}
+            drawerWidth={drawerWidth}
+            topBarHeight={topBarHeight}
+            isOpen={open}
+          />
+        </Grid>
+        <Grid container>
+          <Grid item>
+            <Topbar
+              topBarHeight={topBarHeight}
+              drawerWidth={drawerWidth}
+              isOpen={open}
+              setOpen={setOpen}
+            />
+          </Grid>
           <Grid
             item
             sx={{
-              display: isTrade && "none",
+              width: { md: `calc(100vw - ${drawerWidth})` },
+              // height: "100vh",
             }}
           >
-            <Sidenav
-              drawerHeight={drawerHeight}
-              drawerWidth={drawerWidth}
-              topBarHeight={topBarHeight}
-              isOpen={open}
-            />
-          </Grid>
-          <Grid container>
-            <Grid item>
-              <Topbar
-                topBarHeight={topBarHeight}
-                drawerWidth={drawerWidth}
-                isOpen={open}
-                setOpen={setOpen}
-              />
-            </Grid>
-            <Grid
-              item
-              sx={{
-                width: { md: `calc(100vw - ${drawerWidth})` },
-                // height: "100vh",
-              }}
-            >
-              <Outlet />
-            </Grid>
+            <Outlet />
           </Grid>
         </Grid>
-      )}
+      </Grid>
+      {/* )} */}
     </>
   );
 };

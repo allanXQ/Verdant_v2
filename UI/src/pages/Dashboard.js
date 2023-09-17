@@ -181,7 +181,11 @@ const Dashboard = React.memo(() => {
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
-    width: { sm: "100vw", lg: `calc(${overviewWidth} - 2rem)` },
+    width: {
+      sm: "100vw",
+      md: `calc(${overviewWidth} - 1rem)`,
+      lg: `calc(${overviewWidth} - 2rem)`,
+    },
     backgroundColor: "blue.secondary",
     border: "none",
     boxShadow: "none",
@@ -193,7 +197,7 @@ const Dashboard = React.memo(() => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        width: { lg: overviewWidth },
+        width: { md: overviewWidth },
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
@@ -319,7 +323,8 @@ const Dashboard = React.memo(() => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 maxHeight: "20px",
-                width: "100vw",
+                //padding right if small screen
+                pr: { xs: 4, sm: 0 },
               }}
             >
               <Typography color="white.primary">Assets</Typography>

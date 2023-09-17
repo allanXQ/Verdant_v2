@@ -156,7 +156,7 @@ export const Sidenav = ({
       <Sidebar
         toggled={theme.breakpoints.down("md") ? isOpen : true}
         width={drawerWidth}
-        breakPoint="900px"
+        breakPoint="960px"
         backgroundColor={theme.palette.blue.primary}
         style={{
           display: "flex",

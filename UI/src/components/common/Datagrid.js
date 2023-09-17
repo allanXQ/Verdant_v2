@@ -5,6 +5,9 @@ import React from "react";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   maxWidth: "100vw",
+  [theme.breakpoints.down("sm")]: {
+    paddingRight: "35px",
+  },
   border: "none",
   "& .MuiDataGrid-withBorderColor": {
     borderColor: "transparent",
@@ -27,6 +30,11 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 
 const MUIDataGrid = ({ title, rows, columns, height }) => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  if (isSmallScreen) {
+    columns.map((column) => {
+      column.width = 120;
+    });
+  }
   return (
     <Box>
       <Typography variant="h6">{title}</Typography>
