@@ -5,81 +5,80 @@ const User = require("../../../models/users");
 const Withdraw = require("../../../models/withdrawals");
 
 //include withdrrawal fees
-
 const MpesaWithdraw = async (req, res) => {
   let session;
   try {
     const { phone, amount } = req.body;
-    console.log(phone, amount);
     const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
+
     let intAmount = parseInt(amount) || 0;
-    const getUser = await User.findOne({ phone });
-    if (!getUser) {
-      return res.status(400).json({ message: Messages.userNotFound });
-    }
-    const getBalance = parseInt(getUser.accountBalance) || 0;
-    const username = getUser.username;
-    const taxAmount = intAmount * withdrawalFeePercentage;
-    const totalAmount = intAmount + taxAmount;
 
-    if (getBalance < minWithdrawal) {
-      return res.status(400).json({
-        message: Messages.insufficientBalance,
-      });
-    }
-
+    // Validate amount before proceeding
     if (intAmount < minWithdrawal) {
       return res.status(400).json({
-        message: Messages.minWithdrawal + ` ${minWithdrawal}`,
+        message: `${Messages.minWithdrawal} ${minWithdrawal}`,
       });
     }
 
-    if (intAmount > getBalance) {
-      return res.status(400).json({
-        message: Messages.insufficientBalance,
-      });
-    }
-
-    if (getBalance - totalAmount < 0) {
-      return res.status(400).json({
-        message: Messages.insufficientBalance,
-      });
-    }
+    const taxAmount = intAmount * withdrawalFeePercentage;
+    const totalAmount = intAmount + taxAmount;
 
     session = await mongoose.startSession();
     session.startTransaction();
 
-    console.log(username, phone, intAmount, getUser.userId);
+    const updatedUser = await User.findOneAndUpdate(
+      { phone },
+      { $inc: { accountBalance: -totalAmount } },
+      { session, new: true, returnOriginal: false }
+    );
+
+    if (!updatedUser) {
+      return res.status(400).json({ message: Messages.userNotFound });
+    }
+
+    const remainingBalance = parseInt(updatedUser.accountBalance) || 0;
+
+    // Validate the remaining balance
+    if (remainingBalance < 0) {
+      throw new Error(Messages.insufficientBalance);
+    }
 
     await Withdraw.create(
-      [
-        {
-          userId: getUser.userId,
-          username,
-          phone,
-          amount: intAmount,
-          mode: "mpesa",
-        },
-      ],
+      {
+        userId: updatedUser.userId,
+        username: updatedUser.username,
+        phone,
+        amount: intAmount,
+        mode: "mpesa",
+      },
       { session }
     );
-    const updateUser = await User.updateOne(
-      { username },
-      {
-        $inc: { accountBalance: -totalAmount },
-      },
-      { session, new: true }
-    );
-    if (updateUser.nModified === 0) {
-      return res.status(400).json({ message: Messages.withdrawalFailed });
-    }
+
+    const withdrawals = await Withdraw.find({
+      userId: updatedUser.userId,
+    }).session(session);
+
     await session.commitTransaction();
-    session && session.endSession();
-    return res.status(200).json({ message: Messages.withdrawalSuccess });
+    session.endSession();
+    const user = {
+      ...updatedUser,
+      withdrawals,
+    };
+
+    return res.status(200).json({
+      message: Messages.withdrawalSuccess,
+      payload: {
+        user,
+      },
+    });
   } catch (error) {
-    session && (await session.abortTransaction());
-    session && session.endSession();
-    throw error;
+    if (session) {
+      await session.abortTransaction();
+      session.endSession();
+    }
+
+    let errorMessage = error.message || "An unknown error occurred";
+    return res.status(400).json({ message: errorMessage });
   }
 };
 

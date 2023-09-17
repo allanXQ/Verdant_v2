@@ -35,10 +35,11 @@ const userInfo = async (req, res) => {
       },
     },
   ]);
-
   return res.status(200).json({
     message: Messages.requestSuccessful,
-    payload: userData,
+    payload: {
+      user: userData[0],
+    },
   });
 };
 
