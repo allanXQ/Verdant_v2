@@ -78,7 +78,7 @@ export const userSlice = createSlice({
               state.user = initialState.user;
               break;
             case "user/user-info":
-            case "user/transact/withdrawal":
+            case "user/transact/withdraw":
             case "user/transact/mpesa/deposit":
             case "user/transact/transfer":
               state.user = action.payload.data.user;
