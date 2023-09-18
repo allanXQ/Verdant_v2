@@ -6,6 +6,137 @@ import { Link, useNavigate } from "react-router-dom";
 import { selectIsLoggedIn } from "redux/features/user/userSlice";
 import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
+const { default: Auth } = require("./auth");
+
+// const Login = () => {
+//   const isLoggedIn = useSelector(selectIsLoggedIn);
+//   const navigate = useNavigate();
+//   useEffect(() => {
+//     if (isLoggedIn) {
+//       navigate("/dashboard");
+//     }
+//   }, [isLoggedIn, navigate]);
+//   return (
+//     <Box
+//       sx={{
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         gap: 1,
+//         height: "100vh",
+//         width: "100vw",
+//         color: "white.primary",
+//       }}
+//     >
+//       <Typography>Sign In</Typography>
+//       <Box
+//         sx={{
+//           display: "flex",
+//           alignItems: "center",
+//           justifyContent: "center",
+//           gap: 1,
+//         }}
+//       >
+//         <Typography>New here? </Typography>
+//         <Typography component={Link} to="/register">
+//           Sign Up
+//         </Typography>
+//       </Box>
+
+//       <Box
+//         sx={{
+//           display: "flex",
+//           flexDirection: "column",
+//           alignItems: "center",
+//           gap: 1,
+//         }}
+//       >
+//         <LoginForm>
+//           <Box>
+//             <Typography
+//               variant="caption"
+//               component={Link}
+//               to="/forgot-password"
+//             >
+//               Forgot password?
+//             </Typography>
+//           </Box>
+//         </LoginForm>
+//         <Divider
+//           variant="middle"
+//           sx={{
+//             color: "white.primary",
+//             fontSize: "0.8rem",
+//             width: "100%",
+//             textAlign: "center",
+//           }}
+//         >
+//           OR
+//         </Divider>
+//         <Box
+//           sx={{
+//             display: "flex",
+//             flexDirection: "column",
+//           }}
+//         >
+//           <Button
+//             variant="contained"
+//             color="primary"
+//             href={getGoogleOAuthUrl()}
+//             sx={{
+//               position: "relative",
+//               width: "19rem",
+//               height: "3rem",
+//             }}
+//           >
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "center",
+//                 gap: "1rem",
+//                 backgroundColor: "white",
+//               }}
+//             >
+//               <img
+//                 src="https://img.icons8.com/color/48/000000/google-logo.png"
+//                 alt="google logo"
+//                 width={45}
+//                 style={{
+//                   position: "absolute",
+//                   left: 2,
+//                   backgroundColor: "white",
+//                   padding: "0.5rem",
+//                 }}
+//               />
+//             </Box>
+//             <Typography
+//               variant="button"
+//               sx={{
+//                 position: "absolute",
+//                 right: 30,
+//               }}
+//             >
+//               Continue with google
+//             </Typography>
+//           </Button>
+//         </Box>
+//       </Box>
+//       <Box
+//         sx={{
+//           display: "flex",
+//           gap: "0.3rem",
+//         }}
+//       >
+//         <Typography variant="caption">© 2023 Verdant</Typography>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default Login;
+
 const Login = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
@@ -15,121 +146,74 @@ const Login = () => {
     }
   }, [isLoggedIn, navigate]);
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 1,
-        height: "100vh",
-        width: "100vw",
-        color: "white.primary",
-      }}
-    >
-      <Typography>Sign In</Typography>
-      <Box
+    <Auth title="Sign In" sublink="/register" sublinkText="Sign Up">
+      <LoginForm>
+        <Box>
+          <Typography variant="caption" component={Link} to="/forgot-password">
+            Forgot password?
+          </Typography>
+        </Box>
+      </LoginForm>
+      <Divider
+        variant="middle"
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 1,
+          color: "white.primary",
+          fontSize: "0.8rem",
+          width: "100%",
+          textAlign: "center",
         }}
       >
-        <Typography>New here? </Typography>
-        <Typography component={Link} to="/register">
-          Sign Up
-        </Typography>
-      </Box>
-
+        OR
+      </Divider>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          gap: 1,
         }}
       >
-        <LoginForm>
-          <Box>
-            <Typography
-              variant="caption"
-              component={Link}
-              to="/forgot-password"
-            >
-              Forgot password?
-            </Typography>
-          </Box>
-        </LoginForm>
-        <Divider
-          variant="middle"
+        <Button
+          variant="contained"
+          color="primary"
+          href={getGoogleOAuthUrl()}
           sx={{
-            color: "white.primary",
-            fontSize: "0.7rem",
-            width: "100%",
-            textAlign: "center",
+            position: "relative",
+            width: "19rem",
+            height: "3rem",
           }}
         >
-          OR
-        </Divider>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            href={getGoogleOAuthUrl()}
+          <Box
             sx={{
-              position: "relative",
-              width: "19rem",
-              height: "3rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+              backgroundColor: "white",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "1rem",
-                backgroundColor: "white",
-              }}
-            >
-              <img
-                src="https://img.icons8.com/color/48/000000/google-logo.png"
-                alt="google logo"
-                width={45}
-                style={{
-                  position: "absolute",
-                  left: 2,
-                  backgroundColor: "white",
-                  padding: "0.5rem",
-                }}
-              />
-            </Box>
-            <Typography
-              variant="button"
-              sx={{
+            <img
+              src="https://img.icons8.com/color/48/000000/google-logo.png"
+              alt="google logo"
+              width={45}
+              style={{
                 position: "absolute",
-                right: 30,
+                left: 2,
+                backgroundColor: "white",
+                padding: "0.5rem",
               }}
-            >
-              Continue with google
-            </Typography>
-          </Button>
-        </Box>
+            />
+          </Box>
+          <Typography
+            variant="button"
+            sx={{
+              position: "absolute",
+              right: 30,
+            }}
+          >
+            Continue with google
+          </Typography>
+        </Button>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          gap: "0.3rem",
-        }}
-      >
-        <Typography variant="caption">© 2023 Verdant</Typography>
-      </Box>
-    </Box>
+    </Auth>
   );
 };
 
