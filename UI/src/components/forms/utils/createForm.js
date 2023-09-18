@@ -39,6 +39,12 @@ const CreateForm = (formName, model, children) => {
           );
           setSubmitting(false);
         }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         {({ isSubmitting }) => (
           <Form>

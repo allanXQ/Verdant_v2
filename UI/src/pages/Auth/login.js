@@ -23,12 +23,16 @@ const Login = () => {
         justifyContent: "center",
         gap: "1rem",
         height: "100vh",
+        width: "100vw",
+        backgroundColor: "white.primary",
       }}
     >
       <Typography>Sign In</Typography>
       <Box
         sx={{
           display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           gap: 0.5,
         }}
       >
@@ -41,8 +45,8 @@ const Login = () => {
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
           gap: "1rem",
         }}
       >
@@ -58,11 +62,12 @@ const Login = () => {
           </Box>
         </LoginForm>
         <Divider
-          orientation="vertical"
           variant="middle"
           sx={{
             color: "black",
             fontSize: "0.7rem",
+            width: "100%",
+            textAlign: "center",
           }}
         >
           OR
@@ -71,6 +76,7 @@ const Login = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
+            pb: "1rem",
           }}
         >
           <Button
