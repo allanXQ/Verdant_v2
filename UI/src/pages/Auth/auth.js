@@ -1,8 +1,75 @@
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
-const Auth = ({ title, sublink, sublinkText, children }) => {
+const GoogleSignup = () => {
+  return (
+    <>
+      <Divider
+        variant="middle"
+        sx={{
+          color: "white.primary",
+          fontSize: "0.8rem",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        OR
+      </Divider>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          href={getGoogleOAuthUrl()}
+          sx={{
+            position: "relative",
+            width: "19rem",
+            height: "3rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+              backgroundColor: "white",
+            }}
+          >
+            <img
+              src="https://img.icons8.com/color/48/000000/google-logo.png"
+              alt="google logo"
+              width={45}
+              style={{
+                position: "absolute",
+                left: 2,
+                backgroundColor: "white",
+                padding: "0.5rem",
+              }}
+            />
+          </Box>
+          <Typography
+            variant="button"
+            sx={{
+              position: "absolute",
+              right: 30,
+            }}
+          >
+            Continue with google
+          </Typography>
+        </Button>
+      </Box>
+    </>
+  );
+};
+
+export const Auth = ({ title, sublink, children }) => {
   return (
     <Box
       sx={{
@@ -14,6 +81,7 @@ const Auth = ({ title, sublink, sublinkText, children }) => {
         height: "100vh",
         width: "100vw",
         color: "white.primary",
+        overflowX: "hidden",
       }}
     >
       <Typography>{title}</Typography>
@@ -25,9 +93,9 @@ const Auth = ({ title, sublink, sublinkText, children }) => {
           gap: 1,
         }}
       >
-        <Typography>New here? </Typography>
-        <Typography component={Link} to={sublink}>
-          {sublinkText}
+        <Typography>{sublink.text}</Typography>
+        <Typography component={Link} to={sublink.pathname}>
+          {sublink.sublinkText}
         </Typography>
       </Box>
 
@@ -40,6 +108,7 @@ const Auth = ({ title, sublink, sublinkText, children }) => {
         }}
       >
         {children}
+        <GoogleSignup />
       </Box>
       <Box
         sx={{
