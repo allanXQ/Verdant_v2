@@ -95,7 +95,7 @@ const navlinks = [
     badge: 4,
   },
   {
-    name: "Transaction History",
+    name: "History",
     icon: <History />,
     submenu: [
       {
