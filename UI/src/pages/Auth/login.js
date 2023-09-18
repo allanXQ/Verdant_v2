@@ -21,10 +21,10 @@ const Login = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: "1rem",
+        gap: 1,
         height: "100vh",
         width: "100vw",
-        backgroundColor: "white.primary",
+        color: "white.primary",
       }}
     >
       <Typography>Sign In</Typography>
@@ -33,7 +33,7 @@ const Login = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 0.5,
+          gap: 1,
         }}
       >
         <Typography>New here? </Typography>
@@ -47,7 +47,7 @@ const Login = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "1rem",
+          gap: 1,
         }}
       >
         <LoginForm>
@@ -64,7 +64,7 @@ const Login = () => {
         <Divider
           variant="middle"
           sx={{
-            color: "black",
+            color: "white.primary",
             fontSize: "0.7rem",
             width: "100%",
             textAlign: "center",
@@ -76,7 +76,6 @@ const Login = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            pb: "1rem",
           }}
         >
           <Button

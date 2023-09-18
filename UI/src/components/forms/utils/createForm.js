@@ -54,7 +54,7 @@ const CreateForm = (formName, model, children) => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 3,
+                gap: 2,
               }}
             >
               <Box
@@ -63,7 +63,7 @@ const CreateForm = (formName, model, children) => {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.5rem",
+                  gap: 2,
                 }}
               >
                 <Box
@@ -72,7 +72,7 @@ const CreateForm = (formName, model, children) => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: "0.5rem",
+                    gap: 3,
                   }}
                 >
                   {fields.map((field, index) => {
