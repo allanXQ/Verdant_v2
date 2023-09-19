@@ -19,11 +19,10 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     color: theme.palette.white.primary,
   },
   "& .MuiDataGrid-columnHeader": {
-    color: theme.palette.white.primary,
-    fontWeight: 600,
+    ...theme.typography.bodytext2,
   },
   "& .MuiDataGrid-cell": {
-    color: theme.palette.white.secondary,
+    ...theme.typography.bodytext3,
     backgroundColor: theme.palette.blue.primary,
   },
 }));

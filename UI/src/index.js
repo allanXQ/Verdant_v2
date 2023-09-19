@@ -21,10 +21,9 @@ const theme = createTheme({
     },
   },
   typography: {
-    navlink: {
-      fontSize: "1rem",
-      color: "#fffffb",
-      textDecoration: "none",
+    bodytext3: {
+      fontSize: "0.8rem",
+      fontWeight: 400,
     },
   },
 
@@ -52,6 +51,24 @@ const theme = createTheme({
     },
   },
 });
+
+theme.typography.bodytext1 = {
+  fontSize: "1.5rem",
+  fontWeight: 500,
+  color: theme.palette.white.primary,
+};
+
+theme.typography.bodytext2 = {
+  fontSize: "1rem",
+  fontWeight: 800,
+  color: theme.palette.white.primary,
+};
+
+theme.typography.bodytext3 = {
+  fontSize: "0.85rem",
+  fontWeight: 400,
+  color: theme.palette.white.primary,
+};
 
 root.render(
   <React.StrictMode>
