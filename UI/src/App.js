@@ -14,12 +14,18 @@ import WithdrawalHistory from "pages/TransactionHistory/WithdrawalHistory";
 import PeerTrading from "pages/Trade/peer";
 import Swap from "pages/Trade/swap";
 import MessageModal from "components/messages";
+import Home from "pages/Home";
+import HomeLayout from "components/Layouts/HomeLayout";
 
 function App() {
   return (
     <>
       <MessageModal />
       <Routes>
+      <Route element={<HomeLayout />}>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="home" element={<Home />} />
+        </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
@@ -28,7 +34,6 @@ function App() {
         <Route path="google-callback" element={<GoogleCallback />} />
 
         <Route element={<RootLayout />}>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="history">
             <Route path="deposits" element={<DepositHistory />} />
