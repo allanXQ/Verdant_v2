@@ -33,9 +33,14 @@ const theme = createTheme({
       secondary: "#16142a",
       sky: "#0d7cf2",
     },
+    black: {
+      primary: "#000000", //normal body text
+      secondary: "#000000",
+    },
     white: {
       primary: "#fffffb",
       secondary: "#c0c0bd",
+      background: "#f5f5f5", //background color
     },
     green: {
       primary: "#00b341",
@@ -55,19 +60,19 @@ const theme = createTheme({
 theme.typography.bodytext1 = {
   fontSize: "1.5rem",
   fontWeight: 500,
-  color: theme.palette.white.primary,
+  color: theme.palette.black.primary,
 };
 
 theme.typography.bodytext2 = {
   fontSize: "1rem",
   fontWeight: 800,
-  color: theme.palette.white.primary,
+  color: theme.palette.black.primary,
 };
 
 theme.typography.bodytext3 = {
   fontSize: "0.85rem",
   fontWeight: 400,
-  color: theme.palette.white.primary,
+  color: theme.palette.black.primary,
 };
 
 root.render(

@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #0c0d1f;
+  /* background-color: #0c0d1f; */
   /* color: white; */
   font-family: "Roboto", sans-serif;
 }
@@ -33,17 +33,17 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0c0d1f;
+  /* background: #0c0d1f; */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0d7cf2;
+  /* background: #0d7cf2; */
   border-radius: 10px;
   height: 1px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  /* background: #555; */
 }
 
 a {

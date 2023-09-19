@@ -143,7 +143,7 @@ export const Sidenav = ({
   const MenuItemStyle = {
     paddingLeft: "5px",
     margin: "0",
-    color: theme.palette.white.secondary,
+    color: theme.palette.black.primary,
   };
   return (
     <Box
@@ -157,7 +157,7 @@ export const Sidenav = ({
         toggled={theme.breakpoints.down("md") ? isOpen : true}
         width={drawerWidth}
         breakPoint="960px"
-        backgroundColor={theme.palette.blue.primary}
+        backgroundColor={theme.palette.white.background}
         style={{
           display: "flex",
           height: drawerHeight,

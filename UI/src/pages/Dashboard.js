@@ -186,7 +186,7 @@ const Dashboard = React.memo(() => {
       md: `calc(${overviewWidth} - 1rem)`,
       lg: `calc(${overviewWidth} - 2rem)`,
     },
-    backgroundColor: "blue.secondary",
+    // backgroundColor: "blue.secondary",
     border: "none",
     boxShadow: "none",
   };
@@ -257,7 +257,7 @@ const Dashboard = React.memo(() => {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "white.primary",
+                      color: "black.primary",
                     }}
                   >
                     {stat.name}
@@ -303,7 +303,7 @@ const Dashboard = React.memo(() => {
                 <Typography
                   variant="h6"
                   fontWeight="bold"
-                  color="white.primary"
+                  color="black.primary"
                 >
                   KSH {stat.value}
                 </Typography>

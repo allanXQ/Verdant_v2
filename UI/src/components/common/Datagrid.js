@@ -23,7 +23,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   "& .MuiDataGrid-cell": {
     ...theme.typography.bodytext3,
-    backgroundColor: theme.palette.blue.primary,
+    // backgroundColor: theme.palette.blue.primary,
   },
 }));
 
