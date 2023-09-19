@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import RootLayout from "./components/Layouts/RootLayout";
-import Dashboard from "./pages/Dashboard";
+import RootLayout from "components/Layouts/RootLayout";
+import Dashboard from "pages/Dashboard";
 import DepositHistory from "pages/TransactionHistory/DepositHistory";
 import Login from "pages/Auth/login";
 import Trade from "pages/Trade/spot";
@@ -22,9 +22,9 @@ function App() {
     <>
       <MessageModal />
       <Routes>
-      <Route element={<HomeLayout />}>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="home" element={<Home />} />
+        <Route element={<HomeLayout />}>
+          <Route path="home" element={<Home />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

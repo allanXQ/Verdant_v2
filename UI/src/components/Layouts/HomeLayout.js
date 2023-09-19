@@ -13,12 +13,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const drawerWidth = 200;
 const navItems = ["Home", "About", "Contact"];
 
-function DrawerAppBar(props, { children }) {
+function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -125,16 +125,31 @@ function DrawerAppBar(props, { children }) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3, backgroundColor: "blue.primary" }}>
+      <Box
+        component="main"
+        sx={{
+          display: "flex",
+          p: 3,
+          backgroundColor: "blue.primary",
+          width: "100vw",
+          // height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Toolbar />
-        {children}
+        {props.children}
       </Box>
     </Box>
   );
 }
 
 const HomeLayout = () => {
-  return <DrawerAppBar>{/* <h1>Home</h1> */}</DrawerAppBar>;
+  return (
+    <DrawerAppBar>
+      <Outlet />
+    </DrawerAppBar>
+  );
 };
 
 export default HomeLayout;
