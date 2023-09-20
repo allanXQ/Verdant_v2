@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Sidenav, Topbar } from "../Navigation/Navbar";
+import ResponsiveDrawer, { Sidenav, Topbar } from "../Navigation/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,46 +40,9 @@ const RootLayout = () => {
   return (
     <>
       {isLoggedIn && (
-        <Grid
-          container
-          sx={{
-            display: "flex",
-            flexWrap: "nowrap",
-            overflow: "hidden",
-          }}
-        >
-          <Grid
-            item
-            sx={{
-              display: isTrade && "none",
-            }}
-          >
-            <Sidenav
-              drawerHeight={drawerHeight}
-              drawerWidth={drawerWidth}
-              topBarHeight={topBarHeight}
-              isOpen={open}
-            />
-          </Grid>
-          <Grid container>
-            <Grid item>
-              <Topbar
-                topBarHeight={topBarHeight}
-                drawerWidth={drawerWidth}
-                isOpen={open}
-                setOpen={setOpen}
-              />
-            </Grid>
-            <Grid
-              item
-              sx={{
-                width: { md: `calc(100vw - ${drawerWidth})` },
-              }}
-            >
-              <Outlet />
-            </Grid>
-          </Grid>
-        </Grid>
+        <ResponsiveDrawer>
+          <Outlet />
+        </ResponsiveDrawer>
       )}
     </>
   );

@@ -181,12 +181,11 @@ const Dashboard = React.memo(() => {
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
+    // width: "100%",
     width: {
-      sm: "100vw",
-      md: `calc(${overviewWidth} - 1rem)`,
-      lg: `calc(${overviewWidth} - 2rem)`,
+      xs: "100vw",
+      sm: `calc(${overviewWidth})`,
     },
-    // backgroundColor: "blue.secondary",
     border: "none",
     boxShadow: "none",
   };
@@ -197,7 +196,7 @@ const Dashboard = React.memo(() => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        width: { md: overviewWidth },
+        width: overviewWidth,
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
@@ -210,8 +209,9 @@ const Dashboard = React.memo(() => {
             sx={{
               display: "flex",
               flexWrap: "wrap",
+              alignItems: "center",
               flexGrow: 1,
-              justifyContent: "space-between",
+              justifyContent: { xs: "center", sm: "space-between" },
               gap: 1,
               maxHeight: { lg: "60px" },
             }}
@@ -321,8 +321,6 @@ const Dashboard = React.memo(() => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 maxHeight: "20px",
-                //padding right if small screen
-                pr: { xs: 4, sm: 0 },
               }}
             >
               <Typography variant="bodytext1">Assets</Typography>
