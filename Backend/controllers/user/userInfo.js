@@ -3,7 +3,6 @@ const Messages = require("../../utils/messages");
 
 const userInfo = async (req, res) => {
   const { userId } = req.body;
-  console.log(userId);
   const userData = await User.aggregate([
     {
       $match: {

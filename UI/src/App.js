@@ -18,6 +18,7 @@ import Home from "pages/Home";
 import HomeLayout from "components/Layouts/HomeLayout";
 import LoanRequests from "pages/TransactionHistory/LoanRequests";
 import LoanPayments from "pages/TransactionHistory/LoanPayments";
+import Profile from "pages/Profile";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
 
         <Route element={<RootLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="history">
             <Route path="deposits" element={<DepositHistory />} />
             <Route path="withdrawals" element={<WithdrawalHistory />} />

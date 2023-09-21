@@ -91,8 +91,31 @@ const CreateForm = (formName, model, children) => {
                             value={field.value}
                             placeholder={field.placeholder}
                             variant={model.variant}
+                            disabled={field.disabled}
                           />
                         );
+                      case "file":
+                        return (
+                          <Box
+                            key={field.name}
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: 3,
+                            }}
+                          >
+                            <input
+                              type="file"
+                              name={field.name}
+                              value={field.value}
+                              placeholder={field.placeholder}
+                              disabled={field.disabled}
+                            />
+                          </Box>
+                        );
+
                       default:
                         return null;
                     }

@@ -21,15 +21,15 @@ const MUITextField = ({ label, ...props }) => {
         "& .Mui-focused": {
           backgroundColor: "transparent",
         },
-        "& .MuiInputBase-input": {
-          color: "white.primary",
-          "&:focus": {
-            backgroundColor: "transparent",
-          },
-        },
-        "& .MuiInput-input": {
-          color: "#fff", // Custom color for the input text
-        },
+        // "& .MuiInputBase-input": {
+        //   color: "white.primary",
+        //   "&:focus": {
+        //     backgroundColor: "transparent",
+        //   },
+        // },
+        // "& .MuiInput-input": {
+        //   color: "#fff", // Custom color for the input text
+        // },
       }}
     />
   );

@@ -6,11 +6,14 @@ const useUserData = () => {
   if (!user) return {};
   const {
     userId,
-    firstName,
-    lastName,
+    firstname,
+    lastname,
+    username,
+    googlename,
     email,
-    phoneNumber,
+    phone,
     status,
+    accountType,
     portfolio,
     trades,
     mpesaDeposits,
@@ -44,14 +47,17 @@ const useUserData = () => {
         return acc + amount;
       }, 0)
     : 0;
-
+  console.log(user);
   return {
     userId,
-    firstName,
-    lastName,
+    firstname,
+    lastname,
+    username,
+    googlename,
     email,
-    phoneNumber,
+    phone,
     status,
+    accountType,
     portfolio,
     portfolioValue,
     trades,
