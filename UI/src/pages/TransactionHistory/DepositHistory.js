@@ -1,10 +1,8 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { apiCall } from "redux/async/asyncThunk";
+import React from "react";
+import { Overview } from "./overview";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 210 },
@@ -14,51 +12,18 @@ const columns = [
   { field: "Date", headerName: "Date", width: 210 },
 ];
 
-const Overview = ({ userData }) => {
-  const navigate = useNavigate();
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-
-        maxWidth: "95%",
-      }}
-    >
-      <Box>
-        <Typography variant="subtitle1">Available Balance</Typography>
-        <Typography variant="h6">KSH {userData?.accountBalance}</Typography>
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={() => navigate("/transact/deposit")}
-        >
-          Deposit
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => navigate("/transact/withdraw")}
-        >
-          WIthdraw
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-
 const DepositHistory = () => {
   const userData = useUserData();
+  const buttons = [
+    {
+      name: "Deposit",
+      path: "/transact/deposit",
+    },
+    {
+      name: "Withdraw",
+      path: "/transact/withdraw",
+    },
+  ];
 
   const rows =
     Array.isArray(userData?.deposits) &&
@@ -84,7 +49,13 @@ const DepositHistory = () => {
         overflow: "hidden",
       }}
     >
-      <Overview userData={userData} />
+      <Overview
+        userData={{
+          accountBalance: userData?.accountBalance,
+          name: "Account Balance",
+        }}
+        buttons={buttons}
+      />
 
       <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
     </Box>
