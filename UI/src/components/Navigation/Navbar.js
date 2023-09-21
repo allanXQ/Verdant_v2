@@ -122,17 +122,12 @@ const navlinks = [
       {
         name: "Loan Requests",
         icon: <RequestPage />,
-        path: "/loan-requests",
+        path: "/history/loan-requests",
       },
       {
         name: "Loan Payments",
         icon: <Receipt />,
-        path: "/loan-payments",
-      },
-      {
-        name: "Loans",
-        icon: <Receipt />,
-        path: "/loan-history",
+        path: "/history/loan-payments",
       },
     ],
   },
@@ -193,7 +188,13 @@ function ResponsiveDrawer(props) {
                   {item.submenu.map((subitem, subindex) => (
                     <ListItem key={subindex} disablePadding>
                       <ListItemButton component={Link} to={subitem.path}>
-                        <ListItemIcon>{subitem.icon}</ListItemIcon>
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 35,
+                          }}
+                        >
+                          {subitem.icon}
+                        </ListItemIcon>
                         <ListItemText primary={subitem.name} />
                       </ListItemButton>
                     </ListItem>

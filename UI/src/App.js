@@ -16,6 +16,8 @@ import Swap from "pages/Trade/swap";
 import MessageModal from "components/messages";
 import Home from "pages/Home";
 import HomeLayout from "components/Layouts/HomeLayout";
+import LoanRequests from "pages/TransactionHistory/LoanRequests";
+import LoanPayments from "pages/TransactionHistory/LoanPayments";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
           <Route path="history">
             <Route path="deposits" element={<DepositHistory />} />
             <Route path="withdrawals" element={<WithdrawalHistory />} />
+            <Route path="loan-requests" element={<LoanRequests />} />
+            <Route path="loan-payments" element={<LoanPayments />} />
           </Route>
           <Route path="transact">
             <Route path="deposit" element={<Deposit />} />

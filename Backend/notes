@@ -4,6 +4,7 @@
 \*\*check if we can combine all the client history pages into one component
 \*\*check on the reusable mongoose queries
 \*\*centralised res 200 handling
+\*\*defulted loans logic
 
 \*most commonly used react router hooks
 
