@@ -4,13 +4,14 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-
 import { Link } from "react-router-dom";
 import {
   AccountBalanceOutlined as AccountBalance,
   CalculateOutlined as Calculate,
   ChatOutlined as Chat,
   DashboardOutlined as Dashboard,
+  ExpandLess,
+  ExpandMore,
   HistoryOutlined as History,
   LogoutOutlined as Logout,
   PaymentOutlined as Payment,
@@ -22,8 +23,18 @@ import {
   RequestQuoteOutlined as RequestQuote,
   ShowChartOutlined as ShowChart,
 } from "@mui/icons-material";
-import { Avatar, Badge, useTheme } from "@mui/material";
-import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
+import {
+  Collapse,
+  CssBaseline,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { useState } from "react";
 
 const navlinks = [
   {
@@ -133,142 +144,150 @@ const navlinks = [
   },
 ];
 
-export const Sidenav = ({
-  drawerWidth,
-  drawerHeight,
-  topBarHeight,
-  isOpen,
-}) => {
-  const theme = useTheme();
-  const MenuItemStyle = {
-    paddingLeft: "5px",
-    margin: "0",
-    color: theme.palette.black.primary,
+const drawerWidth = 200;
+
+function ResponsiveDrawer(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState(null);
+
+  const handleSubMenuToggle = (index) => {
+    setOpenSubMenu(openSubMenu === index ? null : index);
   };
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      gap={2}
-      width={{ md: drawerWidth }}
-    >
-      <Sidebar
-        toggled={theme.breakpoints.down("md") ? isOpen : true}
-        width={drawerWidth}
-        breakPoint="960px"
-        backgroundColor={theme.palette.white.background}
-        style={{
-          display: "flex",
-          height: drawerHeight,
-          padding: "0",
-          margin: "0",
-          border: "none",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 1,
-            paddingTop: `calc(${topBarHeight} + 1rem)`,
-          }}
-        >
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-            }}
-          />
-        </Box>
-        <Menu>
-          {navlinks.map((item, index) =>
-            !item.submenu ? (
-              <MenuItem
-                key={index}
-                component={<Link to={item.path} />}
-                icon={item.icon}
-                style={{ ...MenuItemStyle }}
-              >
-                {item.badge ? (
-                  <span
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.8rem",
-                      height: "25px",
-                    }}
-                  >
-                    {item.name}
-                    <Badge badgeContent={item.badge} color="secondary" />
-                  </span>
-                ) : (
-                  item.name
-                )}
-              </MenuItem>
-            ) : (
-              <SubMenu
-                key={index}
-                label={item.name}
-                style={{
-                  ...MenuItemStyle,
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <Box>
+      <Toolbar />
+      <Divider />
+      <List>
+        {navlinks.map((item, index) => (
+          <div key={index}>
+            <ListItem
+              button
+              onClick={() => item.submenu && handleSubMenuToggle(index)}
+              component={!item.submenu && Link}
+              to={item.path}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 35,
                 }}
-                icon={item.icon}
               >
-                {item.submenu.map((subitem, index) => {
-                  return (
-                    <MenuItem
-                      key={index}
-                      component={<Link to={subitem.path} />}
-                      icon={subitem.icon}
-                      style={{ ...MenuItemStyle }}
-                    >
-                      {subitem.name}
-                    </MenuItem>
-                  );
-                })}
-              </SubMenu>
-            )
-          )}
-        </Menu>
-      </Sidebar>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.name} />
+              {item.submenu ? (
+                openSubMenu === index ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )
+              ) : null}
+            </ListItem>
+            {item.submenu && (
+              <Collapse in={openSubMenu === index} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.submenu.map((subitem, subindex) => (
+                    <ListItem key={subindex} disablePadding>
+                      <ListItemButton component={Link} to={subitem.path}>
+                        <ListItemIcon>{subitem.icon}</ListItemIcon>
+                        <ListItemText primary={subitem.name} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+                {}
+              </Collapse>
+            )}
+          </div>
+        ))}
+      </List>
+
+      <Divider />
     </Box>
   );
-};
 
-export const Topbar = ({ drawerWidth, topBarHeight, isOpen, setOpen }) => {
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
   return (
-    <AppBar
-      position="relative"
-      sx={{
-        width: { md: `calc(100% - ${drawerWidth})` },
-        ml: { md: `${drawerWidth}` },
-        height: topBarHeight,
-        backgroundColor: "transparent",
-        boxShadow: "none",
-      }}
-    >
-      <Toolbar
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
         sx={{
-          height: topBarHeight,
-          backgroundColor: "transparent",
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2, display: { md: "none" } }}
-          onClick={() => setOpen(!isOpen)}
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Responsive drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
         >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Dashboard
-        </Typography>
-      </Toolbar>
-    </AppBar>
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          // p: 3,
+          // width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+        {props.children}
+      </Box>
+    </Box>
   );
-};
+}
+export default ResponsiveDrawer;
