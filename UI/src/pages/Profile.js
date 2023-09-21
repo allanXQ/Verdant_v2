@@ -54,6 +54,16 @@ const Profile = () => {
             subheader="View and edit your account details"
           />
           <CardContent>
+            <Avatar
+              sx={{
+                width: 100,
+                height: 100,
+                margin: "auto",
+                marginBottom: "1rem",
+              }}
+              alt="Remy Sharp"
+              src="https://mui.com/static/images/avatar/1.jpg"
+            />
             <ProfileForm></ProfileForm>
           </CardContent>
           <CardContent>
