@@ -75,9 +75,11 @@ function DrawerAppBar(props) {
       <CssBaseline />
       <AppBar
         component="nav"
-        sx={{
-          backgroundColor: "blue.primary",
-        }}
+        sx={
+          {
+            // backgroundColor: "blue.primary",
+          }
+        }
       >
         <Toolbar>
           <IconButton
@@ -130,7 +132,7 @@ function DrawerAppBar(props) {
         sx={{
           display: "flex",
           p: 3,
-          backgroundColor: "blue.primary",
+          // backgroundColor: "blue.primary",
           width: "100vw",
           // height: "100vh",
           justifyContent: "center",

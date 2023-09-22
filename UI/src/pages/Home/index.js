@@ -60,7 +60,7 @@ const Home = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        color: "white.primary",
+        // color: "white.primary",
       }}
     >
       <Grid
