@@ -1,24 +1,17 @@
-\*\*\*the password reset link isnt working. email is sent but the reset url is wrong
-\*\*\* check on refresh token issue. check if error is 401 and then request refresh token. client is still redirecting to dashboard even if token is expired since it only checks for islogged in state
-
-\*\*check if we can combine all the client history pages into one component
-\*\*check on the reusable mongoose queries
-\*\*centralised res 200 handling
-\*\*defulted loans logic
+\*\*
+\*\*
 
 \*most commonly used react router hooks
 
 #implement filter,sort, pagination
 sellorder and buy order
-#sellOrder and buyOrder are too similar. Create a single function to handle both
+
+#
+
 buylimit and selllimit
-#selllimit and buylimit are too similar. Create a single function to handle both
-#check if we can get buyer or seller id based on the orderId and prevent sending of these ids when creating buy or sell limit order
-#add admin portfolio. Is the default portfolio in which all new assets go to. admin can then sell to other users.
-#check getassets controller.
 
-#optimize getTrades querying style to be DRY
-#buyOrder,sellOrder validation schemas. amount should be greater than 0
+#
 
-//mongodb sessions
-//mongodb aggregate
+#
+
+#
