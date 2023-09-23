@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { verifyjwt } = require("../../middleware/verifyjwt");
-const getTickerData = require("../../controllers/app/Assetinfo/getTickerData");
-const getHistoricalKlines = require("../../controllers/app/Assetinfo/getHistoricalKlines");
+const getTickerData = require("../../config/Assetinfo/getTickerData");
+const getHistoricalKlines = require("../../config/Assetinfo/getHistoricalKlines");
 const formValidate = require("../../middleware/validate");
 
 const { historicalKlinesSchema } = require("../../yupschemas");

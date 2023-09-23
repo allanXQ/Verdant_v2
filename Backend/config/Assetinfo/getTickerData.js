@@ -1,7 +1,7 @@
-const { findQuery } = require("../../../services");
-const Messages = require("../../../utils/messages");
-const { klineIntervals } = require("./config");
-const Assets = require("../../../models/Assets");
+const { findQuery } = require("../../services");
+const Messages = require("../../utils/messages");
+const { klineIntervals } = require("./index");
+const Assets = require("../../models/Assets");
 const { default: axios } = require("axios");
 
 const getTickerData = async (req, res, next) => {

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const BuyOrder = require("../../../models/limit/limitOrders");
 const SellOrder = require("../../../models/limit/sellOrders");
 const Messages = require("../../../utils/messages");
-const { coinLabelMap } = require("../../app/Assetinfo/config/index");
+const { coinLabelMap } = require("../../../config/Assetinfo");
 const logger = require("../../../utils/logger");
 
 async function handleOrder(orderType, orderData) {
