@@ -12,31 +12,35 @@ const { coinLabelMap } = require("../../../config/Assetinfo");
 const logger = require("../../../utils/logger");
 const createId = require("../../../utils/createId");
 
-const peerSell = async () => {
+const peerSell = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
-    const { userId, orderType, asset, amount, price } = req.body;
+    const { userId, assetName, amount, price } = req.body;
     const Seller = await User.findOne({ userId });
     const portfolio = Seller.portfolio;
-    const currentAsset = portfolio.find((asset) => asset.assetName === asset);
+    const currentAsset = portfolio.find((item) => item.assetName === assetName);
     //update portfolio
-    if (currentAsset) {
-      currentAsset.amount -= amount;
-      await Seller.save({ session });
+    if (!currentAsset) {
+      return res.status(400).json({ message: "Asset not found" });
     }
 
-    const intAmount = parseInt(currentAsset.amount);
+    const assetAmount = parseInt(currentAsset.amount);
+    const intAmount = parseInt(amount);
     const intPrice = parseInt(price);
     const assetValue = intAmount * intPrice;
-    if (intAmount < amount) {
+    const newAmount = assetAmount - intAmount;
+    if (assetAmount < intAmount) {
       return res
         .status(400)
         .json({ message: "Insufficient portfolio Balance" });
     }
+    currentAsset.amount = newAmount;
+    await Seller.save({ session });
+    //check if there is a matching buy order
     const buyOrder = await peerOrders.findOne({
-      assetName: asset,
+      assetName,
       price,
       amount,
       orderType: "buyp2p",
@@ -46,7 +50,7 @@ const peerSell = async () => {
         [
           {
             userId,
-            assetName: asset,
+            assetName,
             amount,
             price,
             orderType: "sellp2p",
@@ -60,10 +64,13 @@ const peerSell = async () => {
           orderId: createId(),
           orderType: "sellp2p",
           userId,
-          stockName: asset,
-          stockAmount: amount,
+          assetName,
+          amount,
+          cashAmount: 0,
         },
       ]);
+      await session.commitTransaction();
+      session.endSession();
       return res.status(200).json({ message: "Order Placed" });
     }
     if (buyOrder.userId === userId) {
@@ -75,26 +82,31 @@ const peerSell = async () => {
         orderId: buyOrder.orderId,
       })
       .session(session);
-
-    Seller.balance =
-      parseInt(Seller.balance) + parseInt(buyerEscrow.cashAmount);
+    if (!buyerEscrow) {
+      return res.status(400).json({ message: "Buyer not found" });
+    }
+    if (parseInt(buyerEscrow.cashAmount) < assetValue) {
+      return res.status(400).json({ message: "Buyer has insufficient funds" });
+    }
+    Seller.accountBalance =
+      parseInt(Seller.accountBalance) + parseInt(buyerEscrow.cashAmount);
     await Seller.save({ session });
-    const Sellerportfolio = Seller.portfolio;
-    const SellerAsset = Sellerportfolio.find(
-      (asset) => asset.assetName === asset
-    );
     const buyer = await User.findOne({ userId: buyOrder.userId }).session(
       session
     );
     const buyerportfolio = buyer.portfolio;
     const buyerAsset = buyerportfolio.find(
-      (asset) => asset.assetName === asset
+      (item) => item.assetName === assetName
     );
     if (buyerAsset) {
       buyerAsset.amount += intAmount;
       await buyer.save({ session });
     } else {
-      buyerportfolio.push({ assetName: asset, amount: intAmount });
+      buyerportfolio.push({
+        ownerId: userId,
+        assetName,
+        amount: assetAmount,
+      });
     }
 
     await peerOrders.deleteOne({ orderId: buyOrder.orderId });
@@ -104,9 +116,9 @@ const peerSell = async () => {
       [
         {
           orderId: buyOrder.orderId,
-          SellerId: userId,
-          sellerId: buyOrder.userId,
-          assetName: asset,
+          sellerId: userId,
+          buyerId: buyOrder.userId,
+          assetName,
           amount,
           price,
         },

@@ -22,7 +22,7 @@ const peerBuy = async (req, res, next) => {
   session.startTransaction();
 
   try {
-    const { userId, asset, amount, price } = req.body;
+    const { userId, assetName, amount, price } = req.body;
     const Buyer = await User.findOne({ userId }).session(session);
     const balance = parseInt(Buyer.accountBalance);
     const intAmount = parseInt(amount);
@@ -35,12 +35,13 @@ const peerBuy = async (req, res, next) => {
     //find if there is a matching sell order
     const sale = await peerOrders
       .findOne({
-        assetName: asset,
+        assetName,
         price,
         amount,
         orderType: "sellp2p",
       })
       .session(session);
+
     if (!sale) {
       //create a buy order
       const orderId = createId();
@@ -49,7 +50,7 @@ const peerBuy = async (req, res, next) => {
           {
             orderId,
             userId,
-            assetName: asset,
+            assetName,
             amount,
             price,
             orderType: "buyp2p",
@@ -84,14 +85,16 @@ const peerBuy = async (req, res, next) => {
     //update buyer balance and portfolio
     Buyer.accountBalance = balance - assetValue;
     const buyerportfolio = Buyer.portfolio;
-    const buyerAsset = buyerportfolio.find((item) => item.assetName === asset);
+    const buyerAsset = buyerportfolio.find(
+      (item) => item.assetName === assetName
+    );
     if (buyerAsset) {
       buyerAsset.amount += intAmount;
       await Buyer.save({ session });
     } else {
       buyerportfolio.push({
         ownerId: userId,
-        assetName: asset,
+        assetName,
         amount: intAmount,
       });
     }
@@ -103,6 +106,16 @@ const peerBuy = async (req, res, next) => {
     Seller.accountBalance = parseInt(Seller.accountBalance) + assetValue;
     await Seller.save({ session });
 
+    const sellerEscrow = await peerEscrow.findOne({
+      orderId: sale.orderId,
+    });
+    if (!sellerEscrow) {
+      return res.status(400).json({ message: "Seller not found" });
+    }
+    if (parseInt(sellerEscrow.amount) < intAmount) {
+      return res.status(400).json({ message: "Seller has insufficient funds" });
+    }
+
     await peerOrders.deleteOne({ orderId: sale.orderId }).session(session);
     await peerEscrow.deleteOne({ orderId: sale.orderId }).session(session);
 
@@ -112,7 +125,7 @@ const peerBuy = async (req, res, next) => {
           orderId: sale.orderId,
           buyerId: userId,
           sellerId: sale.userId,
-          assetName: asset,
+          assetName,
           amount,
           price,
         },

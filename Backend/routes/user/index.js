@@ -16,6 +16,7 @@ const {
   // sellLimit,
   tradeHistory,
   peerBuy,
+  peerSell,
 } = require("../../controllers/user/index");
 const {
   depositSchema,
@@ -63,6 +64,12 @@ router.post(
   verifyjwt,
   formValidate(p2pOrderSchema),
   errorHOC(peerBuy)
+);
+router.post(
+  "/trade/p2p/sell",
+  verifyjwt,
+  formValidate(p2pOrderSchema),
+  errorHOC(peerSell)
 );
 // router.post(
 //   "/trade/sell-order",
