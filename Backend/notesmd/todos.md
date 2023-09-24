@@ -3,7 +3,6 @@
 1. The password reset link isnt working. email is sent but the reset url is wrong
 2. I am able to send request using another clients userID. Disable this
 3. handle idempotency
-4. ensure only buyp2p is handled by buy route and the same for sell route
 
 ## Minor Changes
 

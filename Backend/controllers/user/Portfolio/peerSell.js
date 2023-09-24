@@ -13,7 +13,10 @@ const peerSell = async (req, res, next) => {
   session.startTransaction();
 
   try {
-    const { userId, assetName, amount, price } = req.body;
+    const { userId, assetName, orderType, amount, price } = req.body;
+    if (orderType !== "sellp2p") {
+      return res.status(400).json({ message: Messages.invalidRequest });
+    }
     const Seller = await User.findOne({ userId });
     if (!Seller) {
       return res.status(400).json({ message: Messages.invalidRequest });
