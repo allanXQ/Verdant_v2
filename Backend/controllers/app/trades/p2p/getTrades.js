@@ -1,21 +1,8 @@
-const buyOrders = require("../../../../models/p2p/buyOrders");
-const sellOrders = require("../../../../models/p2p/sellOrders");
+const peerOrders = require("../../../../models/p2p/peerOrders");
 const Messages = require("../../../../utils/messages");
 
 const getP2PTrades = async (req, res) => {
-  const buys = await buyOrders.find().lean();
-  const sells = await sellOrders.find().lean();
-
-  const trades = [
-    ...buys.map((buy) => ({
-      ...buy,
-      type: "buy",
-    })),
-    ...sells.map((sell) => ({
-      ...sell,
-      type: "sell",
-    })),
-  ];
+  const trades = await peerOrders.find({});
 
   res.status(200).json({
     message: Messages.requestSuccessful,

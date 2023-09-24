@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 
-const buyOrders = new mongoose.Schema({
+const limitOrders = new mongoose.Schema({
   orderId: {
     type: String,
     default: () => crypto.randomBytes(6).toString("hex"),
@@ -15,6 +15,6 @@ const buyOrders = new mongoose.Schema({
   created: { type: Date, default: Date.now },
 });
 
-const model = mongoose.model("buyOrders", buyOrders);
+const model = mongoose.model("limitOrders", limitOrders);
 
 module.exports = model;

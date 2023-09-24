@@ -5,7 +5,11 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), // Add timestamp
     winston.format.errors({ stack: true }), // Log stack traces
-    winston.format.json() // Log in JSON format
+    winston.format.json(), // Log in JSON format
+    winston.format.printf(
+      (info) => `${info.timestamp} ${info.level}: ${info.message}`
+    ), // Print logs in this format
+    winston.format.colorize()
   ),
   transports: [
     new winston.transports.File({

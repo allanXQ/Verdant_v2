@@ -19,9 +19,9 @@ const { WithdrawalHistory } = require("./Wallet/WithdrawalHistory");
 //portfolio controllers
 const buyLimit = require("./Portfolio/buyLimit");
 const cancelOrder = require("./Portfolio/cancelOrder");
-const createBuyOrder = require("./Portfolio/createBuyOrder");
-const createSellOrder = require("./Portfolio/createSellOrder");
-const sellLimit = require("./Portfolio/sellLimit");
+const { peerBuy } = require("./Portfolio/peerBuy");
+const { peerSell } = require("./Portfolio/peerSell");
+// const sellLimit = require("./Portfolio/sellLimit");
 const tradeHistory = require("./Portfolio/tradeHistory");
 
 module.exports = {
@@ -43,8 +43,8 @@ module.exports = {
 
   buyLimit,
   cancelOrder,
-  createBuyOrder,
-  createSellOrder,
-  sellLimit,
+  peerBuy,
+  peerSell,
+  // sellLimit,
   tradeHistory,
 };

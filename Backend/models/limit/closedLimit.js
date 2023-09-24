@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const closedTrades = new mongoose.Schema({
+const closedLimit = new mongoose.Schema({
   orderId: { type: String, required: true, unique: true },
   buyerId: { type: String, required: true },
   sellerId: { type: String, required: true },
@@ -10,6 +10,6 @@ const closedTrades = new mongoose.Schema({
   created: { type: Date, default: Date.now },
 });
 
-const model = mongoose.model("closedTrades", closedTrades);
+const model = mongoose.model("closedLimit", closedLimit);
 
 module.exports = model;

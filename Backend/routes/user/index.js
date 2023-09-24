@@ -9,11 +9,11 @@ const {
   MpesaDepositHistory,
   WithdrawalHistory,
 
-  buyLimit,
+  // buyLimit,
   cancelOrder,
-  createBuyOrder,
-  createSellOrder,
-  sellLimit,
+  // createBuyOrder,
+  // createSellOrder,
+  // sellLimit,
   tradeHistory,
 } = require("../../controllers/user/index");
 const {
@@ -56,30 +56,30 @@ router.post(
 
 //portfolio routes
 router.get("/history/trade/:stockname", verifyjwt, errorHOC(tradeHistory)); //if param return all sells for that stock by user else return all sells by user
-router.post(
-  "/trade/sell-order",
-  verifyjwt,
-  formValidate(p2pOrderSchema),
-  errorHOC(createSellOrder)
-);
-router.post(
-  "/trade/buy-order",
-  verifyjwt,
-  formValidate(p2pOrderSchema),
-  errorHOC(createBuyOrder)
-);
-router.post(
-  "/trade/sell-limit",
-  verifyjwt,
-  formValidate(p2pOrderSchema),
-  errorHOC(sellLimit)
-);
-router.post(
-  "/trade/buy-limit",
-  verifyjwt,
-  formValidate(p2pOrderSchema),
-  errorHOC(buyLimit)
-);
+// router.post(
+//   "/trade/sell-order",
+//   verifyjwt,
+//   formValidate(p2pOrderSchema),
+//   errorHOC(createSellOrder)
+// );
+// router.post(
+//   "/trade/buy-order",
+//   verifyjwt,
+//   formValidate(p2pOrderSchema),
+//   errorHOC(createBuyOrder)
+// );
+// router.post(
+//   "/trade/sell-limit",
+//   verifyjwt,
+//   formValidate(p2pOrderSchema),
+//   errorHOC(sellLimit)
+// );
+// router.post(
+//   "/trade/buy-limit",
+//   verifyjwt,
+//   formValidate(p2pOrderSchema),
+//   errorHOC(buyLimit)
+// );
 router.post(
   "/trade/cancel-order",
   verifyjwt,
