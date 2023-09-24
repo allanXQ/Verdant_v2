@@ -1,31 +1,20 @@
-const sellOrders = require("./models/p2p/sellOrders");
-const buyOrders = require("./models/p2p/buyOrders");
+const peerOrders = require("../models/p2p/peerOrders");
+const peerEscrow = require("../models/p2p/peerEscrow");
+
+userId;
+("f35108397b93");
+
+userId;
+("539cda572db0");
 
 const buys = [
   {
     orderId: "b1",
-    buyerId: "u1",
-    buyerName: "user1",
-    stockName: "BTC",
-    stockAmount: 0.0001,
-    totalAssetValue: 100,
-    created: "2021-08-01T00:00:00.000Z",
-  },
-  {
-    orderId: "b2",
-    buyerId: "u2",
-    buyerName: "user2",
-    stockName: "BTC",
-    stockAmount: 0.0001,
-    totalAssetValue: 100,
-    created: "2021-08-01T00:00:00.000Z",
-  },
-  {
-    orderId: "b3",
-    buyerId: "u3",
-    buyerName: "user3",
-    stockName: "BTC",
-    stockAmount: 0.0001,
+    userId: "539cda572db0",
+    assetName: "verdant",
+    orderType: "buyp2p",
+    amount: 10,
+    price: 100,
     totalAssetValue: 100,
     created: "2021-08-01T00:00:00.000Z",
   },
@@ -34,37 +23,28 @@ const buys = [
 const sells = [
   {
     orderId: "s1",
-    sellerId: "u4",
-    sellerName: "user4",
-    stockName: "BTC",
-    stockAmount: 0.0001,
-    price: 100,
-    created: "2021-08-01T00:00:00.000Z",
-  },
-  {
-    orderId: "s2",
-    sellerId: "u5",
-    sellerName: "user5",
-    stockName: "BTC",
-    stockAmount: 0.0001,
-    price: 100,
-
-    created: "2021-08-01T00:00:00.000Z",
-  },
-  {
-    orderId: "s3",
-    sellerId: "u6",
-    sellerName: "user6",
-    stockName: "BTC",
-    stockAmount: 0.0001,
+    userId: "f35108397b93",
+    assetName: "verdant",
+    orderType: "sellp2p",
+    amount: 10,
     price: 100,
     created: "2021-08-01T00:00:00.000Z",
   },
 ];
 
+const peerEscrow = [
+  {
+    orderId: "s1",
+    orderType: "sellp2p",
+    userId: "f35108397b93",
+    assetName: "verdant",
+    amount: 10,
+  },
+];
+
 const createTrades = async () => {
-  await buyOrders.insertMany(buys);
-  await sellOrders.insertMany(sells);
+  await peerOrders.insertMany(sells);
+  await peerEscrow.insertMany(peerEscrow);
 };
 
 createTrades();

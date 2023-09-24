@@ -15,6 +15,7 @@ const {
   // createSellOrder,
   // sellLimit,
   tradeHistory,
+  peerBuy,
 } = require("../../controllers/user/index");
 const {
   depositSchema,
@@ -56,6 +57,13 @@ router.post(
 
 //portfolio routes
 router.get("/history/trade/:stockname", verifyjwt, errorHOC(tradeHistory)); //if param return all sells for that stock by user else return all sells by user
+
+router.post(
+  "/trade/p2p/buy",
+  verifyjwt,
+  formValidate(p2pOrderSchema),
+  errorHOC(peerBuy)
+);
 // router.post(
 //   "/trade/sell-order",
 //   verifyjwt,

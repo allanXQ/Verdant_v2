@@ -12,11 +12,6 @@ const { coinLabelMap } = require("../../../config/Assetinfo");
 const logger = require("../../../utils/logger");
 const createId = require("../../../utils/createId");
 
-//Seller is not seller
-//Seller has enough balance to buy
-//seller has enough portfolio balance to sell
-//escrow has enough balance
-
 const peerSell = async () => {
   const session = await mongoose.startSession();
   session.startTransaction();

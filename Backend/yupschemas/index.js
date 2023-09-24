@@ -77,9 +77,8 @@ const withdrawalSchema = yup.object().shape({
 
 const p2pOrderSchema = yup.object().shape({
   userId: yup.string().required(),
-  username: yup.string().required(),
-  stockName: yup.string().required(),
-  stockAmount: yup.number().moreThan(0).required(),
+  asset: yup.string().required(),
+  amount: yup.number().moreThan(0).required(),
   price: yup.number().required(),
 });
 
