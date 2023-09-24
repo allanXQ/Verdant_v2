@@ -4,8 +4,8 @@ const closedTrades = new mongoose.Schema({
   orderId: { type: String, required: true, unique: true },
   buyerId: { type: String, required: true },
   sellerId: { type: String, required: true },
-  stockName: { type: String, required: true },
-  stockAmount: { type: Number, required: true },
+  assetName: { type: String, required: true },
+  amount: { type: Number, required: true },
   price: { type: Number, required: true },
   created: { type: Date, default: Date.now },
 });

@@ -10,6 +10,7 @@ const User = require("../../../models/users");
 const Messages = require("../../../utils/messages");
 const { coinLabelMap } = require("../../../config/Assetinfo");
 const logger = require("../../../utils/logger");
+const createId = require("../../../utils/createId");
 
 //buyer is not seller
 //buyer has enough balance to buy
@@ -28,25 +29,7 @@ const fetchPrice = async (assetName) => {
   }
 };
 
-const validations = async () => {
-  const { orderType, userId, asset, amount, price } = req.body;
-  const findOrder = await limitOrder.findOne({ userId, asset, amount, price });
-
-  switch (orderType) {
-    case "buyp2p":
-
-    case "sellp2p":
-      return await sellP2P();
-    case "buyLimit":
-      return await buyLimit();
-    case "sellLimit":
-      return await sellLimit();
-    default:
-      return res.status(400).json({ message: "bad Request" });
-  }
-};
-
-const handleOrder = async () => {
+const peerBuy = async () => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -54,7 +37,7 @@ const handleOrder = async () => {
     const { userId, orderType, asset, amount, price } = req.body;
     switch (orderType) {
       case "buyp2p":
-        const Buyer = await User.findOne({ userId });
+        const Buyer = await User.findOne({ userId }).session(session);
         const balance = parseInt(Buyer.balance);
         const intAmount = parseInt(amount);
         const intPrice = parseInt(price);
@@ -62,23 +45,41 @@ const handleOrder = async () => {
         if (balance < assetValue) {
           return res.status(400).json({ message: "Insufficient Balance" });
         }
-        const sale = await peerOrders.findOne({
-          assetName: asset,
-          price,
-          amount,
-          orderType: "sellp2p",
-        });
+        const sale = await peerOrders
+          .findOne({
+            assetName: asset,
+            price,
+            amount,
+            orderType: "sellp2p",
+          })
+          .session(session);
         if (!sale) {
-          await peerOrders.create([
-            {
-              userId,
-              assetName: asset,
-              amount,
-              price,
-              orderType: "buyp2p",
-              totalAssetValue: assetValue,
-            },
-          ]);
+          const orderId = createId();
+          await peerOrders.create(
+            [
+              {
+                orderId,
+                userId,
+                assetName: asset,
+                amount,
+                price,
+                orderType: "buyp2p",
+                totalAssetValue: assetValue,
+              },
+            ],
+            { session }
+          );
+          await peerEscrow.create(
+            [
+              {
+                orderId,
+                userId,
+                orderType: "buyp2p",
+                cashAmount: assetValue,
+              },
+            ],
+            { session }
+          );
           return res.status(200).json({ message: "Order Placed" });
         }
         if (sale.userId === userId) {
@@ -93,18 +94,21 @@ const handleOrder = async () => {
         );
         if (buyerAsset) {
           buyerAsset.amount += intAmount;
+          await Buyer.save({ session });
         } else {
           buyerportfolio.push({ assetName: asset, amount: intAmount });
         }
         Buyer.portfolio = buyerportfolio;
         await Buyer.save({ session });
 
-        const Seller = await User.findOne({ userId: sale.userId });
+        const Seller = await User.findOne({ userId: sale.userId }).session(
+          session
+        );
         Seller.balance = parseInt(Seller.balance) + assetValue;
         await Seller.save({ session });
 
-        await peerOrders.deleteOne({ orderId: sale.orderId });
-        await peerEscrow.deleteOne({ orderId: sale.orderId });
+        await peerOrders.deleteOne({ orderId: sale.orderId }).session(session);
+        await peerEscrow.deleteOne({ orderId: sale.orderId }).session(session);
 
         await closedPeer.create(
           [
@@ -132,4 +136,4 @@ const handleOrder = async () => {
   }
 };
 
-module.exports = { handleOrder };
+module.exports = { peerBuy };

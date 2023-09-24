@@ -8,8 +8,8 @@ const isLocalAuth = function () {
 
 const Portfolio = mongoose.Schema({
   ownerId: { type: String, required: true },
-  stockName: { type: String, required: true },
-  amountOwned: { type: Number, required: true },
+  assetName: { type: String, required: true },
+  amount: { type: Number, required: true },
 });
 
 const Referrals = mongoose.Schema({
