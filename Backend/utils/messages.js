@@ -47,10 +47,14 @@ const Messages = {
   passwordResetFailed: "Password reset failed",
   passwordResetSuccess: "Password reset successful",
 
-  orderCreated: "Order created successfully",
+  orderCreated: "Order completed",
   orderFailed: "Order failed",
+  orderCancelled: "Order cancelled",
+  orderCancelledFailed: "Order cancellation failed",
+  insufficientBuyerFunds: "Buyer has insufficient funds",
+  insufficientSellerASset: "Seller has insufficient asset balance",
 
-  insufficientStocks: "Insufficient Stocks",
+  insufficientStocks: "Insufficient Portfolio Balance",
   overRequest: "Your request amount is above the minimum available",
 
   invalidAsset: "Invalid Asset",

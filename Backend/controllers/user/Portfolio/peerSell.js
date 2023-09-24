@@ -1,14 +1,10 @@
 const mongoose = require("mongoose");
 
-const limitOrder = require("../../../models/limit/limitOrders");
 const peerOrders = require("../../../models/p2p/peerOrders");
 const peerEscrow = require("../../../models/p2p/peerEscrow");
-const limitEscrow = require("../../../models/limit/limitEscrow");
 const closedPeer = require("../../../models/p2p/closedPeer");
-const closedLimit = require("../../../models/limit/closedLimit");
 const User = require("../../../models/users");
 const Messages = require("../../../utils/messages");
-const { coinLabelMap } = require("../../../config/Assetinfo");
 const logger = require("../../../utils/logger");
 const createId = require("../../../utils/createId");
 
@@ -19,11 +15,14 @@ const peerSell = async (req, res, next) => {
   try {
     const { userId, assetName, amount, price } = req.body;
     const Seller = await User.findOne({ userId });
+    if (!Seller) {
+      return res.status(400).json({ message: Messages.invalidRequest });
+    }
     const portfolio = Seller.portfolio;
     const currentAsset = portfolio.find((item) => item.assetName === assetName);
     //update portfolio
     if (!currentAsset) {
-      return res.status(400).json({ message: "Asset not found" });
+      return res.status(400).json({ message: Messages.insufficientStocks });
     }
 
     const assetAmount = parseInt(currentAsset.amount);
@@ -32,9 +31,7 @@ const peerSell = async (req, res, next) => {
     const assetValue = intAmount * intPrice;
     const newAmount = assetAmount - intAmount;
     if (assetAmount < intAmount) {
-      return res
-        .status(400)
-        .json({ message: "Insufficient portfolio Balance" });
+      return res.status(400).json({ message: Messages.insufficientStocks });
     }
     currentAsset.amount = newAmount;
     await Seller.save({ session });
@@ -71,10 +68,10 @@ const peerSell = async (req, res, next) => {
       ]);
       await session.commitTransaction();
       session.endSession();
-      return res.status(200).json({ message: "Order Placed" });
+      return res.status(200).json({ message: Messages.orderCreated });
     }
     if (buyOrder.userId === userId) {
-      return res.status(400).json({ message: "You cannot buy from yourself" });
+      return res.status(400).json({ messages: Messages.invalidRequest });
     }
 
     const buyerEscrow = await peerEscrow
@@ -83,10 +80,10 @@ const peerSell = async (req, res, next) => {
       })
       .session(session);
     if (!buyerEscrow) {
-      return res.status(400).json({ message: "Buyer not found" });
+      return res.status(400).json({ message: Messages.orderFailed });
     }
     if (parseInt(buyerEscrow.cashAmount) < assetValue) {
-      return res.status(400).json({ message: "Buyer has insufficient funds" });
+      return res.status(400).json({ message: Messages.insufficientBuyerFunds });
     }
     Seller.accountBalance =
       parseInt(Seller.accountBalance) + parseInt(buyerEscrow.cashAmount);
@@ -94,6 +91,9 @@ const peerSell = async (req, res, next) => {
     const buyer = await User.findOne({ userId: buyOrder.userId }).session(
       session
     );
+    if (!buyer) {
+      return res.status(400).json({ message: Messages.invalidRequest });
+    }
     const buyerportfolio = buyer.portfolio;
     const buyerAsset = buyerportfolio.find(
       (item) => item.assetName === assetName
@@ -128,7 +128,7 @@ const peerSell = async (req, res, next) => {
 
     await session.commitTransaction();
     session.endSession();
-    return res.status(200).json({ message: "Order Completed" });
+    return res.status(200).json({ message: Messages.orderCreated });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
