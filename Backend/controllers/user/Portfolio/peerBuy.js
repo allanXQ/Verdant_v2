@@ -35,99 +35,92 @@ const peerBuy = async () => {
 
   try {
     const { userId, orderType, asset, amount, price } = req.body;
-    switch (orderType) {
-      case "buyp2p":
-        const Buyer = await User.findOne({ userId }).session(session);
-        const balance = parseInt(Buyer.balance);
-        const intAmount = parseInt(amount);
-        const intPrice = parseInt(price);
-        const assetValue = intAmount * intPrice;
-        if (balance < assetValue) {
-          return res.status(400).json({ message: "Insufficient Balance" });
-        }
-        const sale = await peerOrders
-          .findOne({
-            assetName: asset,
-            price,
-            amount,
-            orderType: "sellp2p",
-          })
-          .session(session);
-        if (!sale) {
-          const orderId = createId();
-          await peerOrders.create(
-            [
-              {
-                orderId,
-                userId,
-                assetName: asset,
-                amount,
-                price,
-                orderType: "buyp2p",
-                totalAssetValue: assetValue,
-              },
-            ],
-            { session }
-          );
-          await peerEscrow.create(
-            [
-              {
-                orderId,
-                userId,
-                orderType: "buyp2p",
-                cashAmount: assetValue,
-              },
-            ],
-            { session }
-          );
-          return res.status(200).json({ message: "Order Placed" });
-        }
-        if (sale.userId === userId) {
-          return res
-            .status(400)
-            .json({ message: "You cannot buy from yourself" });
-        }
-        Buyer.balance = balance - assetValue;
-        const buyerportfolio = Buyer.portfolio;
-        const buyerAsset = buyerportfolio.find(
-          (asset) => asset.assetName === asset
-        );
-        if (buyerAsset) {
-          buyerAsset.amount += intAmount;
-          await Buyer.save({ session });
-        } else {
-          buyerportfolio.push({ assetName: asset, amount: intAmount });
-        }
-        Buyer.portfolio = buyerportfolio;
-        await Buyer.save({ session });
-
-        const Seller = await User.findOne({ userId: sale.userId }).session(
-          session
-        );
-        Seller.balance = parseInt(Seller.balance) + assetValue;
-        await Seller.save({ session });
-
-        await peerOrders.deleteOne({ orderId: sale.orderId }).session(session);
-        await peerEscrow.deleteOne({ orderId: sale.orderId }).session(session);
-
-        await closedPeer.create(
-          [
-            {
-              orderId: sale.orderId,
-              buyerId: userId,
-              sellerId: sale.userId,
-              assetName: asset,
-              amount,
-              price,
-            },
-          ],
-          { session }
-        );
-
-        await session.commitTransaction();
-        session.endSession();
-        return res.status(200).json({ message: "Order Completed" });
+    const Buyer = await User.findOne({ userId }).session(session);
+    const balance = parseInt(Buyer.balance);
+    const intAmount = parseInt(amount);
+    const intPrice = parseInt(price);
+    const assetValue = intAmount * intPrice;
+    if (balance < assetValue) {
+      return res.status(400).json({ message: "Insufficient Balance" });
     }
+    const sale = await peerOrders
+      .findOne({
+        assetName: asset,
+        price,
+        amount,
+        orderType: "sellp2p",
+      })
+      .session(session);
+    if (!sale) {
+      const orderId = createId();
+      await peerOrders.create(
+        [
+          {
+            orderId,
+            userId,
+            assetName: asset,
+            amount,
+            price,
+            orderType: "buyp2p",
+            totalAssetValue: assetValue,
+          },
+        ],
+        { session }
+      );
+      await peerEscrow.create(
+        [
+          {
+            orderId,
+            userId,
+            orderType: "buyp2p",
+            cashAmount: assetValue,
+          },
+        ],
+        { session }
+      );
+      return res.status(200).json({ message: "Order Placed" });
+    }
+    if (sale.userId === userId) {
+      return res.status(400).json({ message: "You cannot buy from yourself" });
+    }
+    Buyer.balance = balance - assetValue;
+    const buyerportfolio = Buyer.portfolio;
+    const buyerAsset = buyerportfolio.find(
+      (asset) => asset.assetName === asset
+    );
+    if (buyerAsset) {
+      buyerAsset.amount += intAmount;
+      await Buyer.save({ session });
+    } else {
+      buyerportfolio.push({ assetName: asset, amount: intAmount });
+    }
+    Buyer.portfolio = buyerportfolio;
+    await Buyer.save({ session });
+
+    const Seller = await User.findOne({ userId: sale.userId }).session(session);
+    Seller.balance = parseInt(Seller.balance) + assetValue;
+    await Seller.save({ session });
+
+    await peerOrders.deleteOne({ orderId: sale.orderId }).session(session);
+    await peerEscrow.deleteOne({ orderId: sale.orderId }).session(session);
+
+    await closedPeer.create(
+      [
+        {
+          orderId: sale.orderId,
+          buyerId: userId,
+          sellerId: sale.userId,
+          assetName: asset,
+          amount,
+          price,
+        },
+      ],
+      { session }
+    );
+
+    await session.commitTransaction();
+    session.endSession();
+    return res.status(200).json({ message: "Order Completed" });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
