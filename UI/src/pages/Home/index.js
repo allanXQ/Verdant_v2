@@ -82,7 +82,7 @@ const Home = () => {
           }}
         >
           <Box>
-            <Typography variant="bodytext1">
+            <Typography variant="bodyLarge">
               Welcome to Verdant Capital
             </Typography>
             <Typography variant="h6">

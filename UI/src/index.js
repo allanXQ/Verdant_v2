@@ -21,7 +21,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    bodytext3: {
+    bodySmall: {
       fontSize: "0.8rem",
       fontWeight: 400,
     },
@@ -57,20 +57,56 @@ const theme = createTheme({
   },
 });
 
-theme.typography.bodytext1 = {
-  fontSize: "1.5rem",
-  fontWeight: 500,
+theme.typography.h1 = {
+  fontSize: "2.488rem",
+  fontWeight: 700,
   color: theme.palette.black.primary,
 };
 
-theme.typography.bodytext2 = {
+theme.typography.h2 = {
+  fontSize: "2.074rem",
+  fontWeight: 700,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.h3 = {
+  fontSize: "1.728rem",
+  fontWeight: 700,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.h4 = {
+  fontSize: "1.44rem",
+  fontWeight: 700,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.h5 = {
+  fontSize: "1.2rem",
+  fontWeight: 700,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.h6 = {
   fontSize: "1rem",
-  fontWeight: 800,
+  fontWeight: 700,
   color: theme.palette.black.primary,
 };
 
-theme.typography.bodytext3 = {
-  fontSize: "0.85rem",
+theme.typography.bodyLarge = {
+  fontSize: "1.2rem",
+  fontWeight: 400,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.bodyRegular = {
+  fontSize: "1rem",
+  fontWeight: 400,
+  color: theme.palette.black.primary,
+};
+
+theme.typography.bodySmall = {
+  fontSize: "0.833rem",
   fontWeight: 400,
   color: theme.palette.black.primary,
 };

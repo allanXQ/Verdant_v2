@@ -216,7 +216,7 @@ const Dashboard = React.memo(() => {
               maxHeight: { lg: "60px" },
             }}
           >
-            <Typography variant="bodytext1">Account Overview</Typography>
+            <Typography variant="bodyLarge">Account Overview</Typography>
             <CardActionArea
               sx={{
                 display: "flex",
@@ -323,7 +323,7 @@ const Dashboard = React.memo(() => {
                 maxHeight: "20px",
               }}
             >
-              <Typography variant="bodytext1">Assets</Typography>
+              <Typography variant="bodyLarge">Assets</Typography>
               <Button
                 variant="text"
                 color="primary"
