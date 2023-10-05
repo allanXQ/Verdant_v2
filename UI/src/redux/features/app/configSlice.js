@@ -27,7 +27,9 @@ export const configSlice = createSlice({
   initialState,
   reducers: {
     updateTheme: (state, action) => {
-      state.theme = "dark";
+      state.theme === "light"
+        ? (state.theme = "dark")
+        : (state.theme = "light");
     },
     updateMessageModal: (state, action) => {
       state.messageModal = action.payload;

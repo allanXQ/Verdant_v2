@@ -8,12 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { selectTheme, updateTheme } from "redux/features/app/configSlice";
+import { store } from "redux/store";
+import { DarkModeOutlined } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 200;
 const navItems = ["Home", "About", "Contact"];
@@ -25,6 +28,11 @@ function DrawerAppBar(props) {
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+  const currentTheme = useSelector(selectTheme);
+
+  const changeTheme = () => {
+    store.dispatch(updateTheme());
   };
 
   const drawer = (
@@ -43,6 +51,13 @@ function DrawerAppBar(props) {
             </ListItemButton>
           </ListItem>
         ))}
+        {/* dark mode */}
+        <ListItem disablePadding>
+          <IconButton onClick={changeTheme}>
+            <DarkModeOutlined />
+          </IconButton>
+        </ListItem>
+
         <ListItem disablePadding>
           <Button
             variant="contained"
@@ -132,7 +147,8 @@ function DrawerAppBar(props) {
         sx={{
           display: "flex",
           p: 3,
-          // backgroundColor: "blue.primary",
+          backgroundColor:
+            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
           width: "100vw",
           // height: "100vh",
           justifyContent: "center",
