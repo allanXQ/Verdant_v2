@@ -20,7 +20,7 @@ const useStyledTheme = () => {
         sky: "#0d7cf2",
       },
       bgColor: {
-        light: "#f5f5f5",
+        light: "#ffffff",
         dark: "#16142a",
       },
       black: {
@@ -28,7 +28,7 @@ const useStyledTheme = () => {
         secondary: "#000000",
       },
       white: {
-        primary: "#fffffb",
+        primary: "#ffffff",
         secondary: "#c0c0bd",
       },
       green: {
@@ -68,7 +68,7 @@ const useStyledTheme = () => {
       },
       h6: {
         fontSize: "1rem",
-        fontWeight: 700,
+        fontWeight: 600,
       },
       bodyLarge: {
         fontSize: "1.2rem",

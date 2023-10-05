@@ -19,7 +19,20 @@ import { useSelector } from "react-redux";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
 const drawerWidth = 200;
-const navItems = ["Home", "About", "Contact"];
+const navItems = [
+  {
+    name: "Home",
+    path: "/home",
+  },
+  {
+    name: "About",
+    path: "/about",
+  },
+  {
+    name: "Contact",
+    path: "/contact",
+  },
+];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -43,10 +56,12 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               {/* <ListItemText primary={item}> */}
-              <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+              <Typography to={item.path} variant="h6" component={Link}>
+                {item.name}
+              </Typography>
               {/* </ListItemText> */}
             </ListItemButton>
           </ListItem>
@@ -90,11 +105,10 @@ function DrawerAppBar(props) {
       <CssBaseline />
       <AppBar
         component="nav"
-        sx={
-          {
-            // backgroundColor: "blue.primary",
-          }
-        }
+        sx={{
+          backgroundColor: "transparent",
+          boxShadow: "none",
+        }}
       >
         <Toolbar>
           <IconButton
@@ -115,9 +129,14 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
+              <Typography
+                variant="h6"
+                component={Link}
+                to={item.path}
+                key={item.name}
+              >
+                {item.name}
+              </Typography>
             ))}
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -155,13 +174,19 @@ function DrawerAppBar(props) {
           backgroundColor:
             currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
           width: "100vw",
-          // height: "100vh",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Toolbar />
-        {props.children}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {props.children}
+        </Box>
       </Box>
     </Box>
   );

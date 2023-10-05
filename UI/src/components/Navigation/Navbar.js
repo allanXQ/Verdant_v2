@@ -195,7 +195,9 @@ function ResponsiveDrawer(props) {
                         >
                           {subitem.icon}
                         </ListItemIcon>
-                        <ListItemText primary={subitem.name} />
+                        <Typography variant="bodyRegular">
+                          {subitem.name}
+                        </Typography>
                       </ListItemButton>
                     </ListItem>
                   ))}
