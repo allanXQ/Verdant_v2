@@ -19,10 +19,13 @@ import HomeLayout from "components/Layouts/HomeLayout";
 import LoanRequests from "pages/TransactionHistory/LoanRequests";
 import LoanPayments from "pages/TransactionHistory/LoanPayments";
 import Profile from "pages/Profile";
+import { ThemeProvider } from "@mui/material";
+import useStyledTheme from "./Hooks/useStyledTheme";
 
 function App() {
+  const theme = useStyledTheme();
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <MessageModal />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
@@ -56,7 +59,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

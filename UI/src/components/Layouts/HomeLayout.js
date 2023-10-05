@@ -15,8 +15,8 @@ import Button from "@mui/material/Button";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { selectTheme, updateTheme } from "redux/features/app/configSlice";
 import { store } from "redux/store";
-import { DarkModeOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
 const drawerWidth = 200;
 const navItems = ["Home", "About", "Contact"];
@@ -54,7 +54,7 @@ function DrawerAppBar(props) {
         {/* dark mode */}
         <ListItem disablePadding>
           <IconButton onClick={changeTheme}>
-            <DarkModeOutlined />
+            {currentTheme === "dark" ? <LightMode /> : <DarkMode />}
           </IconButton>
         </ListItem>
 
@@ -119,6 +119,11 @@ function DrawerAppBar(props) {
                 {item}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <IconButton onClick={changeTheme}>
+              {currentTheme === "dark" ? <LightMode /> : <DarkMode />}
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
