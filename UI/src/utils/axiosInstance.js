@@ -28,8 +28,8 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      if (error.response.data.message === "Refresh Token Expired") {
+    if (error.response.status === 401) {
+      if (error.response.data.message === "Invalid Refresh Token") {
         store.dispatch(logout());
         window.location.href = "/login";
 
@@ -53,7 +53,7 @@ axiosInstance.interceptors.response.use(
       return new Promise((resolve, reject) => {
         axiosInstance
           .post(`/auth/refresh-token`, {})
-          .then(() => {
+          .then((res) => {
             processQueue(null);
             resolve(axiosInstance(originalRequest));
           })

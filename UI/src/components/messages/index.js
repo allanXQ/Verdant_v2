@@ -8,7 +8,7 @@ const { useSelector, useDispatch } = require("react-redux");
 const MessageModal = ({ type, message }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const errorParam = queryParams.get("error");
+  const errorParam = queryParams.get("error") || queryParams.get("message");
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -26,7 +26,9 @@ const MessageModal = ({ type, message }) => {
     }
     setIsOpen(false);
     setTimeout(() => {
-      errorParam && queryParams.delete("error");
+      errorParam &&
+        queryParams.delete("error") &&
+        queryParams.delete("message");
       dispatch(clearError());
     }, 1000);
   };
