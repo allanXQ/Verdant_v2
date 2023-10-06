@@ -25,7 +25,13 @@ const Register = () => {
     sublinkText: "Log in",
   };
   return (
-    <Auth title="Sign Up" sublink={sublink}>
+    <Auth
+      title="Sign Up"
+      sublink={sublink}
+      sx={{
+        mt: 5,
+      }}
+    >
       <RegisterForm />
     </Auth>
   );

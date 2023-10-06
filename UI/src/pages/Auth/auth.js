@@ -69,7 +69,7 @@ const GoogleSignup = () => {
   );
 };
 
-export const Auth = ({ title, sublink, children }) => {
+export const Auth = ({ title, sublink, children, sx }) => {
   return (
     <Box
       sx={{
@@ -79,12 +79,13 @@ export const Auth = ({ title, sublink, children }) => {
         justifyContent: "center",
         gap: 1,
         height: "100vh",
-        width: "100vw",
+        // width: "100vw",
         color: "white.primary",
         overflowX: "hidden",
+        ...sx,
       }}
     >
-      <Typography>{title}</Typography>
+      <Typography variant="h4">{title}</Typography>
       <Box
         sx={{
           display: "flex",
@@ -93,8 +94,13 @@ export const Auth = ({ title, sublink, children }) => {
           gap: 1,
         }}
       >
-        <Typography>{sublink.text}</Typography>
-        <Typography component={Link} to={sublink.pathname}>
+        <Typography variant="bodyRegular">{sublink.text}</Typography>
+        <Typography
+          component={Link}
+          to={sublink.pathname}
+          variant="bodyRegularBold"
+          color="primary"
+        >
           {sublink.sublinkText}
         </Typography>
       </Box>

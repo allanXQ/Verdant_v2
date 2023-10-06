@@ -37,10 +37,10 @@ function App() {
           <Route path="about" element={<AboutUs />} />
           <Route path="terms" element={<Terms />} />
           <Route path="privacy" element={<PrivacyPolicy />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
 
         <Route path="logout" element={<Logout />} />
         <Route path="google-callback" element={<GoogleCallback />} />

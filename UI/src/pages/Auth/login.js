@@ -14,10 +14,6 @@ const Login = () => {
       navigate("/dashboard");
     }
   }, [isLoggedIn, navigate]);
-  //get params
-  const params = new URLSearchParams(window.location.search);
-  const message = params.get("message");
-  console.log(message);
   const sublink = {
     pathname: "/register",
     sublinkText: "Sign Up",

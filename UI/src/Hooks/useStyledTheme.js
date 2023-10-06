@@ -78,6 +78,10 @@ const useStyledTheme = () => {
         fontSize: "1rem",
         fontWeight: 400,
       },
+      bodyRegularBold: {
+        fontSize: "1rem",
+        fontWeight: 700,
+      },
       bodySmall: {
         fontSize: "0.833rem",
         fontWeight: 400,
@@ -98,6 +102,7 @@ const useStyledTheme = () => {
     "h6",
     "bodyLarge",
     "bodyRegular",
+    "bodyRegularBold",
     "bodySmall",
     "bodySmallBold",
   ].forEach((key) => {
