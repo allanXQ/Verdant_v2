@@ -89,14 +89,14 @@ const Home = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: 1,
+          gap: theme.spacing(2),
         }}
       >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 2,
+            gap: theme.spacing(1),
           }}
         >
           <Typography variant="h2">
@@ -115,7 +115,13 @@ const Home = () => {
             </Button>
           </Box>
         </Box>
-        <Box>{/* <img src="/img/home3.webp" alt="hero" width={600} /> */}</Box>
+        <Box
+          sx={{
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          <img src="/img/home3.webp" alt="hero" width={600} />
+        </Box>
       </Grid>
       <Grid
         item
@@ -123,7 +129,9 @@ const Home = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 2,
+          justifyContent: "center",
+          alignItems: "center",
+          gap: theme.spacing(2),
         }}
       >
         <Box
@@ -146,12 +154,20 @@ const Home = () => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", lg: "row-reverse" },
             justifyContent: "center",
             alignItems: "center",
             gap: 2,
-            mt: 2,
           }}
         >
+          <Box sx={{ maxWidth: "100%", overflow: "hidden" }}>
+            <img
+              src="/img/dashboard.png"
+              alt="dashboard"
+              width={1200}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -176,15 +192,19 @@ const Home = () => {
               </Box>
             ))}
           </Box>
-          {/* <img
-            src="/img/dashboard.png"
-            alt="dashboard"
-            width={1000}
-            // height={500}
-          /> */}
         </Box>
       </Grid>
-      <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: theme.spacing(2),
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -205,8 +225,8 @@ const Home = () => {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-evenly",
-            height: 150,
-            // backgroundColor: "bgColor.dark",
+            alignItems: "center",
+            gap: theme.spacing(2),
           }}
         >
           {stats.map((item) => (
@@ -226,14 +246,24 @@ const Home = () => {
           ))}
         </Box>
       </Grid>
-      {/* <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: theme.spacing(2),
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignSelf: "center",
             alignItems: "center",
-            gap: theme.spacing(2),
+            gap: theme.spacing(1),
           }}
         >
           <Typography variant="h2">Why Users Trust Us</Typography>
@@ -245,12 +275,10 @@ const Home = () => {
         <Box
           sx={{
             display: "flex",
-            // flexDirection: "column",
             justifyContent: "space-evenly",
             flexWrap: "wrap",
             alignItems: "center",
             gap: theme.spacing(2),
-            mt: theme.spacing(2),
           }}
         >
           {whyUs.map((item) => (
@@ -278,7 +306,6 @@ const Home = () => {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  maxWidth: 250,
                   gap: theme.spacing(1),
                 }}
               >
@@ -290,7 +317,7 @@ const Home = () => {
             </Box>
           ))}
         </Box>
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

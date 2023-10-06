@@ -16,7 +16,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { selectTheme, updateTheme } from "redux/features/app/configSlice";
 import { store } from "redux/store";
 import { useSelector } from "react-redux";
-import { DarkMode, LightMode } from "@mui/icons-material";
+import { DarkMode, LightMode, TheaterComedy } from "@mui/icons-material";
 
 const drawerWidth = 200;
 const navItems = [
@@ -49,7 +49,14 @@ function DrawerAppBar(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{
+        textAlign: "center",
+        backgroundColor:
+          currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+      }}
+    >
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
@@ -69,7 +76,21 @@ function DrawerAppBar(props) {
         {/* dark mode */}
         <ListItem disablePadding>
           <IconButton onClick={changeTheme}>
-            {currentTheme === "dark" ? <LightMode /> : <DarkMode />}
+            {currentTheme === "dark" ? (
+              <LightMode
+                sx={{
+                  color:
+                    currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+                }}
+              />
+            ) : (
+              <DarkMode
+                sx={{
+                  color:
+                    currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+                }}
+              />
+            )}
           </IconButton>
         </ListItem>
 
@@ -106,19 +127,24 @@ function DrawerAppBar(props) {
       <AppBar
         component="nav"
         sx={{
-          backgroundColor: "transparent",
+          backgroundColor:
+            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
           boxShadow: "none",
         }}
       >
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon
+              sx={{
+                color:
+                  currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+              }}
+            />
           </IconButton>
           <Typography
             variant="h6"
@@ -141,7 +167,25 @@ function DrawerAppBar(props) {
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <IconButton onClick={changeTheme}>
-              {currentTheme === "dark" ? <LightMode /> : <DarkMode />}
+              {currentTheme === "dark" ? (
+                <LightMode
+                  sx={{
+                    color:
+                      currentTheme === "dark"
+                        ? "bgColor.light"
+                        : "bgColor.dark",
+                  }}
+                />
+              ) : (
+                <DarkMode
+                  sx={{
+                    color:
+                      currentTheme === "dark"
+                        ? "bgColor.light"
+                        : "bgColor.dark",
+                  }}
+                />
+              )}
             </IconButton>
           </Box>
         </Toolbar>
@@ -183,6 +227,10 @@ function DrawerAppBar(props) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            mt: {
+              xs: 10,
+              lg: 0,
+            },
           }}
         >
           {props.children}
