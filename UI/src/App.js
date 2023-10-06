@@ -23,6 +23,7 @@ import { ThemeProvider } from "@mui/material";
 import useStyledTheme from "./Hooks/useStyledTheme";
 import AboutUs from "pages/Home/Abouts";
 import Terms from "pages/Home/Terms";
+import PrivacyPolicy from "pages/Home/Privacy";
 
 function App() {
   const theme = useStyledTheme();
@@ -35,6 +36,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
