@@ -82,6 +82,10 @@ const useStyledTheme = () => {
         fontSize: "0.833rem",
         fontWeight: 400,
       },
+      bodySmallBold: {
+        fontSize: "0.9rem",
+        fontWeight: 700,
+      },
     },
   });
 
@@ -95,6 +99,7 @@ const useStyledTheme = () => {
     "bodyLarge",
     "bodyRegular",
     "bodySmall",
+    "bodySmallBold",
   ].forEach((key) => {
     theme.typography[key].color =
       currentTheme === "light"
