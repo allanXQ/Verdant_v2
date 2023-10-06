@@ -25,7 +25,7 @@ const navItems = [
     path: "/home",
   },
   {
-    name: "About",
+    name: "About Us",
     path: "/about",
   },
   {
@@ -118,9 +118,10 @@ function DrawerAppBar(props) {
             sx={{
               borderRadius: 20,
               width: 180,
+              textTransform: "none",
             }}
           >
-            Login
+            <Typography variant="h6">sign in</Typography>
           </Button>
           <Button
             variant="contained"
@@ -131,9 +132,10 @@ function DrawerAppBar(props) {
             sx={{
               borderRadius: 20,
               width: 180,
+              textTransform: "none",
             }}
           >
-            Sign Up
+            <Typography variant="h6">sign up</Typography>
           </Button>
         </ListItem>
       </List>
@@ -159,7 +161,6 @@ function DrawerAppBar(props) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            gap: 30,
           }}
         >
           <IconButton
@@ -184,9 +185,10 @@ function DrawerAppBar(props) {
           <Box
             sx={{
               display: { xs: "none", sm: "flex" },
-              flexGrow: 1,
+              // gap: 10,
+              width: "80%",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
             }}
           >
             {navItems.map((item) => (
@@ -225,9 +227,10 @@ function DrawerAppBar(props) {
                   display: { xs: "none", sm: "block" },
                   borderRadius: 20,
                   width: 140,
+                  textTransform: "none",
                 }}
               >
-                Login
+                <Typography variant="h6">sign in</Typography>
               </Button>
               <Button
                 variant="contained"
@@ -238,9 +241,10 @@ function DrawerAppBar(props) {
                 sx={{
                   borderRadius: 20,
                   width: 140,
+                  textTransform: "none",
                 }}
               >
-                Sign Up
+                <Typography variant="h6">sign up</Typography>
               </Button>
             </Box>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>

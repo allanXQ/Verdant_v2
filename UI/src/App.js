@@ -21,6 +21,7 @@ import LoanPayments from "pages/TransactionHistory/LoanPayments";
 import Profile from "pages/Profile";
 import { ThemeProvider } from "@mui/material";
 import useStyledTheme from "./Hooks/useStyledTheme";
+import AboutUs from "pages/Home/Abouts";
 
 function App() {
   const theme = useStyledTheme();
@@ -31,6 +32,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         <Route element={<HomeLayout />}>
           <Route path="home" element={<Home />} />
+          <Route path="about" element={<AboutUs />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
