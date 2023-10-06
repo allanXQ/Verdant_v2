@@ -29,8 +29,12 @@ const navItems = [
     path: "/about",
   },
   {
-    name: "Contact",
-    path: "/contact",
+    name: "Terms",
+    path: "/terms",
+  },
+  {
+    name: "Privacy",
+    path: "/privacy",
   },
 ];
 

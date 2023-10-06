@@ -22,6 +22,7 @@ import Profile from "pages/Profile";
 import { ThemeProvider } from "@mui/material";
 import useStyledTheme from "./Hooks/useStyledTheme";
 import AboutUs from "pages/Home/Abouts";
+import Terms from "pages/Home/Terms";
 
 function App() {
   const theme = useStyledTheme();
@@ -33,6 +34,7 @@ function App() {
         <Route element={<HomeLayout />}>
           <Route path="home" element={<Home />} />
           <Route path="about" element={<AboutUs />} />
+          <Route path="terms" element={<Terms />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
