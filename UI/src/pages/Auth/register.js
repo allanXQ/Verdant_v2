@@ -29,7 +29,7 @@ const Register = () => {
       title="Sign Up"
       sublink={sublink}
       sx={{
-        mt: 5,
+        mt: 8,
       }}
     >
       <RegisterForm />
