@@ -23,7 +23,12 @@ const Login = () => {
     <Auth title="Sign In" sublink={sublink}>
       <LoginForm>
         <Box>
-          <Typography variant="caption" component={Link} to="/forgot-password">
+          <Typography
+            component={Link}
+            to="/forgot-password"
+            variant="bodySmallBold"
+            color="primary"
+          >
             Forgot password?
           </Typography>
         </Box>

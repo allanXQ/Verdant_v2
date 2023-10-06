@@ -122,7 +122,7 @@ export const Auth = ({ title, sublink, children, sx }) => {
           gap: "0.3rem",
         }}
       >
-        <Typography variant="caption">© 2023 Verdant</Typography>
+        <Typography variant="bodySmallBold">© 2023 Verdant</Typography>
       </Box>
     </Box>
   );

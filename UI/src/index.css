@@ -55,7 +55,3 @@ a {
   /* color: white; */
   background-color: transparent;
 }
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #0c0d1f inset !important;
-  /* -webkit-text-fill-color: white !important; */
-}

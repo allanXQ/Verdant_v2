@@ -1,9 +1,13 @@
-import { TextField } from "@mui/material";
+import { TextField, useTheme } from "@mui/material";
+import { current } from "@reduxjs/toolkit";
 import { useField } from "formik";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectTheme } from "redux/features/app/configSlice";
 
 const MUITextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
+  const currentTheme = useSelector(selectTheme);
   return (
     <TextField
       variant={props.variant || "standard"}
@@ -13,23 +17,25 @@ const MUITextField = ({ label, ...props }) => {
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error ? meta.error : ""}
       autoComplete="off"
-      // color="blue.sky"
       focused
       sx={{
         width: "20rem",
+        color: currentTheme === "light" ? "bgColor.dark" : "bgColor.light",
 
-        "& .Mui-focused": {
-          backgroundColor: "transparent",
+        "& .MuiInputBase-input": {
+          color: currentTheme === "light" ? "bgColor.dark" : "bgColor.light",
+          boxShadow: "none",
+          "&:focus": {
+            backgroundColor: "transparent",
+          },
         },
-        // "& .MuiInputBase-input": {
-        //   color: "white.primary",
-        //   "&:focus": {
-        //     backgroundColor: "transparent",
-        //   },
-        // },
-        // "& .MuiInput-input": {
-        //   color: "#fff", // Custom color for the input text
-        // },
+        "& .MuiInput-input": {
+          color: currentTheme === "light" ? "bgColor.dark" : "bgColor.light",
+          boxShadow: "none",
+          "&:focus": {
+            backgroundColor: "transparent",
+          },
+        },
       }}
     />
   );

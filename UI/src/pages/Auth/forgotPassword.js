@@ -13,14 +13,16 @@ const ForgotPassword = () => {
         height: "100vh",
       }}
     >
-      <Typography>Forgot Password</Typography>
+      <Typography variant="h4">Forgot Password</Typography>
       <Box
         sx={{
           display: "flex",
           gap: 0.5,
         }}
       >
-        <Typography>Enter email to reset password </Typography>
+        <Typography variant="bodyRegular">
+          Enter email to reset password{" "}
+        </Typography>
       </Box>
 
       <Box
@@ -39,7 +41,7 @@ const ForgotPassword = () => {
           gap: "0.3rem",
         }}
       >
-        <Typography variant="caption">© 2023 Verdant</Typography>
+        <Typography variant="bodySmallBold">© 2023 Verdant</Typography>
       </Box>
     </Box>
   );
