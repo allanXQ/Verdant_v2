@@ -53,6 +53,7 @@ function DrawerAppBar(props) {
       onClick={handleDrawerToggle}
       sx={{
         textAlign: "center",
+        height: "100%",
         backgroundColor:
           currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
       }}
@@ -61,20 +62,25 @@ function DrawerAppBar(props) {
         MUI
       </Typography>
       <Divider />
-      <List>
+      <List
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              {/* <ListItemText primary={item}> */}
               <Typography to={item.path} variant="h6" component={Link}>
                 {item.name}
               </Typography>
-              {/* </ListItemText> */}
             </ListItemButton>
           </ListItem>
         ))}
-        {/* dark mode */}
-        <ListItem disablePadding>
+        <ListItem>
           <IconButton onClick={changeTheme}>
             {currentTheme === "dark" ? (
               <LightMode
@@ -94,12 +100,24 @@ function DrawerAppBar(props) {
           </IconButton>
         </ListItem>
 
-        <ListItem disablePadding>
+        <ListItem
+          disablePadding
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={() => {
               navigate("/login");
+            }}
+            sx={{
+              borderRadius: 20,
+              width: 180,
             }}
           >
             Login
@@ -109,6 +127,10 @@ function DrawerAppBar(props) {
             color="primary"
             onClick={() => {
               navigate("/register");
+            }}
+            sx={{
+              borderRadius: 20,
+              width: 180,
             }}
           >
             Sign Up
@@ -132,7 +154,14 @@ function DrawerAppBar(props) {
           boxShadow: "none",
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 30,
+          }}
+        >
           <IconButton
             aria-label="open drawer"
             edge="start"
@@ -148,12 +177,18 @@ function DrawerAppBar(props) {
           </IconButton>
           <Typography
             variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             MUI
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             {navItems.map((item) => (
               <Typography
                 variant="h6"
@@ -165,28 +200,72 @@ function DrawerAppBar(props) {
               </Typography>
             ))}
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <IconButton onClick={changeTheme}>
-              {currentTheme === "dark" ? (
-                <LightMode
-                  sx={{
-                    color:
-                      currentTheme === "dark"
-                        ? "bgColor.light"
-                        : "bgColor.dark",
-                  }}
-                />
-              ) : (
-                <DarkMode
-                  sx={{
-                    color:
-                      currentTheme === "dark"
-                        ? "bgColor.light"
-                        : "bgColor.dark",
-                  }}
-                />
-              )}
-            </IconButton>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  navigate("/login");
+                }}
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  borderRadius: 20,
+                  width: 140,
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  navigate("/register");
+                }}
+                sx={{
+                  borderRadius: 20,
+                  width: 140,
+                }}
+              >
+                Sign Up
+              </Button>
+            </Box>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <IconButton onClick={changeTheme}>
+                {currentTheme === "dark" ? (
+                  <LightMode
+                    sx={{
+                      color:
+                        currentTheme === "dark"
+                          ? "bgColor.light"
+                          : "bgColor.dark",
+                    }}
+                  />
+                ) : (
+                  <DarkMode
+                    sx={{
+                      color:
+                        currentTheme === "dark"
+                          ? "bgColor.light"
+                          : "bgColor.dark",
+                    }}
+                  />
+                )}
+              </IconButton>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
