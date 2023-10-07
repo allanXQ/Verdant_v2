@@ -196,7 +196,6 @@ const Dashboard = React.memo(() => {
       sx={{
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
-        height: "100vh",
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
 
 const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme }) => ({
-  maxWidth: "100vw",
+  width: "100vw",
   [theme.breakpoints.down("sm")]: {
     paddingRight: "35px",
   },
