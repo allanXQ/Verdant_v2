@@ -15,7 +15,7 @@ const useStyledTheme = () => {
     },
     palette: {
       blue: {
-        main: "#0c0d1f",
+        primary: "#0c0d1f",
         secondary: "#16142a",
         sky: "#0d7cf2",
       },
@@ -29,15 +29,15 @@ const useStyledTheme = () => {
         dark: "#212121",
       },
       white: {
-        main: "#ffffff",
+        primary: "#ffffff",
         secondary: "#c0c0bd",
       },
       green: {
-        main: "#00b341",
+        primary: "#00b341",
         secondary: "#00b341",
       },
       red: {
-        main: "#ff0000",
+        primary: "#ff0000",
         secondary: "#ff0000",
       },
     },
@@ -106,7 +106,7 @@ const useStyledTheme = () => {
     theme.typography[key].color =
       currentTheme === "light"
         ? theme.palette.black.main
-        : theme.palette.white.main;
+        : theme.palette.white.primary;
   });
 
   theme.components.MuiCssBaseline = {
@@ -117,9 +117,10 @@ const useStyledTheme = () => {
             ? theme.palette.bgColor.light
             : theme.palette.bgColor.dark,
       },
+      //may update later
       "::-webkit-scrollbar": {
-        width: "0.4em",
-        height: "0.1em",
+        width: "0em",
+        height: "0em",
       },
       "::-webkit-scrollbar-track": {
         backgroundColor:
@@ -131,7 +132,7 @@ const useStyledTheme = () => {
         backgroundColor:
           currentTheme === "light"
             ? theme.palette.white.secondary
-            : theme.palette.main.main,
+            : theme.palette.primary.main,
         borderRadius: "2rem",
       },
     },
