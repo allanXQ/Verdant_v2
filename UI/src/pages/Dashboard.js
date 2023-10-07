@@ -181,13 +181,13 @@ const Dashboard = React.memo(() => {
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
-    // width: "100%",
     width: {
       xs: "100vw",
       sm: `calc(${overviewWidth})`,
     },
     border: "none",
     boxShadow: "none",
+    backgroundColor: "bgColor.dark",
   };
   return (
     <Grid
@@ -197,13 +197,15 @@ const Dashboard = React.memo(() => {
         display: "flex",
         flexDirection: { sm: "column", lg: "row" },
         width: overviewWidth,
+        height: "100vh",
         gap: 1,
         flexGrow: 1,
         flexBasis: 0,
         flexWrap: "wrap",
+        overflow: "hidden",
       }}
     >
-      <Grid item>
+      <Grid item sx={{}}>
         <Card sx={{ ...cardStyle, gap: { sm: 2 } }}>
           <CardContent
             sx={{
@@ -254,18 +256,11 @@ const Dashboard = React.memo(() => {
                     width: "150px",
                   }}
                 >
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "black.primary",
-                    }}
-                  >
-                    {stat.name}
-                  </Typography>
+                  <Typography variant="bodyRegular">{stat.name}</Typography>
                   <Box>
                     {stat.percentageChange > 0 ? (
                       <Typography
-                        variant="caption"
+                        variant="bodySmall"
                         color="green.primary"
                         sx={{
                           display: "flex",
@@ -282,7 +277,7 @@ const Dashboard = React.memo(() => {
                       </Typography>
                     ) : (
                       <Typography
-                        variant="caption"
+                        variant="bodySmall"
                         color="red.primary"
                         sx={{
                           display: "flex",
@@ -300,11 +295,7 @@ const Dashboard = React.memo(() => {
                     )}
                   </Box>
                 </Box>
-                <Typography
-                  variant="h6"
-                  fontWeight="bold"
-                  color="black.primary"
-                >
+                <Typography variant="h6" fontWeight="bold">
                   KSH {stat.value}
                 </Typography>
               </Box>
@@ -312,7 +303,12 @@ const Dashboard = React.memo(() => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item>
+      <Grid
+        item
+        sx={{
+          height: "100%",
+        }}
+      >
         <Card sx={cardStyle}>
           <CardContent>
             <Box

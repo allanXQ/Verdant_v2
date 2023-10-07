@@ -35,6 +35,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectTheme } from "redux/features/app/configSlice";
 
 const navlinks = [
   {
@@ -153,6 +155,8 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const currentTheme = useSelector(selectTheme);
+
   const drawer = (
     <Box>
       <Toolbar />
@@ -215,13 +219,21 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+        backgroundColor:
+          currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+      }}
+    >
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          boxShadow: "none",
+          backgroundColor: "transparent",
         }}
       >
         <Toolbar>
