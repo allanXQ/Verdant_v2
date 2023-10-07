@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ResponsiveDrawer, { Sidenav, Topbar } from "../Navigation/Navbar";
+import React, { useEffect } from "react";
+import ResponsiveDrawer from "../Navigation/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
-import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "redux/features/user/userSlice";
-import {
-  selectDrawerHeight,
-  selectDrawerWidth,
-  selectTopBarHeight,
-} from "redux/features/app/configSlice";
+import { selectDrawerWidth } from "redux/features/app/configSlice";
 import { apiCall } from "redux/async/asyncThunk";
 
 const RootLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const drawerHeight = useSelector(selectDrawerHeight);
   let drawerWidth = useSelector(selectDrawerWidth);
-  const topBarHeight = useSelector(selectTopBarHeight);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const location = useLocation();
@@ -35,7 +28,6 @@ const RootLayout = () => {
       })
     );
   }, []);
-  const [open, setOpen] = useState(false);
 
   return (
     <>
