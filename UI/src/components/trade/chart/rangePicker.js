@@ -1,6 +1,6 @@
 import { MoreVertOutlined } from "@mui/icons-material";
 import { Box, Button, IconButton, Popover, Typography } from "@mui/material";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 import { useState } from "react";
 
 const klineIntervals = [

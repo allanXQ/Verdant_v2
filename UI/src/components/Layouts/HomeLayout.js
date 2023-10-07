@@ -11,13 +11,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { selectTheme, updateTheme } from "redux/features/app/configSlice";
-import { store } from "redux/store";
+import { selectTheme } from "redux/features/app/configSlice";
 import { useSelector } from "react-redux";
-import { DarkMode, LightMode, TheaterComedy } from "@mui/icons-material";
-import MuiButton from "components/common/Button";
+import { MuiButton, ThemeButton } from "components/common/Button";
 
 const drawerWidth = 200;
 const navItems = [
@@ -48,10 +45,6 @@ function DrawerAppBar(props) {
     setMobileOpen((prevState) => !prevState);
   };
   const currentTheme = useSelector(selectTheme);
-
-  const changeTheme = () => {
-    store.dispatch(updateTheme());
-  };
 
   const drawer = (
     <Box
@@ -86,23 +79,7 @@ function DrawerAppBar(props) {
           </ListItem>
         ))}
         <ListItem>
-          <IconButton onClick={changeTheme}>
-            {currentTheme === "dark" ? (
-              <LightMode
-                sx={{
-                  color:
-                    currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
-                }}
-              />
-            ) : (
-              <DarkMode
-                sx={{
-                  color:
-                    currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
-                }}
-              />
-            )}
-          </IconButton>
+          <ThemeButton />
         </ListItem>
 
         <ListItem
@@ -247,27 +224,7 @@ function DrawerAppBar(props) {
               />
             </Box>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <IconButton onClick={changeTheme}>
-                {currentTheme === "dark" ? (
-                  <LightMode
-                    sx={{
-                      color:
-                        currentTheme === "dark"
-                          ? "bgColor.light"
-                          : "bgColor.dark",
-                    }}
-                  />
-                ) : (
-                  <DarkMode
-                    sx={{
-                      color:
-                        currentTheme === "dark"
-                          ? "bgColor.light"
-                          : "bgColor.dark",
-                    }}
-                  />
-                )}
-              </IconButton>
+              <ThemeButton />
             </Box>
           </Box>
         </Toolbar>

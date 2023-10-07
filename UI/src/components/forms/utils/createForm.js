@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
 import { apiCall } from "redux/async/asyncThunk";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 
 const getInitialValues = (fields) => {
   return fields?.reduce((values, field) => {

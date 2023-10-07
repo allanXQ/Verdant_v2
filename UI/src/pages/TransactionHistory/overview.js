@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 import { useNavigate } from "react-router-dom";
 
 export const Overview = ({ userData, buttons }) => {

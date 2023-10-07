@@ -1,6 +1,10 @@
-const { Button, Typography, useTheme } = require("@mui/material");
+const { Button, Typography, useTheme, IconButton } = require("@mui/material");
+import { DarkMode, LightMode } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { selectTheme, updateTheme } from "redux/features/app/configSlice";
+import { store } from "redux/store";
 
-const MuiButton = (props) => {
+export const MuiButton = (props) => {
   const { variant, color, onClick, sx, content, disabled, href } = props;
   const theme = useTheme();
   return (
@@ -31,4 +35,28 @@ const MuiButton = (props) => {
   );
 };
 
-export default MuiButton;
+export const ThemeButton = () => {
+  const changeTheme = () => {
+    store.dispatch(updateTheme());
+  };
+
+  const currentTheme = useSelector(selectTheme);
+
+  return (
+    <IconButton onClick={changeTheme}>
+      {currentTheme === "dark" ? (
+        <LightMode
+          sx={{
+            color: currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+          }}
+        />
+      ) : (
+        <DarkMode
+          sx={{
+            color: currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+          }}
+        />
+      )}
+    </IconButton>
+  );
+};

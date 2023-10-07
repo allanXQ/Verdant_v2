@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import useUserData from "Hooks/useUserData";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

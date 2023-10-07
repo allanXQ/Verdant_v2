@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, Button, useTheme } from "@mui/material";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 
 const Features = [
   {

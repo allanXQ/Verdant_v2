@@ -1,11 +1,10 @@
 import { Box, Typography, Divider, Button, useTheme } from "@mui/material";
-import MuiButton from "components/common/Button";
+import { MuiButton } from "components/common/Button";
 import React from "react";
 import { Link } from "react-router-dom";
 import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
 const GoogleSignup = () => {
-  const theme = useTheme();
   return (
     <>
       <Divider

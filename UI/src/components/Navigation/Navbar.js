@@ -14,6 +14,7 @@ import {
   ExpandMore,
   HistoryOutlined as History,
   LogoutOutlined as Logout,
+  Mail,
   PaymentOutlined as Payment,
   PersonOutlined as Person,
   PointOfSaleOutlined as PointOfSale,
@@ -24,6 +25,8 @@ import {
   ShowChartOutlined as ShowChart,
 } from "@mui/icons-material";
 import {
+  Avatar,
+  Badge,
   Collapse,
   CssBaseline,
   Divider,
@@ -37,6 +40,7 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
+import { ThemeButton } from "components/common/Button";
 
 const drawerWidth = 200;
 
@@ -224,6 +228,25 @@ function ResponsiveDrawer(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const topLinks = [
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+    },
+    {
+      name: "Deposit",
+      path: "/deposit",
+    },
+    {
+      name: "Trade",
+      path: "/trade",
+    },
+    {
+      name: "Loan Request",
+      path: "/loan-request",
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -253,9 +276,58 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              {topLinks.map((item, index) => (
+                <Typography
+                  variant="h6"
+                  component={Link}
+                  to={item.path}
+                  key={item.name}
+                >
+                  {item.name}
+                </Typography>
+              ))}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                width: 200,
+              }}
+            >
+              <Avatar
+                alt="Remy Sharp"
+                src="/img/avatar.png"
+                sx={{
+                  width: 35,
+                  height: 35,
+                }}
+              />
+              <IconButton>
+                <Badge badgeContent={4} color="primary">
+                  <Mail fontSize="large" sx={iconColor} />
+                </Badge>
+              </IconButton>
+              <ThemeButton />
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
