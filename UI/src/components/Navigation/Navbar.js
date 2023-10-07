@@ -38,109 +38,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
 
-const navlinks = [
-  {
-    name: "Dashboard",
-    icon: <Dashboard />,
-    path: "/dashboard",
-  },
-  {
-    name: "Profile",
-    icon: <Person />,
-    path: "/profile",
-  },
-  {
-    name: "Transact",
-    icon: <PointOfSale />,
-    submenu: [
-      {
-        name: "Deposit",
-        icon: <AccountBalance />,
-        path: "/transact/deposit",
-      },
-      {
-        name: "Withdraw",
-        icon: <Redeem />,
-        path: "/transact/withdraw",
-      },
-      {
-        name: "Request Loan",
-        icon: <RequestQuote />,
-        path: "/transact/request-loan",
-      },
-      {
-        name: "Pay Loan",
-        icon: <Payment />,
-        path: "/transact/pay-loan",
-      },
-    ],
-  },
-  {
-    name: "Trade",
-    icon: <ShowChart />,
-    submenu: [
-      {
-        name: "Spot",
-        icon: <AccountBalance />,
-        path: "/trade/spot",
-      },
-      {
-        name: "P2P",
-        icon: <Redeem />,
-        path: "/trade/p2p",
-      },
-      {
-        name: "Swap",
-        icon: <Redeem />,
-        path: "/trade/swap",
-      },
-    ],
-  },
-  {
-    name: "Loan Calculator",
-    icon: <Calculate />,
-    path: "/loan-calculator",
-  },
-  {
-    name: "Conversations",
-    icon: <Chat />,
-    path: "/Conversations",
-    badge: 4,
-  },
-  {
-    name: "History",
-    icon: <History />,
-    submenu: [
-      {
-        name: "Deposits",
-        icon: <Receipt />,
-        path: "/history/deposits",
-      },
-      {
-        name: "Withdrawals",
-        icon: <Receipt />,
-        path: "/history/withdrawals",
-      },
-      {
-        name: "Loan Requests",
-        icon: <RequestPage />,
-        path: "/history/loan-requests",
-      },
-      {
-        name: "Loan Payments",
-        icon: <Receipt />,
-        path: "/history/loan-payments",
-      },
-    ],
-  },
-
-  {
-    name: "Logout",
-    icon: <Logout />,
-    path: "/logout",
-  },
-];
-
 const drawerWidth = 200;
 
 function ResponsiveDrawer(props) {
@@ -156,6 +53,113 @@ function ResponsiveDrawer(props) {
   };
 
   const currentTheme = useSelector(selectTheme);
+
+  const iconColor = {
+    color: currentTheme === "light" ? "bgColor.dark" : "bgColor.light",
+  };
+
+  const navlinks = [
+    {
+      name: "Dashboard",
+      icon: <Dashboard sx={iconColor} />,
+      path: "/dashboard",
+    },
+    {
+      name: "Profile",
+      icon: <Person sx={iconColor} />,
+      path: "/profile",
+    },
+    {
+      name: "Transact",
+      icon: <PointOfSale sx={iconColor} />,
+      submenu: [
+        {
+          name: "Deposit",
+          icon: <AccountBalance sx={iconColor} />,
+          path: "/transact/deposit",
+        },
+        {
+          name: "Withdraw",
+          icon: <Redeem sx={iconColor} />,
+          path: "/transact/withdraw",
+        },
+        {
+          name: "Request Loan",
+          icon: <RequestQuote sx={iconColor} />,
+          path: "/transact/request-loan",
+        },
+        {
+          name: "Pay Loan",
+          icon: <Payment sx={iconColor} />,
+          path: "/transact/pay-loan",
+        },
+      ],
+    },
+    {
+      name: "Trade",
+      icon: <ShowChart sx={iconColor} />,
+      submenu: [
+        {
+          name: "Spot",
+          icon: <AccountBalance sx={iconColor} />,
+          path: "/trade/spot",
+        },
+        {
+          name: "P2P",
+          icon: <Redeem sx={iconColor} />,
+          path: "/trade/p2p",
+        },
+        {
+          name: "Swap",
+          icon: <Redeem sx={iconColor} />,
+          path: "/trade/swap",
+        },
+      ],
+    },
+    {
+      name: "Loan Calculator",
+      icon: <Calculate sx={iconColor} />,
+      path: "/loan-calculator",
+    },
+    {
+      name: "Conversations",
+      icon: <Chat sx={iconColor} />,
+      path: "/Conversations",
+      badge: 4,
+    },
+    {
+      name: "History",
+      icon: <History sx={iconColor} />,
+      submenu: [
+        {
+          name: "Deposits",
+          icon: <Receipt sx={iconColor} />,
+          path: "/history/deposits",
+        },
+        {
+          name: "Withdrawals",
+          icon: <Receipt sx={iconColor} />,
+          path: "/history/withdrawals",
+        },
+        {
+          name: "Loan Requests",
+          icon: <RequestPage sx={iconColor} />,
+          path: "/history/loan-requests",
+        },
+        {
+          name: "Loan Payments",
+          icon: <Receipt sx={iconColor} />,
+          path: "/history/loan-payments",
+        },
+      ],
+    },
+
+    {
+      name: "Logout",
+      icon: <Logout sx={iconColor} />,
+      path: "/logout",
+    },
+  ];
 
   const drawer = (
     <Box>
@@ -177,12 +181,14 @@ function ResponsiveDrawer(props) {
               >
                 {item.icon}
               </ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemText>
+                <Typography variant="bodyRegular">{item.name}</Typography>
+              </ListItemText>
               {item.submenu ? (
                 openSubMenu === index ? (
-                  <ExpandLess />
+                  <ExpandLess sx={iconColor} />
                 ) : (
-                  <ExpandMore />
+                  <ExpandMore sx={iconColor} />
                 )
               ) : null}
             </ListItem>
@@ -279,9 +285,13 @@ function ResponsiveDrawer(props) {
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
+            // color: currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              backgroundColor:
+                currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
             },
           }}
           open

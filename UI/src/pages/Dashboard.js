@@ -187,7 +187,7 @@ const Dashboard = React.memo(() => {
     },
     border: "none",
     boxShadow: "none",
-    backgroundColor: "bgColor.dark",
+    backgroundColor: "gray",
   };
   return (
     <Grid
