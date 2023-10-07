@@ -233,7 +233,8 @@ function ResponsiveDrawer(props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           boxShadow: "none",
-          backgroundColor: "transparent",
+          backgroundColor:
+            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
         }}
       >
         <Toolbar>

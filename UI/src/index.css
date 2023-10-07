@@ -27,25 +27,6 @@ body {
   margin: 0;
 }
 
-/* styles.css */
-::-webkit-scrollbar {
-  width: 7px;
-}
-
-::-webkit-scrollbar-track {
-  /* background: #0c0d1f; */
-}
-
-::-webkit-scrollbar-thumb {
-  /* background: #0d7cf2; */
-  border-radius: 10px;
-  height: 1px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  /* background: #555; */
-}
-
 a {
   text-decoration: none;
   color: #0d7cf2;

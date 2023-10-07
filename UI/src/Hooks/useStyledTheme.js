@@ -112,6 +112,32 @@ const useStyledTheme = () => {
         : theme.palette.white.primary;
   });
 
+  theme.components.MuiCssBaseline = {
+    styleOverrides: {
+      body: {
+        backgroundColor:
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
+      },
+      "::-webkit-scrollbar": {
+        width: "0.4em",
+      },
+      "::-webkit-scrollbar-track": {
+        backgroundColor:
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
+      },
+      "::-webkit-scrollbar-thumb": {
+        backgroundColor:
+          currentTheme === "light"
+            ? theme.palette.white.secondary
+            : theme.palette.primary.main,
+      },
+    },
+  };
+
   return theme;
 };
 
