@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import useStyledTheme from "Hooks/useStyledTheme";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
@@ -21,11 +20,9 @@ const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme }) => ({
   "& .MuiDataGrid-footerContainer": {
     display: "none",
   },
-  "& .MuiSvgIcon-root": {
-    // color: theme.palette.white.primary,
-  },
+  "& .MuiSvgIcon-root": {},
   "& .MuiDataGrid-columnHeaderTitle": {
-    ...theme.typography.h6, // or another variant
+    ...theme.typography.h6,
     color:
       currentTheme === "light"
         ? theme.palette.bgColor.dark

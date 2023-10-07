@@ -134,6 +134,7 @@ const useStyledTheme = () => {
           currentTheme === "light"
             ? theme.palette.white.secondary
             : theme.palette.primary.main,
+        borderRadius: "2rem",
       },
     },
   };
