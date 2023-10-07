@@ -9,7 +9,7 @@ const GoogleSignup = () => {
       <Divider
         variant="middle"
         sx={{
-          color: "white.primary",
+          color: "white.main",
           fontSize: "0.8rem",
           width: "100%",
           textAlign: "center",
@@ -81,8 +81,7 @@ export const Auth = ({ title, sublink, children, sx }) => {
         justifyContent: "center",
         gap: 1,
         height: "100vh",
-        // width: "100vw",
-        color: "white.primary",
+        color: "white.main",
         overflowX: "hidden",
         ...sx,
       }}

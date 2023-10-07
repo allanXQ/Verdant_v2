@@ -15,7 +15,7 @@ const useStyledTheme = () => {
     },
     palette: {
       blue: {
-        primary: "#0c0d1f",
+        main: "#0c0d1f",
         secondary: "#16142a",
         sky: "#0d7cf2",
       },
@@ -24,24 +24,21 @@ const useStyledTheme = () => {
         dark: "#16142a",
       },
       black: {
-        primary: "#000000",
-        secondary: "#000000",
+        main: "#424242",
+        light: "#616161",
+        dark: "#212121",
       },
       white: {
-        primary: "#ffffff",
+        main: "#ffffff",
         secondary: "#c0c0bd",
       },
       green: {
-        primary: "#00b341",
+        main: "#00b341",
         secondary: "#00b341",
       },
       red: {
-        primary: "#ff0000",
+        main: "#ff0000",
         secondary: "#ff0000",
-      },
-      yellow: {
-        primary: "#f2c94c",
-        secondary: "#f2c94c",
       },
     },
 
@@ -108,8 +105,8 @@ const useStyledTheme = () => {
   ].forEach((key) => {
     theme.typography[key].color =
       currentTheme === "light"
-        ? theme.palette.black.primary
-        : theme.palette.white.primary;
+        ? theme.palette.black.main
+        : theme.palette.white.main;
   });
 
   theme.components.MuiCssBaseline = {
@@ -122,6 +119,7 @@ const useStyledTheme = () => {
       },
       "::-webkit-scrollbar": {
         width: "0.4em",
+        height: "0.1em",
       },
       "::-webkit-scrollbar-track": {
         backgroundColor:
@@ -133,7 +131,7 @@ const useStyledTheme = () => {
         backgroundColor:
           currentTheme === "light"
             ? theme.palette.white.secondary
-            : theme.palette.primary.main,
+            : theme.palette.main.main,
         borderRadius: "2rem",
       },
     },

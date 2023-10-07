@@ -24,7 +24,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme, width }) => ({
   "& .MuiSvgIcon-root": {
     color:
       currentTheme === "light"
-        ? theme.palette.bgColor.dark
+        ? theme.palette.black.main
         : theme.palette.bgColor.light,
   },
   "& .MuiDataGrid-columnHeaderTitle": {

@@ -187,7 +187,7 @@ const Dashboard = React.memo(() => {
     },
     border: "none",
     boxShadow: "none",
-    backgroundColor: "gray",
+    backgroundColor: "transparent",
   };
   return (
     <Grid
@@ -259,7 +259,7 @@ const Dashboard = React.memo(() => {
                     {stat.percentageChange > 0 ? (
                       <Typography
                         variant="bodySmall"
-                        color="green.primary"
+                        color="green.main"
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -276,7 +276,7 @@ const Dashboard = React.memo(() => {
                     ) : (
                       <Typography
                         variant="bodySmall"
-                        color="red.primary"
+                        color="red.ain"
                         sx={{
                           display: "flex",
                           alignItems: "center",
