@@ -307,7 +307,7 @@ const Dashboard = React.memo(() => {
           height: "100%",
         }}
       >
-        <Box sx={cardStyle}>
+        <Card sx={cardStyle}>
           <CardContent>
             <Box
               sx={{
@@ -336,7 +336,7 @@ const Dashboard = React.memo(() => {
               width={overviewWidth - 2}
             />
           </CardContent>
-        </Box>
+        </Card>
       </Grid>
     </Grid>
   );

@@ -28,7 +28,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme, width }) => ({
         : theme.palette.bgColor.light,
   },
   "& .MuiDataGrid-columnHeaderTitle": {
-    ...theme.typography.h6,
+    ...theme.typography.bodySmallBold,
     color:
       currentTheme === "light"
         ? theme.palette.bgColor.dark
