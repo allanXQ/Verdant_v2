@@ -15,7 +15,7 @@ const GoogleSignup = () => {
           textAlign: "center",
         }}
       >
-        OR
+        <Typography variant="bodyRegularBold"> OR</Typography>
       </Divider>
       <Box
         sx={{
@@ -29,8 +29,9 @@ const GoogleSignup = () => {
           href={getGoogleOAuthUrl()}
           sx={{
             position: "relative",
-            width: "19rem",
+            width: "20rem",
             height: "3rem",
+            borderRadius: "2rem",
           }}
         >
           <Box
@@ -39,29 +40,30 @@ const GoogleSignup = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: "1rem",
-              backgroundColor: "white",
             }}
           >
             <img
-              src="https://img.icons8.com/color/48/000000/google-logo.png"
+              src="img/google.png"
               alt="google logo"
               width={45}
               style={{
                 position: "absolute",
                 left: 2,
                 backgroundColor: "white",
+                borderRadius: "2rem",
                 padding: "0.5rem",
               }}
             />
           </Box>
           <Typography
-            variant="button"
+            variant="bodyRegularBold"
             sx={{
-              position: "absolute",
-              right: 30,
+              // position: "absolute",
+              // right: 20,
+              textTransform: "none",
             }}
           >
-            Continue with google
+            Continue With Google
           </Typography>
         </Button>
       </Box>

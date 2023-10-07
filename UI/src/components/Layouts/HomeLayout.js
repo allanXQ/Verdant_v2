@@ -125,7 +125,7 @@ function DrawerAppBar(props) {
               textTransform: "none",
             }}
           >
-            <Typography variant="h6">sign in</Typography>
+            <Typography variant="h6">Sign In</Typography>
           </Button>
           <Button
             variant="contained"
@@ -139,7 +139,7 @@ function DrawerAppBar(props) {
               textTransform: "none",
             }}
           >
-            <Typography variant="h6">sign up</Typography>
+            <Typography variant="h6">Sign Up</Typography>
           </Button>
         </ListItem>
       </List>
@@ -234,7 +234,7 @@ function DrawerAppBar(props) {
                   textTransform: "none",
                 }}
               >
-                <Typography variant="h6">sign in</Typography>
+                <Typography variant="h6">Sign In</Typography>
               </Button>
               <Button
                 variant="contained"
@@ -248,7 +248,7 @@ function DrawerAppBar(props) {
                   textTransform: "none",
                 }}
               >
-                <Typography variant="h6">sign up</Typography>
+                <Typography variant="h6">Sign Up</Typography>
               </Button>
             </Box>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>

@@ -45,7 +45,7 @@ const registerModel = {
 };
 
 const RegisterForm = () => {
-  return CreateForm("register", registerModel);
+  return CreateForm("Sign Up", registerModel);
 };
 
 export default RegisterForm;
