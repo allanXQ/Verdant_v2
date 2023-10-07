@@ -310,6 +310,7 @@ const Dashboard = React.memo(() => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 maxHeight: "20px",
+                maxWidth: "97%",
               }}
             >
               <Typography variant="bodyLarge">Assets</Typography>
