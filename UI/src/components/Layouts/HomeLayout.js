@@ -17,6 +17,7 @@ import { selectTheme, updateTheme } from "redux/features/app/configSlice";
 import { store } from "redux/store";
 import { useSelector } from "react-redux";
 import { DarkMode, LightMode, TheaterComedy } from "@mui/icons-material";
+import MuiButton from "components/common/Button";
 
 const drawerWidth = 200;
 const navItems = [
@@ -113,9 +114,8 @@ function DrawerAppBar(props) {
             gap: 2,
           }}
         >
-          <Button
+          <MuiButton
             variant="outlined"
-            color="primary"
             onClick={() => {
               navigate("/login");
             }}
@@ -124,12 +124,10 @@ function DrawerAppBar(props) {
               width: 180,
               textTransform: "none",
             }}
-          >
-            <Typography variant="h6">Sign In</Typography>
-          </Button>
-          <Button
+            content="Sign In"
+          />
+          <MuiButton
             variant="contained"
-            color="primary"
             onClick={() => {
               navigate("/register");
             }}
@@ -138,9 +136,8 @@ function DrawerAppBar(props) {
               width: 180,
               textTransform: "none",
             }}
-          >
-            <Typography variant="h6">Sign Up</Typography>
-          </Button>
+            content="Sign Up"
+          />
         </ListItem>
       </List>
     </Box>
@@ -221,9 +218,8 @@ function DrawerAppBar(props) {
                 gap: 2,
               }}
             >
-              <Button
+              <MuiButton
                 variant="outlined"
-                color="primary"
                 onClick={() => {
                   navigate("/login");
                 }}
@@ -232,13 +228,12 @@ function DrawerAppBar(props) {
                   borderRadius: 20,
                   width: 140,
                   textTransform: "none",
+                  color: "white.main",
                 }}
-              >
-                <Typography variant="h6">Sign In</Typography>
-              </Button>
-              <Button
+                content="Sign In"
+              />
+              <MuiButton
                 variant="contained"
-                color="primary"
                 onClick={() => {
                   navigate("/register");
                 }}
@@ -246,10 +241,10 @@ function DrawerAppBar(props) {
                   borderRadius: 20,
                   width: 140,
                   textTransform: "none",
+                  color: "white.main",
                 }}
-              >
-                <Typography variant="h6">Sign Up</Typography>
-              </Button>
+                content="Sign Up"
+              />
             </Box>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <IconButton onClick={changeTheme}>

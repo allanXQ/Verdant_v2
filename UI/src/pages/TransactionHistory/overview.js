@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import MuiButton from "components/common/Button";
 import { useNavigate } from "react-router-dom";
 
 export const Overview = ({ userData, buttons }) => {
@@ -27,12 +28,16 @@ export const Overview = ({ userData, buttons }) => {
           justifyContent: "center",
         }}
       >
-        <Button variant="contained" onClick={() => navigate(buttons[0].path)}>
-          {buttons[0].name}
-        </Button>
-        <Button variant="contained" onClick={() => navigate(buttons[1].path)}>
-          {buttons[1].name}
-        </Button>
+        <MuiButton
+          variant="contained"
+          onClick={() => navigate(buttons[0].path)}
+          content={buttons[0].name}
+        />
+        <MuiButton
+          variant="contained"
+          onClick={() => navigate(buttons[1].path)}
+          content={buttons[1].name}
+        />
       </Box>
     </Box>
   );

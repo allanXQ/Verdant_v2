@@ -1,5 +1,6 @@
 import { MoreVertOutlined } from "@mui/icons-material";
 import { Box, Button, IconButton, Popover, Typography } from "@mui/material";
+import MuiButton from "components/common/Button";
 import { useState } from "react";
 
 const klineIntervals = [
@@ -106,15 +107,14 @@ const RangePicker = ({ dispatch }) => {
         {klineIntervals.map(
           (interval) =>
             interval.default && (
-              <Button
+              <MuiButton
                 variant="outlined"
                 sx={{
                   width: "0.5rem",
                   borderRadius: "0",
                 }}
-              >
-                {interval.label}
-              </Button>
+                content={interval.label}
+              />
             )
         )}
         <IconButton onClick={handleClick}>
@@ -139,26 +139,25 @@ const RangePicker = ({ dispatch }) => {
           gap: "1rem",
         }}
       >
-        <Button
+        <MuiButton
           variant="contained"
           sx={{
             width: "0.5rem",
             borderRadius: "0",
           }}
           onClick={() => dispatch({ type: "buy" })}
-        >
-          Buy
-        </Button>
-        <Button
+          content="Buy"
+        />
+
+        <MuiButton
           variant="contained"
           sx={{
             width: "0.5rem",
             borderRadius: "0",
           }}
           onClick={() => dispatch({ type: "sell" })}
-        >
-          Sell
-        </Button>
+          content="Sell"
+        />
       </Box>
     </Box>
   );

@@ -1,10 +1,11 @@
 import { Form, Formik } from "formik";
 
 import MUITextField from "../inputs/textField";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch } from "react-redux";
 import { apiCall } from "redux/async/asyncThunk";
+import MuiButton from "components/common/Button";
 
 const getInitialValues = (fields) => {
   return fields?.reduce((values, field) => {
@@ -123,9 +124,8 @@ const CreateForm = (formName, model, children) => {
                 </Box>
                 {children}
               </Box>
-              <Button
+              <MuiButton
                 variant="contained"
-                color="primary"
                 type="submit"
                 disabled={isSubmitting}
                 sx={{
@@ -133,10 +133,10 @@ const CreateForm = (formName, model, children) => {
                   py: 1,
                   borderRadius: "2rem",
                   textTransform: "none",
+                  color: "white.main",
                 }}
-              >
-                <Typography variant="bodyRegularBold">{formName}</Typography>
-              </Button>
+                content={formName}
+              />
             </Box>
           </Form>
         )}

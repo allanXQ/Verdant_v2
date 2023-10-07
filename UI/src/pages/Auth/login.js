@@ -27,7 +27,7 @@ const Login = () => {
             component={Link}
             to="/forgot-password"
             variant="bodySmallBold"
-            color="primary"
+            sx={{ color: "blue.main" }}
           >
             Forgot password?
           </Typography>

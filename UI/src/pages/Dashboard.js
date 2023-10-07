@@ -4,13 +4,13 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
   Grid,
   Typography,
 } from "@mui/material";
+import MuiButton from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +19,11 @@ const ActionButton = ({ asset }) => {
   const navigate = useNavigate();
 
   return (
-    <Button
+    <MuiButton
       variant="contained"
       onClick={() => navigate(`/trade/spot/${asset}`)}
-    >
-      Trade
-    </Button>
+      content="Trade"
+    />
   );
 };
 
@@ -85,7 +84,6 @@ const columns = [
   {
     field: "action",
     headerName: "Action",
-    // smallScreenScreen: false,
     width: 100,
     renderCell: (params) => {
       return <ActionButton asset={params.row.Asset} />;
@@ -227,12 +225,8 @@ const Dashboard = React.memo(() => {
                 flexGrow: 1,
               }}
             >
-              <Button variant="contained" color="primary">
-                Withdraw
-              </Button>
-              <Button variant="contained" color="primary">
-                Deposit
-              </Button>
+              <MuiButton variant="contained" content="Withdraw" />
+              <MuiButton variant="contained" content="Deposit" />
             </CardActionArea>
           </CardContent>
           <CardContent
@@ -276,7 +270,7 @@ const Dashboard = React.memo(() => {
                     ) : (
                       <Typography
                         variant="bodySmall"
-                        color="red.ain"
+                        color="red.main"
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -318,22 +312,20 @@ const Dashboard = React.memo(() => {
               }}
             >
               <Typography variant="bodyLarge">Assets</Typography>
-              <Button
+              <MuiButton
                 variant="text"
-                color="primary"
                 sx={{
                   fontWeight: "bold",
                 }}
-              >
-                See All
-              </Button>
+                content="View All"
+              />
             </Box>
             <MUIDataGrid
               columns={columns}
               rows={Assets.slice(0, 6)}
               pagination={false}
               height={370}
-              width={overviewWidth - 2}
+              width={overviewWidth}
             />
           </CardContent>
         </Card>

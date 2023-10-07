@@ -1,9 +1,11 @@
-import { Box, Typography, Divider, Button } from "@mui/material";
+import { Box, Typography, Divider, Button, useTheme } from "@mui/material";
+import MuiButton from "components/common/Button";
 import React from "react";
 import { Link } from "react-router-dom";
 import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
 const GoogleSignup = () => {
+  const theme = useTheme();
   return (
     <>
       <Divider
@@ -23,7 +25,7 @@ const GoogleSignup = () => {
           flexDirection: "column",
         }}
       >
-        <Button
+        <MuiButton
           variant="contained"
           color="primary"
           href={getGoogleOAuthUrl()}
@@ -65,7 +67,7 @@ const GoogleSignup = () => {
           >
             Continue With Google
           </Typography>
-        </Button>
+        </MuiButton>
       </Box>
     </>
   );
@@ -100,7 +102,7 @@ export const Auth = ({ title, sublink, children, sx }) => {
           component={Link}
           to={sublink.pathname}
           variant="bodyRegularBold"
-          color="primary"
+          sx={{ color: "blue.main" }}
         >
           {sublink.sublinkText}
         </Typography>

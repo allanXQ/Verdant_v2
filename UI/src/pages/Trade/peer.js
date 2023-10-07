@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import useUserData from "Hooks/useUserData";
+import MuiButton from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,12 +12,11 @@ const ActionButton = ({ type }) => {
   const navigate = useNavigate();
 
   return (
-    <Button
+    <MuiButton
       variant="contained"
       onClick={() => navigate(type.toLowerCase() === "sell" ? "/buy" : "/sell")}
-    >
-      {type.toLowerCase() === "sell" ? "Buy" : "Sell"}
-    </Button>
+      content={type.toLowerCase() === "sell" ? "Buy" : "Sell"}
+    />
   );
 };
 
@@ -61,12 +61,17 @@ const Overview = ({ userData }) => {
           justifyContent: "center",
         }}
       >
-        <Button variant="contained" onClick={() => navigate("/trade/spot")}>
-          Spot
-        </Button>
-        <Button variant="contained" onClick={() => navigate("/trade/swap")}>
-          Swap
-        </Button>
+        <MuiButton
+          variant="contained"
+          onClick={() => navigate("/trade/spot")}
+          content="Spot"
+        />
+
+        <MuiButton
+          variant="contained"
+          onClick={() => navigate("/trade/swap")}
+          content="Swap"
+        />
       </Box>
     </Box>
   );

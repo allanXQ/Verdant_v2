@@ -1,4 +1,5 @@
 import { Box, Grid, Typography, Button, useTheme } from "@mui/material";
+import MuiButton from "components/common/Button";
 
 const Features = [
   {
@@ -110,9 +111,11 @@ const Home = () => {
             the OTC markets with ease, confidence, and sophistication.
           </Typography>
           <Box>
-            <Button variant="contained" color="primary">
-              Get Started
-            </Button>
+            <MuiButton
+              variant="contained"
+              color="primary"
+              content="Get Started"
+            />
           </Box>
         </Box>
         <Box
