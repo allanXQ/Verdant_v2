@@ -85,7 +85,7 @@ const columns = [
   {
     field: "action",
     headerName: "Action",
-    smallScreenScreen: false,
+    // smallScreenScreen: false,
     width: 100,
     renderCell: (params) => {
       return <ActionButton asset={params.row.Asset} />;
@@ -307,7 +307,7 @@ const Dashboard = React.memo(() => {
           height: "100%",
         }}
       >
-        <Card sx={cardStyle}>
+        <Box sx={cardStyle}>
           <CardContent>
             <Box
               sx={{
@@ -333,9 +333,10 @@ const Dashboard = React.memo(() => {
               rows={Assets.slice(0, 6)}
               pagination={false}
               height={370}
+              width={overviewWidth - 2}
             />
           </CardContent>
-        </Card>
+        </Box>
       </Grid>
     </Grid>
   );
