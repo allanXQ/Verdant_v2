@@ -199,6 +199,7 @@ const Dashboard = React.memo(() => {
         flexBasis: 0,
         flexWrap: "wrap",
         overflowX: "hidden",
+        mt: 2,
       }}
     >
       <Grid item sx={{}}>

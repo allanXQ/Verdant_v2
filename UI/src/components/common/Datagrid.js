@@ -7,7 +7,6 @@ import { selectTheme } from "redux/features/app/configSlice";
 
 const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme, width }) => ({
   width: width || "100%",
-  overflowY: "hidden",
   [theme.breakpoints.down("sm")]: {
     paddingRight: "35px",
   },
@@ -41,6 +40,8 @@ const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme, width }) => ({
       currentTheme === "light"
         ? theme.palette.bgColor.dark
         : theme.palette.bgColor.light,
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
