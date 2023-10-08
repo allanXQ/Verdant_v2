@@ -4,6 +4,15 @@
 2. I am able to send request using another clients userID. Disable this
 3. handle idempotency
 
+4. Add index file to models folder and export all models from it
+5. const userSchema = new mongoose.Schema({
+   name: String,
+   email: String,
+   // ... other fields
+   }, {
+   timestamps: true // This will add `createdAt` and `updatedAt` fields
+   }); replace createdat model field with this
+
 ## Minor Changes
 
 1. Check if we can combine all the client history pages into one component.

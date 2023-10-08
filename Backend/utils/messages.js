@@ -14,7 +14,7 @@ const Messages = {
 
   invalidUsername: "Invalid username",
   invalidEmail: "Invalid email",
-  invalidPhoneNumber: "Invalid phoneNumber",
+  invalidPhoneNumber: "Invalid phone number",
   invalidPassword: "Invalid password",
   invalidReferrer: "Invalid referrer",
   incorrectPassword: "Incorrect password",

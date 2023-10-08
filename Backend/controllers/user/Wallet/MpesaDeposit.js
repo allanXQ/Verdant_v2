@@ -8,7 +8,7 @@ const MpesaDeposit = async (req, res) => {
   const user = await User.findOne({ phone });
   if (!user) {
     return res.status(400).json({
-      message: Messages.invalidRequest,
+      message: Messages.invalidPhoneNumber,
     });
   }
 
