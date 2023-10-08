@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, updateTheme } from "redux/features/app/configSlice";
 
 export const MuiButton = (props) => {
-  const { variant, color, onClick, sx, content, disabled, href, children } =
+  const { variant, type, onClick, sx, content, disabled, href, children } =
     props;
   const theme = useTheme();
   return (
     <Button
       variant={variant}
-      //   color={color}
       onClick={onClick}
       disabled={disabled}
+      type={type}
       href={href}
       sx={{
         textTransform: "none",

@@ -47,7 +47,6 @@ const useUserData = () => {
         return acc + amount;
       }, 0)
     : 0;
-  console.log(user);
   return {
     userId,
     firstname,
