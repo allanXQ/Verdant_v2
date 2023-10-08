@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import getGoogleOAuthUrl from "utils/googleOAuthUrl";
 
 const GoogleSignup = () => {
+  const theme = useTheme();
   return (
     <>
       <Divider
@@ -50,7 +51,7 @@ const GoogleSignup = () => {
               style={{
                 position: "absolute",
                 left: 2,
-                backgroundColor: "white",
+                backgroundColor: theme.palette.white.main,
                 borderRadius: "2rem",
                 padding: "0.5rem",
               }}
@@ -59,8 +60,7 @@ const GoogleSignup = () => {
           <Typography
             variant="bodyRegularBold"
             sx={{
-              // position: "absolute",
-              // right: 20,
+              color: theme.palette.white.main,
               textTransform: "none",
             }}
           >

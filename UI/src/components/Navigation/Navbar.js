@@ -41,6 +41,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
 import { ThemeButton } from "components/common/Button";
+import { useTheme } from "@emotion/react";
 
 const drawerWidth = 200;
 
@@ -57,9 +58,13 @@ function ResponsiveDrawer(props) {
   };
 
   const currentTheme = useSelector(selectTheme);
+  const theme = useTheme();
 
   const iconColor = {
-    color: currentTheme === "light" ? "bgColor.dark" : "bgColor.light",
+    color:
+      currentTheme === "light"
+        ? theme.palette.bgColor.dark
+        : theme.palette.bgColor.light,
   };
 
   const navlinks = [
@@ -252,7 +257,9 @@ function ResponsiveDrawer(props) {
       sx={{
         display: "flex",
         backgroundColor:
-          currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
       }}
     >
       <CssBaseline />
@@ -263,7 +270,9 @@ function ResponsiveDrawer(props) {
           ml: { sm: `${drawerWidth}px` },
           boxShadow: "none",
           backgroundColor:
-            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+            currentTheme === "light"
+              ? theme.palette.bgColor.light
+              : theme.palette.bgColor.dark,
         }}
       >
         <Toolbar>
@@ -357,13 +366,15 @@ function ResponsiveDrawer(props) {
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
-            // color: currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+            // color: currentTheme === "light" ? theme.palette.bgColor.light : theme.palette.bgColor.dark,
 
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
               backgroundColor:
-                currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+                currentTheme === "light"
+                  ? theme.palette.bgColor.light
+                  : theme.palette.bgColor.dark,
             },
           }}
           open

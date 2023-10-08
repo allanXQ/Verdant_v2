@@ -15,6 +15,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { selectTheme } from "redux/features/app/configSlice";
 import { useSelector } from "react-redux";
 import { MuiButton, ThemeButton } from "components/common/Button";
+import { useTheme } from "@emotion/react";
 
 const drawerWidth = 200;
 const navItems = [
@@ -45,6 +46,7 @@ function DrawerAppBar(props) {
     setMobileOpen((prevState) => !prevState);
   };
   const currentTheme = useSelector(selectTheme);
+  const theme = useTheme();
 
   const drawer = (
     <Box
@@ -53,7 +55,9 @@ function DrawerAppBar(props) {
         textAlign: "center",
         height: "100%",
         backgroundColor:
-          currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
       }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -130,7 +134,9 @@ function DrawerAppBar(props) {
         component="nav"
         sx={{
           backgroundColor:
-            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+            currentTheme === "light"
+              ? theme.palette.bgColor.light
+              : theme.palette.bgColor.dark,
           boxShadow: "none",
         }}
       >
@@ -150,7 +156,9 @@ function DrawerAppBar(props) {
             <MenuIcon
               sx={{
                 color:
-                  currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+                  currentTheme === "dark"
+                    ? theme.palette.bgColor.light
+                    : theme.palette.bgColor.dark,
               }}
             />
           </IconButton>
@@ -255,7 +263,9 @@ function DrawerAppBar(props) {
           display: "flex",
           p: 3,
           backgroundColor:
-            currentTheme === "light" ? "bgColor.light" : "bgColor.dark",
+            currentTheme === "light"
+              ? theme.palette.bgColor.light
+              : theme.palette.bgColor.dark,
           width: "100vw",
           justifyContent: "center",
           alignItems: "center",

@@ -1,11 +1,11 @@
-const { Button, Typography, useTheme, IconButton } = require("@mui/material");
+import { Button, Typography, useTheme, IconButton } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, updateTheme } from "redux/features/app/configSlice";
-import { store } from "redux/store";
 
 export const MuiButton = (props) => {
-  const { variant, color, onClick, sx, content, disabled, href } = props;
+  const { variant, color, onClick, sx, content, disabled, href, children } =
+    props;
   const theme = useTheme();
   return (
     <Button
@@ -31,29 +31,38 @@ export const MuiButton = (props) => {
           {content}
         </Typography>
       )}
+      {children}
     </Button>
   );
 };
 
 export const ThemeButton = () => {
+  const dispatch = useDispatch();
   const changeTheme = () => {
-    store.dispatch(updateTheme());
+    dispatch(updateTheme());
   };
 
   const currentTheme = useSelector(selectTheme);
+  const theme = useTheme();
 
   return (
     <IconButton onClick={changeTheme}>
       {currentTheme === "dark" ? (
         <LightMode
           sx={{
-            color: currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+            color:
+              currentTheme === "dark"
+                ? theme.palette.bgColor.light
+                : theme.palette.bgColor.dark,
           }}
         />
       ) : (
         <DarkMode
           sx={{
-            color: currentTheme === "dark" ? "bgColor.light" : "bgColor.dark",
+            color:
+              currentTheme === "dark"
+                ? theme.palette.bgColor.light
+                : theme.palette.bgColor.dark,
           }}
         />
       )}
