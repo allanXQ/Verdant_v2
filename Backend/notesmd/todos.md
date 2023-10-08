@@ -13,6 +13,8 @@
    timestamps: true // This will add `createdAt` and `updatedAt` fields
    }); replace createdat model field with this
 
+6. in the deposit, withdraw and transact controller update on whether we should return message + user payload or just message. currently returnig only message
+
 ## Minor Changes
 
 1. Check if we can combine all the client history pages into one component.
