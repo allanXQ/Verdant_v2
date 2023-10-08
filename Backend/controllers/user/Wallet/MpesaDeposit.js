@@ -1,9 +1,17 @@
 const { default: axios } = require("axios");
 const { WalletConfig } = require("../../../config");
 const Messages = require("../../../utils/messages");
+const User = require("../../../models/users");
 
 const MpesaDeposit = async (req, res) => {
   const { phone, amount } = req.body;
+  const user = await User.findOne({ phone });
+  if (!user) {
+    return res.status(400).json({
+      message: Messages.invalidRequest,
+    });
+  }
+
   const { minDeposit, maxDeposit } = WalletConfig;
   if (parseInt(amount) < minDeposit) {
     return res.status(400).json({
