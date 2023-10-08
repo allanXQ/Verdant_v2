@@ -83,48 +83,21 @@ const CreateForm = (formName, model, children) => {
                 }}
               >
                 {fields.map((field, index) => {
-                  switch (field.type) {
-                    case "email":
-                    case "password":
-                    case "text":
-                    case "number":
-                      return (
-                        <MUITextField
-                          key={field.name}
-                          type={field.type}
-                          required={field.required}
-                          label={field.label}
-                          name={field.name}
-                          value={field.value}
-                          placeholder={field.placeholder}
-                          variant={model.variant}
-                          disabled={field.disabled}
-                        />
-                      );
-                    case "file":
-                      return (
-                        <CenteredBox
-                          key={field.name}
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 3,
-                          }}
-                        >
-                          <input
-                            type="file"
-                            name={field.name}
-                            value={field.value}
-                            placeholder={field.placeholder}
-                            disabled={field.disabled}
-                          />
-                        </CenteredBox>
-                      );
-
-                    default:
-                      return null;
+                  const InputComponent = FIELD_COMPONENTS[field.type];
+                  if (InputComponent) {
+                    return (
+                      <InputComponent
+                        key={field.name}
+                        type={field.type}
+                        required={field.required}
+                        label={field.label}
+                        name={field.name}
+                        value={field.value}
+                        placeholder={field.placeholder}
+                        variant={model.variant}
+                        disabled={field.disabled}
+                      />
+                    );
                   }
                 })}
               </CenteredBox>
