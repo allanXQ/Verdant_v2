@@ -124,7 +124,10 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
     <Box
       ref={chartContainerRef}
       sx={{
-        width: "99.7vw",
+        width: {
+          xs: "100vw",
+          sm: `calc(100vw - 205px)`,
+        },
         height: `calc(100vh - 3.5rem - ${topBarHeight})`,
         margin: "0",
         padding: "0",
