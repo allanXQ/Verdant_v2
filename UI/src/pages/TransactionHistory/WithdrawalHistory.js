@@ -1,14 +1,13 @@
-import { Box } from "@mui/material";
 import useUserData from "Hooks/useUserData";
-import MUIDataGrid from "components/common/Datagrid";
-import { Overview } from "./overview";
+import MainHistory from "./mainHistory";
 
 const columns = [
-  { field: "Gateway", headerName: "Gateway", width: 210 },
-  { field: "ReferenceNumber", headerName: "Reference Number", width: 210 },
-  { field: "Amount", headerName: "Amount", width: 210 },
-  { field: "Status", headerName: "Status", width: 200 },
-  { field: "Date", headerName: "Date", width: 210 },
+  { field: "Gateway", headerName: "Gateway", width: 200 },
+  { field: "ReferenceNumber", headerName: "Reference Number", width: 200 },
+  { field: "AccountNumber", headerName: "Account Number", width: 200 },
+  { field: "Amount", headerName: "Amount", width: 200 },
+  { field: "Status", headerName: "Status", width: 150 },
+  { field: "Date", headerName: "Date", width: 200 },
 ];
 
 const WithdrawalHistory = () => {
@@ -31,6 +30,7 @@ const WithdrawalHistory = () => {
         id: withdrawal._id,
         Gateway: "Mpesa",
         ReferenceNumber: withdrawal._id,
+        AccountNumber: withdrawal.phone,
         Amount: `KSH ${withdrawal.amount}`,
         Status: withdrawal.status,
         Date: withdrawal.created,
@@ -38,26 +38,16 @@ const WithdrawalHistory = () => {
     });
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        marginTop: "2rem",
-        gap: "2rem",
-        overflow: "hidden",
+    <MainHistory
+      title="Withdrawal History"
+      columns={columns}
+      rows={rows}
+      userInfo={{
+        accountBalance: userData?.accountBalance,
+        name: "Account Balance",
       }}
-    >
-      <Overview
-        userData={{
-          accountBalance: userData?.accountBalance,
-          name: "Account Balance",
-        }}
-        buttons={buttons}
-      />
-
-      <MUIDataGrid title="Withdrawal History" columns={columns} rows={rows} />
-    </Box>
+      buttons={buttons}
+    />
   );
 };
 

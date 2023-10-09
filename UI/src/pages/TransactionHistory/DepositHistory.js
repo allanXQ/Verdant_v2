@@ -1,9 +1,6 @@
-import { Grid } from "@mui/material";
 import useUserData from "Hooks/useUserData";
-import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
-import { Overview } from "./overview";
-import MainHistory from "./historyMain";
+import MainHistory from "./mainHistory";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 200 },
