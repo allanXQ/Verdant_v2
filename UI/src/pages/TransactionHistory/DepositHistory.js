@@ -1,15 +1,16 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 import { Overview } from "./overview";
 
 const columns = [
-  { field: "Gateway", headerName: "Gateway", width: 210 },
-  { field: "ReferenceNumber", headerName: "Reference Number", width: 210 },
-  { field: "Amount", headerName: "Amount", width: 210 },
-  { field: "Status", headerName: "Status", width: 200 },
-  { field: "Date", headerName: "Date", width: 210 },
+  { field: "Gateway", headerName: "Gateway", width: 200 },
+  { field: "ReferenceNumber", headerName: "Reference Number", width: 200 },
+  { field: "AccountNumber", headerName: "Accout Number", width: 200 },
+  { field: "Amount", headerName: "Amount", width: 200 },
+  { field: "Status", headerName: "Status", width: 150 },
+  { field: "Date", headerName: "Date", width: 200 },
 ];
 
 const DepositHistory = () => {
@@ -32,6 +33,7 @@ const DepositHistory = () => {
         id: deposit._id,
         Gateway: "Mpesa",
         ReferenceNumber: deposit.mpesaRef,
+        AccountNumber: deposit.phone,
         Amount: `KSH ${deposit.amount}`,
         Status: "success",
         Date: deposit.created,
@@ -39,26 +41,39 @@ const DepositHistory = () => {
     });
 
   return (
-    <Box
+    <Grid
+      container
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        marginTop: "2rem",
-        gap: "2rem",
-        overflow: "hidden",
+        height: "100vh",
+        px: 1,
       }}
     >
-      <Overview
-        userData={{
-          accountBalance: userData?.accountBalance,
-          name: "Account Balance",
+      <Grid
+        item
+        sx={{
+          display: "flex",
+          alignItems: "center",
         }}
-        buttons={buttons}
-      />
-
-      <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
-    </Box>
+      >
+        <Overview
+          userData={{
+            accountBalance: userData?.accountBalance,
+            name: "Account Balance",
+          }}
+          buttons={buttons}
+        />
+      </Grid>
+      <Grid
+        item
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,22 +1,24 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { MuiButton } from "components/common/Button";
 import { useNavigate } from "react-router-dom";
 
 export const Overview = ({ userData, buttons }) => {
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const overviewWidth = `calc(100vw - 215px)`;
+  const calculatedWidth = isSmallScreen ? "100vw" : overviewWidth;
 
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
-
-        maxWidth: "95%",
+        justifyContent: "space-between",
+        width: calculatedWidth,
       }}
     >
       <Box>
-        <Typography variant="subtitle1">{userData?.name}</Typography>
+        <Typography variant="bodyRegular">{userData?.name}</Typography>
         <Typography variant="h6">KSH {userData?.accountBalance}</Typography>
       </Box>
 
