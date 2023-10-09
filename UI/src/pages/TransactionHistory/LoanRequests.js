@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import { Overview } from "./overview";
+import MainHistory from "./mainHistory";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 200 },
@@ -43,26 +44,16 @@ const LoanRequests = () => {
     : [];
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        marginTop: "2rem",
-        gap: "2rem",
-        overflow: "hidden",
+    <MainHistory
+      title="Loan Requests"
+      columns={columns}
+      rows={rows}
+      userInfo={{
+        accountBalance: userData?.accountBalance,
+        name: "Account Balance",
       }}
-    >
-      <Overview
-        userData={{
-          accountBalance: userData?.accountBalance,
-          name: "Account Balance",
-        }}
-        buttons={buttons}
-      />
-
-      <MUIDataGrid title="Loan Requests" columns={columns} rows={rows} />
-    </Box>
+      buttons={buttons}
+    />
   );
 };
 
