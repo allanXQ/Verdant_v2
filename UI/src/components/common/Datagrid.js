@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
@@ -48,12 +47,11 @@ const StyledDataGrid = styled(DataGrid)(({ theme, currentTheme }) => ({
 const MUIDataGrid = ({ title, rows, columns, height, width }) => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   if (isSmallScreen) {
-    columns.map((column) => {
+    columns.forEach((column) => {
       column.width = 120;
     });
   }
   const currentTheme = useSelector(selectTheme);
-  const theme = useTheme();
   const overviewWidth = `calc(100vw - 200px)`;
   const calculatedWidth = isSmallScreen ? "100vw" : `calc(${overviewWidth}`;
 

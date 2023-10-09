@@ -9,8 +9,6 @@ import {
   CardContent,
   Grid,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import { MuiButton } from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
@@ -178,9 +176,6 @@ const Assets = [
 const overviewWidth = `calc(100vw - 200px)`;
 
 const Dashboard = React.memo(() => {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
