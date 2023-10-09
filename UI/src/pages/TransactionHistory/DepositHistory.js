@@ -3,6 +3,7 @@ import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 import { Overview } from "./overview";
+import MainHistory from "./historyMain";
 
 const columns = [
   { field: "Gateway", headerName: "Gateway", width: 200 },
@@ -41,39 +42,16 @@ const DepositHistory = () => {
     });
 
   return (
-    <Grid
-      container
-      sx={{
-        height: "100vh",
-        px: 1,
+    <MainHistory
+      title="Deposit History"
+      columns={columns}
+      rows={rows}
+      userInfo={{
+        accountBalance: userData?.accountBalance,
+        name: "Account Balance",
       }}
-    >
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Overview
-          userData={{
-            accountBalance: userData?.accountBalance,
-            name: "Account Balance",
-          }}
-          buttons={buttons}
-        />
-      </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <MUIDataGrid title="Deposit History" columns={columns} rows={rows} />
-      </Grid>
-    </Grid>
+      buttons={buttons}
+    />
   );
 };
 
