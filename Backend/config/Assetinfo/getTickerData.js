@@ -14,7 +14,6 @@ const getTickerData = async (req, res, next) => {
       const data = response.data;
       asset.price = parseFloat(data.lastPrice, 10);
       asset.priceChange = parseFloat(data.priceChange, 10);
-      console.log(asset);
       return asset;
     } catch (err) {
       console.log(err.message);

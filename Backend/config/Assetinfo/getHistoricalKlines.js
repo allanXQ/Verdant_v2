@@ -14,7 +14,6 @@ const getData = async (assetName, klineInterval) => {
     .get(url)
     .then((response) => {
       const data = response.data;
-      console.log(data);
       const formattedData = data.map((item) => {
         return {
           time: item[0], // Convert to UNIX timestamp (seconds)
@@ -27,11 +26,8 @@ const getData = async (assetName, klineInterval) => {
       return formattedData;
     })
     .catch((err) => {
-      // console.log(err);
       return [];
     });
-
-  // console.log(formattedData);
 };
 
 const getHistoricalKlines = async (req, res) => {

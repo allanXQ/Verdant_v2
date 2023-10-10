@@ -4,7 +4,6 @@ require("dotenv").config();
 
 const verifyjwt = (req, res, next) => {
   try {
-    // console.log(req.cookies);
     const { accessToken } = req.cookies;
     if (!accessToken) {
       return res.status(401).json({ message: Messages.invalidToken });
