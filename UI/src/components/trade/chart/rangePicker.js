@@ -2,16 +2,19 @@ import { KeyboardArrowDown, MoreVertOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
+  Grid,
   IconButton,
   MenuItem,
   Popover,
   Select,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { MuiButton } from "components/common/Button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateKlineInterval } from "redux/features/app/appDataSlice";
+import { selectTheme } from "redux/features/app/configSlice";
 
 const klineIntervals = [
   {
@@ -101,6 +104,8 @@ const assets = [
 const RangePicker = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
+  const currentTheme = useSelector(selectTheme);
+  const theme = useTheme();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -113,25 +118,28 @@ const RangePicker = () => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
-    <Box
+    <Grid
+      container
+      alignContent={"center"}
+      justifyContent="space-between"
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        //   display: "flex",
+        //   alignItems: "center",
+        //   justifyContent: "space-between",
         width: {
           xs: "100vw",
           sm: `calc(100vw - 230px)`,
         },
-        height: "3.5rem",
-        backgroundColor: "#253248",
+        //   height: "3.5rem",
+        //   backgroundColor: "#253248",
       }}
     >
-      <Box
+      <Grid
+        item
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-evenly",
-          width: 300,
         }}
       >
         {klineIntervals.map(
@@ -141,6 +149,10 @@ const RangePicker = () => {
                 key={interval.label}
                 variant="outlined"
                 sx={{
+                  display: {
+                    xs: "none",
+                    sm: "flex",
+                  },
                   width: "0.5rem",
                   borderRadius: "0",
                 }}
@@ -161,25 +173,74 @@ const RangePicker = () => {
             vertical: "bottom",
             horizontal: "left",
           }}
+          sx={{
+            "& .MuiPopover-paper": {
+              backgroundColor:
+                currentTheme === "light"
+                  ? theme.palette.bgColor.light
+                  : theme.palette.bgColor.dark,
+              color: "white",
+              boxShadow: "none",
+              // "& .MuiList-root": {
+              //   backgroundColor: "transparent",
+              //   "& .MuiListItem-root": {
+              //     backgroundColor: "transparent",
+              //     "&:hover": {
+              //       backgroundColor: "transparent",
+              //     },
+              //   },
+              // },
+            },
+          }}
         >
-          <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              // justifyContent: "space-evenly",
+              alignItems: "center",
+              width: 290,
+              p: 2,
+              m: 0,
+              // height: 200,
+            }}
+          >
+            {klineIntervals.map((interval) => (
+              <MuiButton
+                key={interval.label}
+                variant="outlined"
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "flex",
+                  },
+                  width: "0.5rem",
+                  borderRadius: "0",
+                }}
+                content={interval.label}
+                onClick={() => dispatch(updateKlineInterval(interval.value))}
+              />
+            ))}
+          </Box>
         </Popover>
-      </Box>
-      <Box>
+      </Grid>
+      <Grid
+        item
+        sx={{
+          bgcolor: "red",
+        }}
+      >
         <Select
           value={assets[0]}
           // onChange={handleAssetChange}
           variant="outlined"
           sx={{
-            bgcolor: "transparent",
-            width: 200,
+            // width: 200,
             color: "red",
-            // "& .MuiSelect-select": {
-            //   backgroundColor: "transparent",
+
+            // "& .MuiOutlinedInput-notchedOutline": {
+            //   border: "none",
             // },
-            "& .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
           }}
         >
           {assets.map((asset) => (
@@ -193,14 +254,17 @@ const RangePicker = () => {
                 },
               }}
             >
-              <Typography variant="bodyRegular">{asset}</Typography>
+              <Typography variant="bodyLarge">{asset}</Typography>
             </MenuItem>
           ))}
         </Select>
-      </Box>
-      <Box
+      </Grid>
+      <Grid
+        item
         sx={{
           display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
           gap: "1rem",
         }}
       >
@@ -223,8 +287,8 @@ const RangePicker = () => {
           onClick={() => dispatch({ type: "sell" })}
           content="Sell"
         />
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };
 
