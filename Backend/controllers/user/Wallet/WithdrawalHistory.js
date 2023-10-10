@@ -1,5 +1,5 @@
-const Withdrawals = require("../../../models/withdrawals");
-const Messages = require("../../../utils/messages");
+const { Withdrawals } = require("@models");
+const Messages = require("@utils/messages");
 
 const WithdrawalHistory = async (req, res) => {
   const { userId } = req.body;

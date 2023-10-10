@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
-const { WalletConfig } = require("../../../config");
-const Messages = require("../../../utils/messages");
-const User = require("../../../models/users");
+const { WalletConfig } = require("@config");
+const Messages = require("@utils/messages");
+const { User } = require("@models");
 
 const MpesaDeposit = async (req, res) => {
   const { phone, amount } = req.body;

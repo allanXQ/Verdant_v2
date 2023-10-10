@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const peerOrders = require("../../../models/p2p/peerOrders");
-const peerEscrow = require("../../../models/p2p/peerEscrow");
-const closedPeer = require("../../../models/p2p/closedPeer");
-const User = require("../../../models/users");
-const Messages = require("../../../utils/messages");
-const logger = require("../../../utils/logger");
-const createId = require("../../../utils/createId");
+const peerOrders = require("@models/p2p/peerOrders");
+const peerEscrow = require("@models/p2p/peerEscrow");
+const closedPeer = require("@models/p2p/closedPeer");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
+const logger = require("@utils/logger");
+const createId = require("@utils/createId");
 
 const peerBuy = async (req, res, next) => {
   const session = await mongoose.startSession();

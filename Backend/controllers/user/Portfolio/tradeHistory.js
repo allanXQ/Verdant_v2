@@ -1,5 +1,5 @@
-const closedTrades = require("../../../models/p2p/closedPeer");
-const Messages = require("../../../utils/messages");
+const closedTrades = require("@models/p2p/closedPeer");
+const Messages = require("@utils/messages");
 
 //implement filter by stockname and userId,transaction status,
 // sorting by price,date,

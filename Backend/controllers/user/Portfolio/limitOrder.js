@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const limitOrder = require("../../../models/limit/limitOrders");
-const peerOrders = require("../../../models/p2p/peerOrders");
-const peerEscrow = require("../../../models/p2p/peerEscrow");
-const limitEscrow = require("../../../models/limit/limitEscrow");
-const closedPeer = require("../../../models/p2p/closedPeer");
-const closedLimit = require("../../../models/limit/closedLimit");
-const User = require("../../../models/users");
-const Messages = require("../../../utils/messages");
-const { coinLabelMap } = require("../../../config/Assetinfo");
-const logger = require("../../../utils/logger");
+const limitOrder = require("@models/limit/limitOrders");
+const peerOrders = require("@models/p2p/peerOrders");
+const peerEscrow = require("@models/p2p/peerEscrow");
+const limitEscrow = require("@models/limit/limitEscrow");
+const closedPeer = require("@models/p2p/closedPeer");
+const closedLimit = require("@models/limit/closedLimit");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
+const { coinLabelMap } = require("@config/Assetinfo");
+const logger = require("@utils/logger");
 
 //buyer is not seller
 //buyer has enough balance to buy

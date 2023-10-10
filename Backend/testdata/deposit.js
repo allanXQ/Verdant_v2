@@ -1,4 +1,4 @@
-const depositModel = require("../models/mpesaDeposits");
+const depositModel = require("@models");
 
 const deposits = [
   {

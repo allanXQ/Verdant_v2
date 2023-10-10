@@ -1,6 +1,6 @@
-const Assets = require("../../../models/Assets");
-const createId = require("../../../utils/createId");
-const Messages = require("../../../utils/messages");
+const { Assets } = require("@models");
+const createId = require("@utils/createId");
+const Messages = require("@utils/messages");
 
 //check if Asset exists
 //check if coin pair exists in binance

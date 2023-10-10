@@ -1,8 +1,8 @@
 const crypto = require("crypto");
 const id = crypto.randomBytes(6).toString("hex");
-const User = require("../../models/users");
+const User = require("@models/users");
 const bcrypt = require("bcrypt");
-const Messages = require("../../utils/messages");
+const Messages = require("@utils/messages");
 
 const Register = async (req, res) => {
   const {

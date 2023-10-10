@@ -1,10 +1,10 @@
-const getGoogleAuthTokens = require("../../utils/getGoogleAuthTokens");
+const getGoogleAuthTokens = require("@utils/getGoogleAuthTokens");
 require("dotenv").config();
 const uuid = require("uuid");
 const jwt = require("jsonwebtoken");
-const User = require("../../models/users");
-const { generateTokens, setCookies } = require("../../utils/cookie");
-const Messages = require("../../utils/messages");
+const User = require("@models/users");
+const { generateTokens, setCookies } = require("@utils/cookie");
+const Messages = require("@utils/messages");
 
 const id = uuid.v4();
 

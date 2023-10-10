@@ -93,15 +93,20 @@ const RangePicker = ({ dispatch }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-
+        width: {
+          xs: "100vw",
+          sm: `calc(100vw - 230px)`,
+        },
+        height: "3.5rem",
         backgroundColor: "#253248",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          gap: "0.5rem",
-          pt: "1rem",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          width: 300,
         }}
       >
         {klineIntervals.map(

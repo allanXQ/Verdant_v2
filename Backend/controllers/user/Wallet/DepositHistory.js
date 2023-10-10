@@ -1,5 +1,5 @@
-const MpesaDeposits = require("../../../models/mpesaDeposits");
-const Messages = require("../../../utils/messages");
+const { MpesaDeposits } = require("@models");
+const Messages = require("@utils/messages");
 
 const MpesaDepositHistory = async (req, res) => {
   const { userId } = req.body;

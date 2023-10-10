@@ -1,9 +1,9 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../../models/users");
-const Messages = require("../../utils/messages");
-const { setCookies, generateTokens } = require("../../utils/cookie");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
+const { setCookies, generateTokens } = require("@utils/cookie");
 
 const Login = async (req, res) => {
   const { email, password } = req.body;

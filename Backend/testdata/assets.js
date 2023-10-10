@@ -1,4 +1,4 @@
-const Assets = require("../models/Assets");
+const Assets = require("@models");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const id = () => crypto.randomBytes(6).toString("hex");

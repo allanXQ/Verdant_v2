@@ -1,5 +1,5 @@
-const peerOrders = require("../models/p2p/peerOrders");
-const peerEscrow = require("../models/p2p/peerEscrow");
+const { peerOrders } = require("@models");
+const { peerEscrow } = require("@models");
 
 userId;
 ("f35108397b93");

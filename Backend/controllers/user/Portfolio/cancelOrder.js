@@ -1,8 +1,8 @@
-const { orderTypes } = require("../../../config");
-const peerOrders = require("../../../models/p2p/peerOrders");
-const peerEscrow = require("../../../models/p2p/peerEscrow");
-const User = require("../../../models/users");
-const Messages = require("../../../utils/messages");
+const { orderTypes } = require("@config");
+const peerOrders = require("@models/p2p/peerOrders");
+const peerEscrow = require("@models/p2p/peerEscrow");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
 
 const findMatchingOrder = async (orderId) => {
   const order = await peerOrders.findOne({ orderId });

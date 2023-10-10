@@ -1,3 +1,4 @@
+require("module-alias/register");
 require("dotenv").config();
 
 const express = require("express");
@@ -6,7 +7,6 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/errorHandler");
 const DBconn = require("./config/dbConn");
-const User = require("./models/users");
 
 const app = express();
 const port = process.env.PORT || 5000;

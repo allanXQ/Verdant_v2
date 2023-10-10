@@ -1,5 +1,5 @@
-const User = require("../../models/users");
-const Messages = require("../../utils/messages");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
 
 const userInfo = async (req, res) => {
   const { userId } = req.body;

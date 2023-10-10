@@ -1,5 +1,5 @@
-const peerOrders = require("../../../../models/p2p/peerOrders");
-const Messages = require("../../../../utils/messages");
+const { peerOrders } = require("@models");
+const Messages = require("@utils/messages");
 
 const getP2PTrades = async (req, res) => {
   const trades = await peerOrders.find({});

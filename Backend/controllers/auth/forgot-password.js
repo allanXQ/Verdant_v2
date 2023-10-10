@@ -1,8 +1,8 @@
 require("dotenv").config();
-const User = require("../../models/users");
+const User = require("@models/users");
 const jwt = require("jsonwebtoken");
 const nodeoutlook = require("nodejs-nodemailer-outlook");
-const Messages = require("../../utils/messages");
+const Messages = require("@utils/messages");
 
 const ForgotPassword = async (req, res) => {
   const { email } = req.body;

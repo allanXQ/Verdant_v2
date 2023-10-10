@@ -1,6 +1,6 @@
-const User = require("../../models/users");
-const Messages = require("../../utils/messages");
-const { clearTokens } = require("../../utils/cookie");
+const User = require("@models/users");
+const Messages = require("@utils/messages");
+const { clearTokens } = require("@utils/cookie");
 
 const Logout = async (req, res) => {
   const { userId } = req.body;

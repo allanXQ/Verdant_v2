@@ -1,8 +1,8 @@
 const { default: mongoose } = require("mongoose");
-const { WalletConfig } = require("../../../config");
-const Messages = require("../../../utils/messages");
-const User = require("../../../models/users");
-const Withdraw = require("../../../models/withdrawals");
+const { WalletConfig } = require("@config");
+const Messages = require("@utils/messages");
+const { User } = require("@models");
+const { Withdraw } = require("@models");
 
 //include withdrrawal fees
 const MpesaWithdraw = async (req, res) => {
