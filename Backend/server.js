@@ -7,7 +7,6 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/errorHandler");
 const DBconn = require("./config/dbConn");
-const createTrades = require("./testdata/p2ptrades");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -33,5 +32,3 @@ app.use("/api/v1/ZAdmin", require("./routes/admin"));
 app.use(errorHandler);
 
 DBconn(app, port);
-
-createTrades();
