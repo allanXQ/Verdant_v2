@@ -18,6 +18,9 @@ export const appDataSlice = createSlice({
     updateKlineInterval: (state, action) => {
       state.klineInterval = action.payload;
     },
+    updateActiveAsset: (state, action) => {
+      state.activeAsset = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,5 +72,5 @@ export const selectP2PTrades = (state) => state.appData.p2pTrades;
 export const selectAppDataStatus = (state) => state.appData.status;
 export const selectAppDataError = (state) => state.appData.error;
 
-export const { updateKlineInterval } = appDataSlice.actions;
+export const { updateKlineInterval, updateActiveAsset } = appDataSlice.actions;
 export default appDataSlice.reducer;
