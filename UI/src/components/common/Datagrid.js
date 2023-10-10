@@ -67,10 +67,8 @@ const MUIDataGrid = ({ title, rows, columns, height, width }) => {
         <StyledDataGrid
           rows={rows}
           columns={columns}
-          pagination={false}
           disableSelectionOnClick
           currentTheme={currentTheme}
-          // width={calculatedWidth}
         />
       </Box>
     </Box>
