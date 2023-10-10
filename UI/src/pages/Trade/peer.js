@@ -1,7 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
 import useUserData from "Hooks/useUserData";
 import { MuiButton } from "components/common/Button";
-import MUIDataGrid from "components/common/Datagrid";
+import MainHistory from "pages/TransactionHistory/mainHistory";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -35,48 +34,6 @@ const columns = [
   },
 ];
 
-const Overview = ({ userData }) => {
-  const navigate = useNavigate();
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-
-        maxWidth: "95%",
-      }}
-    >
-      <Box>
-        <Typography variant="subtitle1">Portfolio Value</Typography>
-        <Typography variant="h6">KSH {userData?.portfolioValue}</Typography>
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <MuiButton
-          variant="contained"
-          onClick={() => navigate("/trade/spot")}
-          content="Spot"
-        />
-
-        <MuiButton
-          variant="contained"
-          onClick={() => navigate("/trade/swap")}
-          content="Swap"
-        />
-      </Box>
-    </Box>
-  );
-};
-
 const PeerTrading = () => {
   const dispatch = useDispatch();
   const userData = useUserData();
@@ -88,6 +45,17 @@ const PeerTrading = () => {
   }, [dispatch]);
 
   const p2pTrades = useSelector(selectP2PTrades);
+
+  const buttons = [
+    {
+      name: "Spot",
+      path: "/trade/spot",
+    },
+    {
+      name: "Swap",
+      path: "/trade/swap",
+    },
+  ];
 
   const rows =
     Array.isArray(p2pTrades) &&
@@ -102,20 +70,16 @@ const PeerTrading = () => {
       };
     });
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        marginTop: "2rem",
-        gap: "2rem",
-        overflow: "hidden",
+    <MainHistory
+      title="P2P"
+      columns={columns}
+      rows={rows}
+      userInfo={{
+        accountBalance: userData?.accountBalance,
+        name: "Account Balance",
       }}
-    >
-      <Overview userData={userData} />
-
-      <MUIDataGrid title="P2P" columns={columns} rows={rows} />
-    </Box>
+      buttons={buttons}
+    />
   );
 };
 

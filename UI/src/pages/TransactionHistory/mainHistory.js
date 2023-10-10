@@ -1,12 +1,9 @@
 import { Grid } from "@mui/material";
-import useUserData from "Hooks/useUserData";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 import { Overview } from "./overview";
 
 const MainHistory = ({ title, userInfo, columns, rows, buttons }) => {
-  const userData = useUserData();
-
   return (
     <Grid
       container
