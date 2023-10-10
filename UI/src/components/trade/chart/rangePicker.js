@@ -14,6 +14,7 @@ import { MuiButton } from "components/common/Button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectActiveAsset,
   updateActiveAsset,
   updateKlineInterval,
 } from "redux/features/app/appDataSlice";
@@ -109,7 +110,8 @@ const RangePicker = () => {
   const dispatch = useDispatch();
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
-  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
+
+  const selectedAsset = useSelector(selectActiveAsset);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -119,7 +121,6 @@ const RangePicker = () => {
     setAnchorEl(null);
   };
   const handleAssetChange = (event) => {
-    setSelectedAsset(event.target.value);
     dispatch(updateActiveAsset(event.target.value));
   };
 
@@ -131,34 +132,21 @@ const RangePicker = () => {
       alignContent={"center"}
       justifyContent="space-between"
       sx={{
-        //   display: "flex",
-        //   alignItems: "center",
-        //   justifyContent: "space-between",
         width: {
           xs: "100vw",
           sm: `calc(100vw - 230px)`,
         },
-        //   height: "3.5rem",
-        //   backgroundColor: "#253248",
       }}
     >
-      <Grid
-        item
-        sx={{
-          bgcolor: "red",
-        }}
-      >
+      <Grid item>
         <Select
           value={selectedAsset}
           onChange={handleAssetChange}
           variant="outlined"
           sx={{
-            // width: 200,
-            color: "red",
-
-            // "& .MuiOutlinedInput-notchedOutline": {
-            //   border: "none",
-            // },
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
           }}
         >
           {assets.map((asset) => (
@@ -225,15 +213,6 @@ const RangePicker = () => {
                   : theme.palette.bgColor.dark,
               color: "white",
               boxShadow: "none",
-              // "& .MuiList-root": {
-              //   backgroundColor: "transparent",
-              //   "& .MuiListItem-root": {
-              //     backgroundColor: "transparent",
-              //     "&:hover": {
-              //       backgroundColor: "transparent",
-              //     },
-              //   },
-              // },
             },
           }}
         >
@@ -241,12 +220,10 @@ const RangePicker = () => {
             sx={{
               display: "flex",
               flexWrap: "wrap",
-              // justifyContent: "space-evenly",
               alignItems: "center",
               width: 290,
               p: 2,
               m: 0,
-              // height: 200,
             }}
           >
             {klineIntervals.map((interval) => (
