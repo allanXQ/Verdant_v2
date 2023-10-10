@@ -18,30 +18,34 @@ const Referrals = mongoose.Schema({
 });
 
 //add kyc
-const Users = mongoose.Schema({
-  userId: { type: String },
-  role: { type: String, default: roles.user },
-  firstname: { type: String },
-  lastname: { type: String },
-  googleName: { type: String, required: !isLocalAuth },
-  username: { type: String, required: isLocalAuth, unique: true },
-  email: { type: String, required: true, unique: true },
-  phone: { type: Number, required: isLocalAuth, unique: true },
-  accountBalance: { type: Number, default: 0 },
-  authMethod: {
-    type: String,
-    enum: ["local", "google"],
-    required: true,
+const Users = mongoose.Schema(
+  {
+    userId: { type: String },
+    role: { type: String, default: roles.user },
+    firstname: { type: String },
+    lastname: { type: String },
+    googleName: { type: String, required: !isLocalAuth },
+    username: { type: String, required: isLocalAuth, unique: true },
+    email: { type: String, required: true, unique: true },
+    phone: { type: Number, required: isLocalAuth, unique: true },
+    accountBalance: { type: Number, default: 0 },
+    authMethod: {
+      type: String,
+      enum: ["local", "google"],
+      required: true,
+    },
+    status: { type: String, default: "Unverified" },
+    referrer: { type: String, default: "none" },
+    refreshToken: { type: String },
+    passwordResetToken: { type: String },
+    password: { type: String, required: isLocalAuth },
+    portfolio: [Portfolio],
+    referrals: [Referrals],
   },
-  status: { type: String, default: "Unverified" },
-  referrer: { type: String, default: "none" },
-  refreshToken: { type: String },
-  passwordResetToken: { type: String },
-  password: { type: String, required: isLocalAuth },
-  portfolio: [Portfolio],
-  referrals: [Referrals],
-  created: { type: Date, default: Date.now },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const model = mongoose.model("Users", Users);
 
