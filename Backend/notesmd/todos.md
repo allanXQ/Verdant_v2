@@ -15,6 +15,8 @@
 
 6. in the deposit, withdraw and transact controller update on whether we should return message + user payload or just message. currently returnig only message
 
+7. the app index route has two get routes without verifyjwt.
+
 ## Minor Changes
 
 1. Check if we can combine all the client history pages into one component.
