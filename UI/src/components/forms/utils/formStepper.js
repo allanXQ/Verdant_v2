@@ -4,7 +4,6 @@ import { Stepper, Step, StepLabel, Button } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 
 const FormStepper = (modelName, model) => {
-  console.log(modelName, model);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {

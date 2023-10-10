@@ -33,13 +33,10 @@ export const appDataSlice = createSlice({
       .addMatcher(
         (action) => action.type.startsWith("api/call/fulfilled"),
         (state, action) => {
-          console.log(action.meta.arg.endpoint);
-
           if (action.payload.slice !== "appData") return;
           state.status = "succeeded";
           switch (action.meta.arg.endpoint) {
             case "app/p2p-trades":
-              console.log(action.payload);
               state.p2pTrades = action.payload.data;
               break;
             case "spot-trades":
