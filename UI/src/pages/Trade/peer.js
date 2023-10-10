@@ -14,7 +14,7 @@ const ActionButton = ({ type }) => {
   return (
     <MuiButton
       variant="contained"
-      onClick={() => navigate(type.toLowerCase() === "sell" ? "/buy" : "/sell")}
+      onClick={() => navigate(type.toLowerCase() === "sell" ? "/buy" : "/sell")} //replace with buy and sell modals
       content={type.toLowerCase() === "sell" ? "Buy" : "Sell"}
     />
   );
@@ -82,21 +82,25 @@ const PeerTrading = () => {
   const userData = useUserData();
 
   useEffect(() => {
-    dispatch(apiCall({ endpoint: "app/p2p-trades", method: "GET" }));
+    dispatch(
+      apiCall({ endpoint: "app/p2p-trades", method: "GET", slice: "appData" })
+    );
   }, [dispatch]);
 
   const p2pTrades = useSelector(selectP2PTrades);
 
-  const rows = p2pTrades.map((trade) => {
-    const { type, stockName, stockAmount, price } = trade;
-    return {
-      id: trade._id,
-      Type: type,
-      Asset: stockName,
-      Amount: stockAmount,
-      Price: price,
-    };
-  });
+  const rows =
+    Array.isArray(p2pTrades) &&
+    p2pTrades.map((trade) => {
+      const { orderType, assetName, amount, price } = trade;
+      return {
+        id: trade.orderId,
+        Type: orderType === "buyp2p" ? "Buy" : "Sell",
+        Asset: assetName,
+        Amount: amount,
+        Price: price,
+      };
+    });
   return (
     <Box
       sx={{
