@@ -2,6 +2,8 @@ import { MoreVertOutlined } from "@mui/icons-material";
 import { Box, Button, IconButton, Popover, Typography } from "@mui/material";
 import { MuiButton } from "components/common/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateKlineInterval } from "redux/features/app/appDataSlice";
 
 const klineIntervals = [
   {
@@ -74,8 +76,9 @@ const klineIntervals = [
   },
 ];
 
-const RangePicker = ({ dispatch }) => {
+const RangePicker = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -119,6 +122,7 @@ const RangePicker = ({ dispatch }) => {
                   borderRadius: "0",
                 }}
                 content={interval.label}
+                onClick={() => dispatch(updateKlineInterval(interval.value))}
               />
             )
         )}

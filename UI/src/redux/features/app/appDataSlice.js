@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  klineInterval: "1h",
+  activeAsset: "verdant",
   klineIntervals: [],
   assets: [],
   p2pTrades: [],
@@ -13,13 +15,8 @@ export const appDataSlice = createSlice({
   name: "appData",
   initialState,
   reducers: {
-    updateDefaultKlineOption: (state, action) => {
-      const { value } = action.payload;
-      state.klineIntervals = state.klineIntervals.map((option) =>
-        option.value === value
-          ? { ...option, default: true }
-          : { ...option, default: false }
-      );
+    updateKlineInterval: (state, action) => {
+      state.klineInterval = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -65,10 +62,12 @@ export const appDataSlice = createSlice({
 });
 
 export const selectKlineIntervals = (state) => state.appData.klineIntervals;
+export const selectKlineInterval = (state) => state.appData.klineInterval;
+export const selectActiveAsset = (state) => state.appData.activeAsset;
 export const selectAssets = (state) => state.appData.assets;
 export const selectP2PTrades = (state) => state.appData.p2pTrades;
 export const selectAppDataStatus = (state) => state.appData.status;
 export const selectAppDataError = (state) => state.appData.error;
 
-export const { updateDefaultKlineOption } = appDataSlice.actions;
+export const { updateKlineInterval } = appDataSlice.actions;
 export default appDataSlice.reducer;

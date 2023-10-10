@@ -6,11 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
 import createWebSocket from "./utils/websocket";
 import { reportError } from "redux/features/app/error";
+import {
+  selectActiveAsset,
+  selectKlineInterval,
+} from "redux/features/app/appDataSlice";
 
-const CandleStickChart = ({ assetName, klineInterval }) => {
+const CandleStickChart = () => {
   const chartContainerRef = useRef(null);
   const resizeObserver = useRef(null);
   const dispatch = useDispatch();
+
+  const klineInterval = useSelector(selectKlineInterval);
+  const assetName = useSelector(selectActiveAsset);
+  console.log("assetName", assetName);
 
   const [chart, setChart] = useState(null);
   const topBarHeight = useSelector(selectTopBarHeight);
@@ -113,6 +121,7 @@ const CandleStickChart = ({ assetName, klineInterval }) => {
         socket && socket.close();
       };
     }
+    console.log("assetName", assetName);
   }, [assetName, klineInterval]);
 
   useEffect(() => {

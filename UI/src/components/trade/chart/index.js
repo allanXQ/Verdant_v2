@@ -5,8 +5,6 @@ import RangePicker from "./rangePicker";
 import { Buy, Sell } from "./modals/trade";
 
 const MainChart = () => {
-  const assetName = "verdant";
-  const klineInterval = "1h";
   const initialState = {
     buy: false,
     sell: false,
@@ -34,8 +32,8 @@ const MainChart = () => {
         position: "relative",
       }}
     >
-      <RangePicker dispatch={dispatch} />
-      <CandleStickChart assetName={assetName} klineInterval={klineInterval} />
+      <RangePicker />
+      <CandleStickChart />
       <Buy state={state} dispatch={dispatch} />
       <Sell state={state} dispatch={dispatch} />
     </Box>
