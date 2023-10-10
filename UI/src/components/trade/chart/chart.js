@@ -18,7 +18,6 @@ const CandleStickChart = () => {
 
   const klineInterval = useSelector(selectKlineInterval);
   const assetName = useSelector(selectActiveAsset);
-  console.log("assetName", assetName);
 
   const [chart, setChart] = useState(null);
   const topBarHeight = useSelector(selectTopBarHeight);
@@ -121,7 +120,6 @@ const CandleStickChart = () => {
         socket && socket.close();
       };
     }
-    console.log("assetName", assetName);
   }, [assetName, klineInterval]);
 
   useEffect(() => {

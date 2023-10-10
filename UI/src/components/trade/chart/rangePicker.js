@@ -13,7 +13,10 @@ import {
 import { MuiButton } from "components/common/Button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateKlineInterval } from "redux/features/app/appDataSlice";
+import {
+  updateActiveAsset,
+  updateKlineInterval,
+} from "redux/features/app/appDataSlice";
 import { selectTheme } from "redux/features/app/configSlice";
 
 const klineIntervals = [
@@ -106,6 +109,7 @@ const RangePicker = () => {
   const dispatch = useDispatch();
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
+  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -113,6 +117,10 @@ const RangePicker = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleAssetChange = (event) => {
+    setSelectedAsset(event.target.value);
+    dispatch(updateActiveAsset(event.target.value));
   };
 
   const open = Boolean(anchorEl);
@@ -134,6 +142,41 @@ const RangePicker = () => {
         //   backgroundColor: "#253248",
       }}
     >
+      <Grid
+        item
+        sx={{
+          bgcolor: "red",
+        }}
+      >
+        <Select
+          value={selectedAsset}
+          onChange={handleAssetChange}
+          variant="outlined"
+          sx={{
+            // width: 200,
+            color: "red",
+
+            // "& .MuiOutlinedInput-notchedOutline": {
+            //   border: "none",
+            // },
+          }}
+        >
+          {assets.map((asset) => (
+            <MenuItem
+              key={asset}
+              value={asset}
+              sx={{
+                bgcolor: "transparent",
+                "& .MuiList-root": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              <Typography variant="bodyLarge">{asset}</Typography>
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
       <Grid
         item
         sx={{
@@ -171,9 +214,10 @@ const RangePicker = () => {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left",
+            horizontal: "right",
           }}
           sx={{
+            position: "absolute",
             "& .MuiPopover-paper": {
               backgroundColor:
                 currentTheme === "light"
@@ -224,41 +268,7 @@ const RangePicker = () => {
           </Box>
         </Popover>
       </Grid>
-      <Grid
-        item
-        sx={{
-          bgcolor: "red",
-        }}
-      >
-        <Select
-          value={assets[0]}
-          // onChange={handleAssetChange}
-          variant="outlined"
-          sx={{
-            // width: 200,
-            color: "red",
 
-            // "& .MuiOutlinedInput-notchedOutline": {
-            //   border: "none",
-            // },
-          }}
-        >
-          {assets.map((asset) => (
-            <MenuItem
-              key={asset}
-              value={asset}
-              sx={{
-                bgcolor: "transparent",
-                "& .MuiList-root": {
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              <Typography variant="bodyLarge">{asset}</Typography>
-            </MenuItem>
-          ))}
-        </Select>
-      </Grid>
       <Grid
         item
         sx={{
