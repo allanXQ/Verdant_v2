@@ -1,5 +1,13 @@
-import { MoreVertOutlined } from "@mui/icons-material";
-import { Box, Button, IconButton, Popover, Typography } from "@mui/material";
+import { KeyboardArrowDown, MoreVertOutlined } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Popover,
+  Select,
+  Typography,
+} from "@mui/material";
 import { MuiButton } from "components/common/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -76,6 +84,20 @@ const klineIntervals = [
   },
 ];
 
+const assets = [
+  "verdant",
+  "azureCorp",
+  "sapphireHoldings",
+  "crimsonEnterprise",
+  "goldenVentures",
+  "silverSolutions",
+  "emeraldInc",
+  "rubyLtd",
+  "topazGroup",
+  "amberAssociation",
+  "pearlCo",
+];
+
 const RangePicker = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
@@ -116,6 +138,7 @@ const RangePicker = () => {
           (interval) =>
             interval.default && (
               <MuiButton
+                key={interval.label}
                 variant="outlined"
                 sx={{
                   width: "0.5rem",
@@ -141,6 +164,39 @@ const RangePicker = () => {
         >
           <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
         </Popover>
+      </Box>
+      <Box>
+        <Select
+          value={assets[0]}
+          // onChange={handleAssetChange}
+          variant="outlined"
+          sx={{
+            bgcolor: "transparent",
+            width: 200,
+            color: "red",
+            // "& .MuiSelect-select": {
+            //   backgroundColor: "transparent",
+            // },
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+          }}
+        >
+          {assets.map((asset) => (
+            <MenuItem
+              key={asset}
+              value={asset}
+              sx={{
+                bgcolor: "transparent",
+                "& .MuiList-root": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              <Typography variant="bodyRegular">{asset}</Typography>
+            </MenuItem>
+          ))}
+        </Select>
       </Box>
       <Box
         sx={{

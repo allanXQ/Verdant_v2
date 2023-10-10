@@ -90,25 +90,6 @@ const useStyledTheme = () => {
     },
   });
 
-  [
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "bodyLarge",
-    "bodyRegular",
-    "bodyRegularBold",
-    "bodySmall",
-    "bodySmallBold",
-  ].forEach((key) => {
-    theme.typography[key].color =
-      currentTheme === "light"
-        ? theme.palette.black.main
-        : theme.palette.white.main;
-  });
-
   theme.components.MuiCssBaseline = {
     styleOverrides: {
       body: {
@@ -135,8 +116,54 @@ const useStyledTheme = () => {
             : theme.palette.blue.main,
         borderRadius: "2rem",
       },
+
+      "& .MuiList-root": {
+        backgroundColor:
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
+      },
+
+      "& .MuiTypography-root": {
+        color:
+          currentTheme === "light"
+            ? theme.palette.black.main
+            : theme.palette.white.main,
+      },
+      "& .MuiSvgIcon-root": {
+        color:
+          currentTheme === "dark"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
+      },
+
+      "& .MuiSelect-iconOutlined": {
+        color:
+          currentTheme === "dark"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
+      },
+      // MuiList: {
+      //   root: {
+      //     backgroundColor:
+      //       currentTheme === "dark"
+      //         ? theme.palette.bgColor.light
+      //         : theme.palette.bgColor.dark,
+      //   },
+      // },
     },
   };
+
+  // theme.components.MuiList = {
+  //   styleOverrides: {
+  //     root: {
+  //       backgroundColor:
+  //         currentTheme === "light"
+  //           ? theme.palette.bgColor.light
+  //           : theme.palette.bgColor.dark,
+  //     },
+  //   },
+  // },
 
   return theme;
 };
