@@ -10,7 +10,9 @@ import {
 import BuyForm from "components/forms/models/spot/buy";
 import SellForm from "components/forms/models/spot/sell";
 import createWebSocket from "../utils/websocket";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { reportError } from "redux/features/app/error";
+import { selectActiveAsset } from "redux/features/app/appDataSlice";
 
 const style = {
   position: "relative",
@@ -36,31 +38,10 @@ const textFieldStyle = {
   },
 };
 
-const Child = ({ state }) => {
+const Child = () => {
   const dispatch = useDispatch();
   const [price, setPrice] = React.useState("");
-  const assetName = "verdant";
-  useEffect(() => {
-    if (!state) return;
-    const socket = createWebSocket();
-    socket.connect();
-    socket.on("connect", () => {
-      socket.emit("requestPrice", { assetName });
-    });
-    socket.on("priceData", (data) => {
-      setPrice(data.price);
-    });
-    socket.on("connect_error", (error) => {
-      dispatch(reportError({ message: error.message, type: "error" }));
-      if (error.message === "server error") {
-        socket.close();
-      }
-    });
-
-    return () => {
-      socket.close();
-    };
-  }, []);
+  const assetName = useSelector(selectActiveAsset);
 
   return (
     <Box
@@ -72,12 +53,6 @@ const Child = ({ state }) => {
         gap: "0.5rem",
       }}
     >
-      <TextField
-        label="Price"
-        autoComplete="off"
-        sx={textFieldStyle}
-        value={price}
-      />
       <TextField label="Total" autoComplete="off" sx={textFieldStyle} />
     </Box>
   );
