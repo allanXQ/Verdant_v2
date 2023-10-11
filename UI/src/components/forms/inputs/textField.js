@@ -4,7 +4,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectTheme } from "redux/features/app/configSlice";
 
-const MUITextField = ({ label, ...props }) => {
+const MUITextField = ({ label, defaultValue, sx: customSx, ...props }) => {
   const theme = useTheme();
   const [field, meta] = useField(props);
   const currentTheme = useSelector(selectTheme);
@@ -17,6 +17,7 @@ const MUITextField = ({ label, ...props }) => {
       error={meta.touched && !!meta.error}
       helperText={meta.touched && meta.error ? meta.error : ""}
       autoComplete="off"
+      defaultValue={defaultValue}
       focused
       sx={{
         width: "20rem",
@@ -45,6 +46,7 @@ const MUITextField = ({ label, ...props }) => {
             backgroundColor: "transparent",
           },
         },
+        ...customSx,
       }}
     />
   );
