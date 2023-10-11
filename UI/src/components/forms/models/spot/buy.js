@@ -13,7 +13,7 @@ const BuyModel = {
 
   fields: [
     {
-      name: "asset",
+      name: "assetName",
       type: "text",
       label: "Asset",
       placeholder: "asset name",
@@ -34,7 +34,7 @@ const BuyForm = ({ children }) => {
   const updatedBuyModel = {
     ...BuyModel,
     fields: BuyModel.fields.map((field) =>
-      field.name === "asset" ? { ...field, value: activeAsset } : field
+      field.name === "assetName" ? { ...field, value: activeAsset } : field
     ),
   };
   return CreateForm("Buy", updatedBuyModel, children, activeAsset);
