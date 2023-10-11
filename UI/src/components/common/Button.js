@@ -2,6 +2,7 @@ import { Button, Typography, useTheme, IconButton } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, updateTheme } from "redux/features/app/configSlice";
+import { useLocation } from "react-router-dom";
 
 export const MuiButton = (props) => {
   const { variant, type, onClick, sx, content, disabled, href, children } =
@@ -38,7 +39,9 @@ export const MuiButton = (props) => {
 
 export const ThemeButton = () => {
   const dispatch = useDispatch();
+  const currentPath = useLocation().pathname;
   const changeTheme = () => {
+    if (currentPath.includes("trade/spot")) return;
     dispatch(updateTheme());
   };
 

@@ -120,7 +120,7 @@ const PriceDisplay = ({ price, color }) => {
           ? theme.palette.green.main
           : color === "red"
           ? theme.palette.red.main
-          : theme.palette.bgColor.light
+          : theme.typography.h3.color
       }
       sx={{}}
     >
@@ -129,7 +129,7 @@ const PriceDisplay = ({ price, color }) => {
   );
 };
 
-const RangePicker = () => {
+const RangePicker = ({ formWidth }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const assetName = useSelector(selectActiveAsset);
@@ -228,7 +228,7 @@ const RangePicker = () => {
           justifyContent: "space-between",
           width: {
             xs: "100vw",
-            sm: `calc(100vw - 230px)`,
+            sm: `calc(100vw - ${formWidth})`,
           },
         }}
       >

@@ -11,13 +11,14 @@ import {
   selectKlineInterval,
 } from "redux/features/app/appDataSlice";
 
-const CandleStickChart = () => {
+const CandleStickChart = ({ formWidth }) => {
   const chartContainerRef = useRef(null);
   const resizeObserver = useRef(null);
   const dispatch = useDispatch();
 
   const klineInterval = useSelector(selectKlineInterval);
   const assetName = useSelector(selectActiveAsset);
+  const topBarHeight = useSelector(selectTopBarHeight);
 
   const [chart, setChart] = useState(null);
 
@@ -132,9 +133,9 @@ const CandleStickChart = () => {
       sx={{
         width: {
           xs: "100vw",
-          sm: `calc(100vw - 205px)`,
+          sm: `calc(100vw - ${formWidth})`,
         },
-        height: `calc(100vh - 3.5rem)`, //10.5rem
+        height: `calc(100vh - 5rem - ${topBarHeight})`, //10.5rem
         margin: "0",
         padding: "0",
       }}

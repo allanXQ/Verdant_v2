@@ -1,8 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import React, { useReducer } from "react";
 import CandleStickChart from "./chart";
 import RangePicker from "./rangePicker";
 import { Buy, Sell } from "./modals/trade";
+import { selectTheme } from "redux/features/app/configSlice";
+import { useSelector } from "react-redux";
 
 const MainChart = () => {
   const initialState = {
@@ -22,21 +24,39 @@ const MainChart = () => {
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const theme = useTheme();
+  const currentTheme = useSelector(selectTheme);
+  const formWidth = "17rem";
 
   return (
     <Box
       sx={{
-        backgroundColor: "#253248",
+        display: "flex",
+
+        backgroundColor:
+          currentTheme === "light"
+            ? theme.palette.bgColor.light
+            : theme.palette.bgColor.dark,
         // mx: "auto",
-        width: "98%",
+        width: "100%",
         height: "100vh",
-        position: "relative",
       }}
     >
-      <RangePicker />
-      <CandleStickChart />
-      <Buy state={state} dispatch={dispatch} />
-      <Sell state={state} dispatch={dispatch} />
+      <Box>
+        <RangePicker formWidth={formWidth} />
+        <CandleStickChart formWidth={formWidth} />
+      </Box>
+
+      <Box
+        sx={{
+          zIndex: 1,
+          overflowY: "scroll",
+          width: `calc(${formWidth})`,
+        }}
+      >
+        <Buy state={state} dispatch={dispatch} />
+        <Sell state={state} dispatch={dispatch} />
+      </Box>
     </Box>
   );
 };

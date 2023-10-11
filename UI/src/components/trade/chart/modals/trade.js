@@ -13,19 +13,19 @@ import createWebSocket from "../utils/websocket";
 import { useDispatch } from "react-redux";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 450,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+  position: "relative",
+  // top: "50%",
+  right: 0,
+  // transform: "translate(-50%, -50%)",
+  // width: 270,
+  bgcolor: "transparent",
+  border: "none",
+  boxShadow: "none",
+  // p: 4,
 };
 
 const textFieldStyle = {
-  width: "25rem",
+  width: "15rem",
   "& .Mui-focused": {
     backgroundColor: "transparent",
   },
@@ -85,31 +85,22 @@ const Child = ({ state }) => {
 
 const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
   return (
-    state && (
-      <Modal
-        open={state}
-        onClose={() => dispatch({ type: "close" })}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <Card sx={style}>
+      <CardContent
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          alignContent: "center",
+          gap: 1,
+        }}
       >
-        <Card sx={style}>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignContent: "center",
-              gap: 1,
-            }}
-          >
-            <Typography variant="h5">{title}</Typography>
-            <FormComponent>
-              <Child state={state} />
-            </FormComponent>
-          </CardContent>
-        </Card>
-      </Modal>
-    )
+        <Typography variant="h5">{title}</Typography>
+        <FormComponent>
+          <Child state={state} />
+        </FormComponent>
+      </CardContent>
+    </Card>
   );
 };
 

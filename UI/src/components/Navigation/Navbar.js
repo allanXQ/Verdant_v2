@@ -275,7 +275,6 @@ function ResponsiveDrawer(props) {
             currentTheme === "light"
               ? theme.palette.bgColor.light
               : theme.palette.bgColor.dark,
-          display: currentpath.includes("trade/spot") && "none",
         }}
       >
         <Toolbar>
@@ -344,7 +343,11 @@ function ResponsiveDrawer(props) {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+          display: currentpath.includes("trade/spot") && "none",
+        }}
         aria-label="mailbox folders"
       >
         <Drawer
@@ -389,11 +392,7 @@ function ResponsiveDrawer(props) {
           overflowX: "hidden",
         }}
       >
-        <Toolbar
-          sx={{
-            display: currentpath.includes("trade/spot") && "none",
-          }}
-        />
+        <Toolbar sx={{}} />
         {props.children}
       </Box>
     </Box>
