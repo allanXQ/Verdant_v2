@@ -134,6 +134,8 @@ const RangePicker = () => {
   const dispatch = useDispatch();
   const assetName = useSelector(selectActiveAsset);
   const klineInterval = useSelector(selectKlineInterval);
+  const currentTheme = useSelector(selectTheme);
+  const theme = useTheme();
   const [tickerData, setTickerData] = useState(null);
   const [price, setPrice] = useState(0);
   const [priceColor, setPriceColor] = useState(null);
@@ -236,31 +238,84 @@ const RangePicker = () => {
             alignItems: "center",
           }}
         >
-          <Select
-            value={assetName}
-            onChange={handleAssetChange}
-            variant="outlined"
-            sx={{
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "none",
-              },
-            }}
-          >
-            {assets.map((asset) => (
-              <MenuItem
-                key={asset}
-                value={asset}
+          <Box>
+            <Select
+              value={assetName}
+              onChange={handleAssetChange}
+              variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                },
+              }}
+            >
+              {assets.map((asset) => (
+                <MenuItem
+                  key={asset}
+                  value={asset}
+                  sx={{
+                    bgcolor: "transparent",
+                    "& .MuiList-root": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  <Typography variant="bodyLarge">{asset}</Typography>
+                </MenuItem>
+              ))}
+            </Select>
+            <IconButton onClick={handleClick}>
+              <MoreVertOutlined color="primary" />
+            </IconButton>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              sx={{
+                position: "absolute",
+                "& .MuiPopover-paper": {
+                  backgroundColor:
+                    currentTheme === "light"
+                      ? theme.palette.bgColor.light
+                      : theme.palette.bgColor.dark,
+                  color: "white",
+                  boxShadow: "none",
+                },
+              }}
+            >
+              <Box
                 sx={{
-                  bgcolor: "transparent",
-                  "& .MuiList-root": {
-                    backgroundColor: "transparent",
-                  },
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  width: 290,
+                  p: 2,
+                  m: 0,
                 }}
               >
-                <Typography variant="bodyLarge">{asset}</Typography>
-              </MenuItem>
-            ))}
-          </Select>
+                {klineIntervals.map((interval) => (
+                  <MuiButton
+                    key={interval.label}
+                    variant="outlined"
+                    sx={{
+                      display: "flex",
+                      width: "0.5rem",
+                      borderRadius: "0",
+                    }}
+                    content={interval.label}
+                    onClick={() =>
+                      dispatch(updateKlineInterval(interval.value))
+                    }
+                  />
+                ))}
+              </Box>
+            </Popover>
+          </Box>
           <PriceDisplay price={price} color={priceColor} />
         </Box>
         <Box
@@ -296,10 +351,6 @@ const RangePicker = () => {
             </Stack>
           </Box>
         </Box>
-
-        {/* <Grid item>
-          
-        </Grid> */}
       </Box>
     </>
     // <Grid
