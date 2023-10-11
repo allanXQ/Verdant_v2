@@ -5,11 +5,10 @@ const limitOrders = new mongoose.Schema(
   {
     orderId: {
       type: String,
-      default: () => crypto.randomBytes(6).toString("hex"),
       unique: true,
+      required: true,
     },
-    buyerId: { type: String, required: true },
-    buyerName: { type: String, required: true },
+    userId: { type: String, required: true },
     assetName: { type: String, required: true },
     amount: { type: Number, required: true },
     totalAssetValue: { type: Number, required: true },
