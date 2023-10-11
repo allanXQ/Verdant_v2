@@ -19,6 +19,7 @@ const getTickerData = async (req, res, next) => {
     tickerData.low = parseFloat(data.lowPrice).toFixed(2);
     tickerData.volume = parseFloat(data.volume).toFixed(2);
     tickerData.priceChange = parseFloat(data.priceChange).toFixed(2);
+    tickerData.lastPrice = parseFloat(data.lastPrice).toFixed(2);
     return res.status(200).json({
       message: Messages.requestSuccessful,
       payload: {

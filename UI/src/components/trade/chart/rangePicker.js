@@ -114,7 +114,7 @@ const PriceDisplay = ({ price, color }) => {
   const theme = useTheme();
   return (
     <Typography
-      variant="bodySmall"
+      variant="h3"
       color={
         color === "green"
           ? theme.palette.green.main
@@ -124,7 +124,7 @@ const PriceDisplay = ({ price, color }) => {
       }
       sx={{}}
     >
-      {price}
+      {Number(price).toLocaleString()}
     </Typography>
   );
 };
@@ -161,6 +161,7 @@ const RangePicker = () => {
   useEffect(() => {
     fetchTickerData(assetName).then((data) => {
       setTickerData(data);
+      setPrice(data.lastPrice);
     });
 
     const socket = createWebSocket();
@@ -247,6 +248,9 @@ const RangePicker = () => {
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
+                "& .MuiTypography-root": {
+                  ...theme.typography.bodyLargeBold,
+                },
               }}
             >
               {assets.map((asset) => (
@@ -260,7 +264,9 @@ const RangePicker = () => {
                     },
                   }}
                 >
-                  <Typography variant="bodyLarge">{asset}</Typography>
+                  <Typography variant="bodyRegular">
+                    {asset.toUpperCase()}
+                  </Typography>
                 </MenuItem>
               ))}
             </Select>
@@ -330,11 +336,13 @@ const RangePicker = () => {
           <Box sx={statsStyle}>
             <Stack>
               <Typography variant="bodySmall">24h High</Typography>
-              <Typography variant="bodySmall">{tickerData?.high}</Typography>
+              <Typography variant="bodySmallBold">
+                {tickerData?.high}
+              </Typography>
             </Stack>
             <Stack>
               <Typography variant="bodySmall">24h Change</Typography>
-              <Typography variant="bodySmall">
+              <Typography variant="bodySmallBold">
                 {tickerData?.priceChange}
               </Typography>
             </Stack>
@@ -342,12 +350,14 @@ const RangePicker = () => {
           <Box sx={statsStyle}>
             <Stack>
               <Typography variant="bodySmall">24h Low</Typography>
-              <Typography variant="bodySmall">{tickerData?.low}</Typography>
+              <Typography variant="bodySmallBold">{tickerData?.low}</Typography>
             </Stack>
 
             <Stack>
               <Typography variant="bodySmall">24h Volume</Typography>
-              <Typography variant="bodySmall">{tickerData?.volume}</Typography>
+              <Typography variant="bodySmallBold">
+                {tickerData?.volume}
+              </Typography>
             </Stack>
           </Box>
         </Box>

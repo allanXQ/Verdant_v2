@@ -71,6 +71,10 @@ const useStyledTheme = () => {
         fontSize: "1.2rem",
         fontWeight: 400,
       },
+      bodyLargeBold: {
+        fontSize: "1.2rem",
+        fontWeight: 700,
+      },
       bodyRegular: {
         fontSize: "1rem",
         fontWeight: 400,
