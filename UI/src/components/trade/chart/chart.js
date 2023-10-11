@@ -135,7 +135,7 @@ const CandleStickChart = () => {
           xs: "100vw",
           sm: `calc(100vw - 205px)`,
         },
-        height: `calc(100vh - 3.5rem - ${topBarHeight})`,
+        height: `calc(100vh - 3.5rem)`, //10.5rem
         margin: "0",
         padding: "0",
       }}
