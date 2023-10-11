@@ -3,9 +3,10 @@ import { Form, Formik } from "formik";
 import MUITextField from "../inputs/textField";
 import { Box } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "redux/async/asyncThunk";
 import { MuiButton } from "components/common/Button";
+import { selectUser } from "redux/features/user/userSlice";
 
 const CenteredBox = (props) => (
   <Box
@@ -38,6 +39,7 @@ const getInitialValues = (fields) => {
 
 const CreateForm = (formName, model, children, activeAsset) => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const fields = model.fields;
   return (
     <CenteredBox key={activeAsset}>
@@ -45,6 +47,7 @@ const CreateForm = (formName, model, children, activeAsset) => {
         initialValues={getInitialValues(fields)}
         validationSchema={getValidationSchema(fields)}
         onSubmit={(values, { setSubmitting }) => {
+          values.userId = user.userId;
           dispatch(
             apiCall({
               endpoint: model.endpoint,
