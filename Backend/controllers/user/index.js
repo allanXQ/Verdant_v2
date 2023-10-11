@@ -46,5 +46,6 @@ module.exports = {
   peerBuy,
   peerSell,
   // sellLimit,
+  buyLimit,
   tradeHistory,
 };
