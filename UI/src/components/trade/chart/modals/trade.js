@@ -38,26 +38,6 @@ const textFieldStyle = {
   },
 };
 
-const Child = () => {
-  const dispatch = useDispatch();
-  const [price, setPrice] = React.useState("");
-  const assetName = useSelector(selectActiveAsset);
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.5rem",
-      }}
-    >
-      <TextField label="Total" autoComplete="off" sx={textFieldStyle} />
-    </Box>
-  );
-};
-
 const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
   return (
     <Card sx={style}>
@@ -71,32 +51,16 @@ const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
         }}
       >
         <Typography variant="h5">{title}</Typography>
-        <FormComponent>
-          <Child state={state} />
-        </FormComponent>
+        <FormComponent />
       </CardContent>
     </Card>
   );
 };
 
 export const Buy = ({ state, dispatch }) => {
-  return (
-    <ModalComponent
-      state={state.buy}
-      dispatch={dispatch}
-      title="Buy"
-      FormComponent={BuyForm}
-    />
-  );
+  return <ModalComponent title="Buy" FormComponent={BuyForm} />;
 };
 
 export const Sell = ({ state, dispatch }) => {
-  return (
-    <ModalComponent
-      state={state.sell}
-      dispatch={dispatch}
-      title="Sell"
-      FormComponent={SellForm}
-    />
-  );
+  return <ModalComponent title="Sell" FormComponent={SellForm} />;
 };
