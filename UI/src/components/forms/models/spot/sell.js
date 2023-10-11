@@ -1,10 +1,15 @@
+import { useSelector } from "react-redux";
 import CreateForm from "../../utils/createForm";
+import { selectActiveAsset } from "redux/features/app/appDataSlice";
 
 const SellModel = {
   name: "Sell",
   endpoint: "user/trade/spot/sell-limit",
   method: "post",
   variant: "outlined",
+  sx: {
+    width: "15rem",
+  },
 
   fields: [
     {
@@ -25,7 +30,15 @@ const SellModel = {
 };
 
 const SellForm = ({ children }) => {
-  return CreateForm("Sell", SellModel, children);
+  const activeAsset = useSelector(selectActiveAsset);
+  const updatedSellModel = {
+    ...SellModel,
+    fields: SellModel.fields.map((field) =>
+      field.name === "asset" ? { ...field, defaultValue: activeAsset } : field
+    ),
+  };
+
+  return CreateForm("Sell", updatedSellModel, children, activeAsset);
 };
 
 export default SellForm;
