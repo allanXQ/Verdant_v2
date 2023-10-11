@@ -71,7 +71,7 @@ const peerSell = async (req, res, next) => {
       ]);
       await session.commitTransaction();
       session.endSession();
-      return res.status(200).json({ message: Messages.orderCreated });
+      return res.status(200).json({ message: Messages.orderCompleted });
     }
     if (buyOrder.userId === userId) {
       return res.status(400).json({ messages: Messages.invalidRequest });
@@ -131,7 +131,7 @@ const peerSell = async (req, res, next) => {
 
     await session.commitTransaction();
     session.endSession();
-    return res.status(200).json({ message: Messages.orderCreated });
+    return res.status(200).json({ message: Messages.orderCompleted });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();

@@ -28,7 +28,7 @@ const tradeHistory = async (req, res) => {
     return res.json({
       status: 200,
       payload: trades,
-      message: Messages.orderCreated,
+      message: Messages.orderCompleted,
     });
   } catch (error) {
     console.log(error);

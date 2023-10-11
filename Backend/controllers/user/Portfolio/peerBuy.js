@@ -73,7 +73,7 @@ const peerBuy = async (req, res, next) => {
       await Buyer.save({ session });
       await session.commitTransaction();
       session.endSession();
-      return res.status(200).json({ message: Messages.orderCreated });
+      return res.status(200).json({ message: Messages.orderCompleted });
     }
     //check if user is not buying from himself
     if (sale.userId === userId) {
@@ -137,7 +137,7 @@ const peerBuy = async (req, res, next) => {
 
     await session.commitTransaction();
     session.endSession();
-    return res.status(200).json({ message: Messages.orderCreated });
+    return res.status(200).json({ message: Messages.orderCompleted });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
