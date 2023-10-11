@@ -20,7 +20,6 @@ const CandleStickChart = () => {
   const assetName = useSelector(selectActiveAsset);
 
   const [chart, setChart] = useState(null);
-  const topBarHeight = useSelector(selectTopBarHeight);
 
   const fetchHistoricalData = async (candlestickSeries) => {
     let historicalData;

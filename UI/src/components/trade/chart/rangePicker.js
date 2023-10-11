@@ -16,12 +16,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveAsset,
+  selectKlineInterval,
   updateActiveAsset,
   updateKlineInterval,
 } from "redux/features/app/appDataSlice";
 import { selectTheme } from "redux/features/app/configSlice";
 import { reportError } from "redux/features/app/error";
 import axiosInstance from "utils/axiosInstance";
+import createWebSocket from "./utils/websocket";
 
 const klineIntervals = [
   {
@@ -108,13 +110,33 @@ const assets = [
   "pearlCo",
 ];
 
+const PriceDisplay = ({ price, color }) => {
+  const theme = useTheme();
+  return (
+    <Typography
+      variant="bodySmall"
+      color={
+        color === "green"
+          ? theme.palette.green.main
+          : color === "red"
+          ? theme.palette.red.main
+          : theme.palette.bgColor.light
+      }
+      sx={{}}
+    >
+      {price}
+    </Typography>
+  );
+};
+
 const RangePicker = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const currentTheme = useSelector(selectTheme);
-  const theme = useTheme();
-  const selectedAsset = useSelector(selectActiveAsset);
+  const assetName = useSelector(selectActiveAsset);
+  const klineInterval = useSelector(selectKlineInterval);
   const [tickerData, setTickerData] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [priceColor, setPriceColor] = useState(null);
 
   const fetchTickerData = async (assetName) => {
     try {
@@ -135,10 +157,44 @@ const RangePicker = () => {
   };
 
   useEffect(() => {
-    fetchTickerData(selectedAsset).then((data) => {
+    fetchTickerData(assetName).then((data) => {
       setTickerData(data);
     });
-  }, [selectedAsset]);
+
+    const socket = createWebSocket();
+    socket.connect();
+
+    socket.on("connect_error", (error) => {
+      dispatch(reportError({ message: error.message, type: "error" }));
+      if (error.message === "xhr poll error") {
+        socket.close();
+      }
+    });
+
+    socket.on("connect", () => {
+      socket.emit("requestKlines", {
+        assetName,
+        klineInterval,
+      });
+
+      socket.on("klineData", (data) => {
+        const newPrice = data.candlestick.close;
+        if (newPrice !== price) {
+          // Update price only if it has changed
+          setPrice(newPrice);
+        }
+        if (newPrice > price) {
+          setPriceColor("green");
+        } else if (newPrice < price) {
+          setPriceColor("red");
+        }
+      });
+    });
+
+    return () => {
+      socket && socket.close();
+    };
+  }, [assetName, klineInterval]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -181,7 +237,7 @@ const RangePicker = () => {
           }}
         >
           <Select
-            value={selectedAsset}
+            value={assetName}
             onChange={handleAssetChange}
             variant="outlined"
             sx={{
@@ -205,7 +261,7 @@ const RangePicker = () => {
               </MenuItem>
             ))}
           </Select>
-          <Typography variant="bodySmall">1000</Typography>
+          <PriceDisplay price={price} color={priceColor} />
         </Box>
         <Box
           sx={{

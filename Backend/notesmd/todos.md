@@ -16,6 +16,7 @@
 6. in the deposit, withdraw and transact controller update on whether we should return message + user payload or just message. currently returnig only message
 
 7. the app index route has two get routes without verifyjwt and validation schema.
+8. fix wss server restarting when there is a binance client error
 
 ## Minor Changes
 

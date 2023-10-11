@@ -3,7 +3,7 @@ const http = require("http");
 const WebSocket = require("ws");
 const { Server } = require("socket.io");
 const DBconn = require("../config/dbConn");
-const { coinLabelMap } = require("../config/Assetinfo");
+const { coinLabelMap } = require("../controllers/app/Assetinfo");
 const { logger } = require("../utils/logger");
 
 const port = process.env.WSPORT || 2000;
@@ -62,6 +62,7 @@ wss.on("connection", (socket) => {
   socket.on("requestKlines", (data) => {
     const { assetName, klineInterval } = data;
     const tradingPair = coinLabelMap[assetName]?.toLowerCase();
+    console.log(tradingPair, assetName, klineInterval);
 
     if (!tradingPair) {
       return socket.emit("error", { message: "Invalid asset name" });
@@ -77,6 +78,7 @@ wss.on("connection", (socket) => {
         low: parseFloat(data.k.l),
         close: parseFloat(data.k.c),
       };
+      console.log(candlestick);
       socket.emit("klineData", { candlestick });
     });
   });
