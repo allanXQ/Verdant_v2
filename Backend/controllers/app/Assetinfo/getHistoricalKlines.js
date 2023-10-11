@@ -1,4 +1,4 @@
-const Messages = require("../../utils/messages");
+const Messages = require("@utils/messages");
 const { coinLabelMap, klineIntervals } = require("./index");
 const axios = require("axios");
 
