@@ -41,7 +41,6 @@ export const ThemeButton = () => {
   const dispatch = useDispatch();
   const currentPath = useLocation().pathname;
   const changeTheme = () => {
-    if (currentPath.includes("trade/spot")) return;
     dispatch(updateTheme());
   };
 
