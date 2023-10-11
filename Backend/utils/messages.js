@@ -47,7 +47,7 @@ const Messages = {
   passwordResetFailed: "Password reset failed",
   passwordResetSuccess: "Password reset successful",
 
-  orderCreated: "Order completed",
+  orderCompleted: "Order completed",
   orderFailed: "Order failed",
   orderCancelled: "Order cancelled",
   orderCancelledFailed: "Order cancellation failed",
