@@ -27,8 +27,9 @@ const MainChart = () => {
     <Box
       sx={{
         backgroundColor: "#253248",
-        mx: "auto",
+        // mx: "auto",
         width: "98%",
+        height: "100vh",
         position: "relative",
       }}
     >

@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   AccountBalanceOutlined as AccountBalance,
   CalculateOutlined as Calculate,
@@ -59,6 +59,8 @@ function ResponsiveDrawer(props) {
 
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
+
+  const currentpath = useLocation().pathname;
 
   const iconColor = {
     color:
@@ -273,6 +275,7 @@ function ResponsiveDrawer(props) {
             currentTheme === "light"
               ? theme.palette.bgColor.light
               : theme.palette.bgColor.dark,
+          display: currentpath.includes("trade/spot") && "none",
         }}
       >
         <Toolbar>
@@ -366,8 +369,6 @@ function ResponsiveDrawer(props) {
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
-            // color: currentTheme === "light" ? theme.palette.bgColor.light : theme.palette.bgColor.dark,
-
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -388,7 +389,11 @@ function ResponsiveDrawer(props) {
           overflowX: "hidden",
         }}
       >
-        <Toolbar />
+        <Toolbar
+          sx={{
+            display: currentpath.includes("trade/spot") && "none",
+          }}
+        />
         {props.children}
       </Box>
     </Box>
