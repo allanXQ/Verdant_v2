@@ -7,23 +7,6 @@ import { selectTheme } from "redux/features/app/configSlice";
 import { useSelector } from "react-redux";
 
 const MainChart = () => {
-  const initialState = {
-    buy: false,
-    sell: false,
-  };
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "buy":
-        return { ...state, buy: true };
-      case "sell":
-        return { ...state, sell: true };
-      case "close":
-        return { ...state, buy: false, sell: false };
-      default:
-        return state;
-    }
-  };
-  const [state, dispatch] = useReducer(reducer, initialState);
   const theme = useTheme();
   const currentTheme = useSelector(selectTheme);
   const formWidth = "17rem";
@@ -54,8 +37,8 @@ const MainChart = () => {
           width: `calc(${formWidth})`,
         }}
       >
-        <Buy state={state} dispatch={dispatch} />
-        <Sell state={state} dispatch={dispatch} />
+        <Buy />
+        <Sell />
       </Box>
     </Box>
   );
