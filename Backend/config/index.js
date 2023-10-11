@@ -1,3 +1,5 @@
+const { coinLabelMap, klineIntervals } = require("./tradeConfig");
+
 const roles = {
   admin: "a048f5",
   user: "03e4ab",
@@ -45,4 +47,6 @@ module.exports = {
   orderTypes,
   orderStatus,
   WalletConfig,
+  coinLabelMap,
+  klineIntervals,
 };

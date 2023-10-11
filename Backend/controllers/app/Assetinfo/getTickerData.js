@@ -1,6 +1,6 @@
 const { findQuery } = require("@services");
 const Messages = require("@utils/messages");
-const { klineIntervals, coinLabelMap } = require("./index");
+const { klineIntervals, coinLabelMap } = require("@config");
 const { Assets } = require("@models");
 const { default: axios } = require("axios");
 

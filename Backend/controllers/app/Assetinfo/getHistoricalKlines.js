@@ -1,5 +1,5 @@
 const Messages = require("@utils/messages");
-const { coinLabelMap, klineIntervals } = require("./index");
+const { coinLabelMap, klineIntervals } = require("@config");
 const axios = require("axios");
 
 const getData = async (assetName, klineInterval) => {
