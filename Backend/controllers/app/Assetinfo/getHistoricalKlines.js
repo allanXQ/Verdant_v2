@@ -32,9 +32,6 @@ const getData = async (assetName, klineInterval) => {
 
 const getHistoricalKlines = async (req, res) => {
   const { assetName, klineInterval } = req.body;
-  if (!assetName || !klineInterval) {
-    return res.status(400).json({ message: Messages.invalidRequest });
-  }
   const data = await getData(assetName, klineInterval);
   return res
     .status(200)
