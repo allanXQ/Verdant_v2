@@ -5,18 +5,11 @@
 3. handle idempotency
 
 4. Add index file to models folder and export all models from it
-5. const userSchema = new mongoose.Schema({
-   name: String,
-   email: String,
-   // ... other fields
-   }, {
-   timestamps: true // This will add `createdAt` and `updatedAt` fields
-   }); replace createdat model field with this
 
-6. in the deposit, withdraw and transact controller update on whether we should return message + user payload or just message. currently returnig only message
+5. in the deposit, withdraw and transact controller update on whether we should return message + user payload or just message. currently returnig only message
 
-7. the app index route has two get routes without verifyjwt and validation schema.
-8. fix wss server restarting when there is a binance client error
+6. the app index route has two get routes without verifyjwt and validation schema.
+7. fix wss server restarting when there is a binance client error
 
 ## Minor Changes
 
