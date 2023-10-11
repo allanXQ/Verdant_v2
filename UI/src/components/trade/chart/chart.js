@@ -136,7 +136,7 @@ const CandleStickChart = ({ formWidth }) => {
           xs: "100vw",
           sm: `calc(100vw - ${formWidth})`,
         },
-        height: `calc(100vh - 5rem - ${topBarHeight})`, //10.5rem
+        height: `calc(100vh - 7rem - ${topBarHeight})`, //10.5rem
         margin: "0",
         padding: "0",
       }}

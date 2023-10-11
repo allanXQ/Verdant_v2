@@ -39,7 +39,7 @@ const MainChart = () => {
             : theme.palette.bgColor.dark,
         // mx: "auto",
         width: "100%",
-        height: "100vh",
+        height: `calc(100vh - 63px)`,
       }}
     >
       <Box>
