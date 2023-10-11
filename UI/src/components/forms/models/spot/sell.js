@@ -34,7 +34,7 @@ const SellForm = ({ children }) => {
   const updatedSellModel = {
     ...SellModel,
     fields: SellModel.fields.map((field) =>
-      field.name === "asset" ? { ...field, defaultValue: activeAsset } : field
+      field.name === "asset" ? { ...field, value: activeAsset } : field
     ),
   };
 
