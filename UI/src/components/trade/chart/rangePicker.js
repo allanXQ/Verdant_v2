@@ -135,7 +135,7 @@ const RangePicker = () => {
   const assetName = useSelector(selectActiveAsset);
   const klineInterval = useSelector(selectKlineInterval);
   const [tickerData, setTickerData] = useState(null);
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
   const [priceColor, setPriceColor] = useState(null);
 
   const fetchTickerData = async (assetName) => {
@@ -177,17 +177,17 @@ const RangePicker = () => {
         klineInterval,
       });
 
+      let pricedata = 0;
+
       socket.on("klineData", (data) => {
         const newPrice = data.candlestick.close;
-        if (newPrice !== price) {
-          // Update price only if it has changed
-          setPrice(newPrice);
-        }
-        if (newPrice > price) {
+        if (newPrice > pricedata) {
           setPriceColor("green");
-        } else if (newPrice < price) {
+        } else if (newPrice < pricedata) {
           setPriceColor("red");
         }
+        pricedata = data.candlestick.close;
+        setPrice(newPrice);
       });
     });
 
