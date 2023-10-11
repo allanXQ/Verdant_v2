@@ -12,7 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { MuiButton } from "components/common/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveAsset,
@@ -20,6 +20,8 @@ import {
   updateKlineInterval,
 } from "redux/features/app/appDataSlice";
 import { selectTheme } from "redux/features/app/configSlice";
+import { reportError } from "redux/features/app/error";
+import axiosInstance from "utils/axiosInstance";
 
 const klineIntervals = [
   {
@@ -111,8 +113,32 @@ const RangePicker = () => {
   const dispatch = useDispatch();
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
-
   const selectedAsset = useSelector(selectActiveAsset);
+  const [tickerData, setTickerData] = useState(null);
+
+  const fetchTickerData = async (assetName) => {
+    try {
+      const response = await axiosInstance({
+        method: "POST",
+        url: "http://localhost:5000/api/v1/app/ticker-data",
+        data: {
+          assetName,
+        },
+        withCredentials: true,
+      });
+      let tickerData = response.data.payload;
+      return tickerData;
+    } catch (error) {
+      dispatch(reportError({ message: error.message, type: "error" }));
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchTickerData(selectedAsset).then((data) => {
+      setTickerData(data);
+    });
+  }, [selectedAsset]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -193,22 +219,24 @@ const RangePicker = () => {
           <Box sx={statsStyle}>
             <Stack>
               <Typography variant="bodySmall">24h High</Typography>
-              <Typography variant="bodySmall">1200</Typography>
+              <Typography variant="bodySmall">{tickerData?.high}</Typography>
             </Stack>
             <Stack>
               <Typography variant="bodySmall">24h Change</Typography>
-              <Typography variant="bodySmall">10</Typography>
+              <Typography variant="bodySmall">
+                {tickerData?.priceChange}
+              </Typography>
             </Stack>
           </Box>
           <Box sx={statsStyle}>
             <Stack>
               <Typography variant="bodySmall">24h Low</Typography>
-              <Typography variant="bodySmall">800</Typography>
+              <Typography variant="bodySmall">{tickerData?.low}</Typography>
             </Stack>
 
             <Stack>
               <Typography variant="bodySmall">24h Volume</Typography>
-              <Typography variant="bodySmall">1000</Typography>
+              <Typography variant="bodySmall">{tickerData?.volume}</Typography>
             </Stack>
           </Box>
         </Box>
