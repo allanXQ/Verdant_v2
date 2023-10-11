@@ -24,6 +24,7 @@ const {
   p2pOrderSchema,
   cancelOrderSchema,
   userInfoSchema,
+  limitOrderSchema,
 } = require("../../yupschemas");
 
 const errorHOC = require("../../utils/errorHOC");
@@ -80,7 +81,7 @@ router.post(
 router.post(
   "/trade/spot/buy-limit",
   verifyjwt,
-  formValidate(p2pOrderSchema),
+  formValidate(limitOrderSchema),
   errorHOC(buyLimit)
 );
 router.post(
