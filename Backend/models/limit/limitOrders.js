@@ -10,8 +10,8 @@ const limitOrders = new mongoose.Schema(
     },
     buyerId: { type: String, required: true },
     buyerName: { type: String, required: true },
-    stockName: { type: String, required: true },
-    stockAmount: { type: Number, required: true },
+    assetName: { type: String, required: true },
+    amount: { type: Number, required: true },
     totalAssetValue: { type: Number, required: true },
   },
   {
