@@ -36,11 +36,11 @@ const getInitialValues = (fields) => {
   }, {});
 };
 
-const CreateForm = (formName, model, children) => {
+const CreateForm = (formName, model, children, activeAsset) => {
   const dispatch = useDispatch();
   const fields = model.fields;
   return (
-    <CenteredBox>
+    <CenteredBox key={activeAsset}>
       <Formik
         initialValues={getInitialValues(fields)}
         validationSchema={getValidationSchema(fields)}
@@ -93,9 +93,11 @@ const CreateForm = (formName, model, children) => {
                         label={field.label}
                         name={field.name}
                         value={field.value}
+                        defaultValue={field.defaultValue}
                         placeholder={field.placeholder}
                         variant={model.variant}
                         disabled={field.disabled}
+                        sx={model.sx}
                       />
                     );
                   }

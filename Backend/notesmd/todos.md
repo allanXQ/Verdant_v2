@@ -10,6 +10,7 @@
 
 6. the app index route has two get routes without verifyjwt and validation schema.
 7. fix wss server restarting when there is a binance client error
+8. get buylimit and selllimit price from wss
 
 ## Minor Changes
 
