@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CrosshairMode, createChart } from "lightweight-charts";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import axiosInstance from "utils/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
@@ -19,6 +19,7 @@ const CandleStickChart = ({ formWidth }) => {
   const klineInterval = useSelector(selectKlineInterval);
   const assetName = useSelector(selectActiveAsset);
   const topBarHeight = useSelector(selectTopBarHeight);
+  const theme = useTheme();
 
   const [chart, setChart] = useState(null);
 
@@ -49,7 +50,7 @@ const CandleStickChart = ({ formWidth }) => {
         autoSize: true,
         layout: {
           background: {
-            color: "#253248",
+            color: theme.palette.bgColor.dark,
           },
           textColor: "rgba(255, 255, 255, 0.9)",
         },
