@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Messages = require("@utils/messages");
-const { User, limitOrders, limitEscrow } = require("@models");
+const { User, limitOrders, limitEscrow, closedLimit } = require("@models");
 const axios = require("axios");
 const { coinLabelMap } = require("@config");
 const crypto = require("crypto");
@@ -60,12 +60,34 @@ const buyLimit = async (req, res) => {
           asset.amount = parseInt(asset.amount) + assetAmount;
         }
       });
+      const newLimitOrderAmount = parseInt(Order.amount) - assetAmount;
+      if (newLimitOrderAmount <= 0) {
+        await limitOrders.deleteOne({ orderId }).session(session);
+      } else {
+        limitOrders.amount = newLimitOrderAmount;
+      }
+      await closedLimit.create(
+        [
+          {
+            orderId,
+            buyerId: userId,
+            sellerId,
+            assetName,
+            price,
+            amount,
+            totalAssetValue: totalCost,
+          },
+        ],
+        { session }
+      );
+
       await Buyer.save();
       await Seller.save();
       await orderEscrow.save();
+      await limitOrders.save();
       await session.commitTransaction();
       session.endSession();
-      return res.status(200).json({ message: "Messages.orderCompleted" });
+      return res.status(200).json({ message: Messages.orderCompleted });
     }
     const orderId = crypto.randomBytes(16).toString("hex");
     await limitOrders.create(
