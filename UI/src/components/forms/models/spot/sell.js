@@ -23,7 +23,7 @@ const SellModel = {
       name: "amount",
       type: "number",
       label: "Amount",
-      placeholder: "min 100",
+      placeholder: "min 1",
       required: true,
     },
   ],
