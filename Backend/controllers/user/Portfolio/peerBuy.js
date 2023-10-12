@@ -138,7 +138,6 @@ const peerBuy = async (req, res, next) => {
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    logger.error(error);
     throw new Error(error);
   }
 };

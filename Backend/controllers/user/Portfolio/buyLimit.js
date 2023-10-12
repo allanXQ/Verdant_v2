@@ -107,7 +107,6 @@ const buyLimit = async (req, res) => {
   } catch (error) {
     session && (await session.abortTransaction());
     session && session.endSession();
-    logger.error(error);
     throw new Error(error);
   }
 };
