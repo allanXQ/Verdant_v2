@@ -16,7 +16,11 @@ const RootLayout = () => {
   const isTrade = path.includes("trade/spot");
   isTrade ? (drawerWidth = "0px") : (drawerWidth = drawerWidth);
 
+  const excludedPaths = ["trade", "transact"];
+  const currentPath = useLocation().pathname;
   useEffect(() => {
+    if (excludedPaths.some((path) => currentPath.includes(path))) return;
+
     dispatch(
       apiCall({
         endpoint: "user/user-info",
@@ -27,7 +31,7 @@ const RootLayout = () => {
         slice: "userData",
       })
     );
-  }, []);
+  }, [currentPath]);
 
   return (
     <>
