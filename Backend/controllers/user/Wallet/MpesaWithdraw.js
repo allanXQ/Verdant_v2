@@ -2,24 +2,18 @@ const { default: mongoose } = require("mongoose");
 const { WalletConfig } = require("@config");
 const Messages = require("@utils/messages");
 const { User } = require("@models");
-const { Withdraw } = require("@models");
+const { Withdrawals } = require("@models");
 
 //include withdrrawal fees
 const MpesaWithdraw = async (req, res) => {
   let session;
-  let isCommited = false;
   try {
     const { phone, amount } = req.body;
-    const { minWithdrawal, withdrawalFeePercentage } = WalletConfig;
+    const { withdrawalFeePercentage } = WalletConfig;
 
-    let intAmount = parseInt(amount) || 0;
+    let intAmount = parseInt(amount);
 
     // Validate amount before proceeding
-    if (intAmount < minWithdrawal) {
-      return res.status(400).json({
-        message: `${Messages.minWithdrawal} ${minWithdrawal}`,
-      });
-    }
 
     const taxAmount = intAmount * withdrawalFeePercentage;
     const totalAmount = intAmount + taxAmount;
@@ -41,10 +35,10 @@ const MpesaWithdraw = async (req, res) => {
 
     // Validate the remaining balance
     if (remainingBalance < 0) {
-      throw new Error(Messages.insufficientBalance);
+      return res.status(400).json({ message: Messages.insufficientBalance });
     }
 
-    await Withdraw.create(
+    await Withdrawals.create(
       [
         {
           userId: updatedUser.userId,
@@ -57,17 +51,15 @@ const MpesaWithdraw = async (req, res) => {
       { session }
     );
 
-    const withdrawals = await Withdraw.find({
+    const withdrawals = await Withdrawals.find({
       userId: updatedUser.userId,
     }).session(session);
 
-    await session.commitTransaction();
-    isCommited = true;
     const user = {
       ...updatedUser.toObject(),
       withdrawals,
     };
-
+    await session.commitTransaction();
     return res.status(200).json({
       message: Messages.withdrawalSuccess,
       payload: {
@@ -75,11 +67,8 @@ const MpesaWithdraw = async (req, res) => {
       },
     });
   } catch (error) {
-    if (session && !isCommited) {
-      await session.abortTransaction();
-    }
-
-    return res.status(400).json({ message: Messages.serverError });
+    console.log(error);
+    await session.abortTransaction();
   } finally {
     session.endSession();
   }
