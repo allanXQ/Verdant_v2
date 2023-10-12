@@ -5,13 +5,13 @@ const axios = require("axios");
 const { coinLabelMap } = require("@config");
 const crypto = require("crypto");
 const logger = require("@utils/logger");
-const fetchTickerData = require("./utils/fetchTicker");
+const fetchTickerData = require("@utils/fetchTicker");
 
 const buyLimit = async (req, res) => {
   let session;
   try {
     const { userId, assetName, amount } = req.body;
-    const price = await fetchTickerData(assetName);
+    const price = await fetchTickerData(assetName).lastPrice;
     session = await mongoose.startSession();
     session.startTransaction();
 

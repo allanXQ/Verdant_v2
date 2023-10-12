@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose");
-const fetchTickerData = require("./utils/fetchTicker");
+const fetchTickerData = require("@utils/fetchTicker");
 const Messages = require("@utils/messages");
 const { User, limitOrders, limitEscrow } = require("@models");
 const crypto = require("crypto");
@@ -10,7 +10,7 @@ const sellLimit = async (req, res) => {
     session = await mongoose.startSession();
     session.startTransaction();
     const { userId, assetName, amount } = req.body;
-    const price = await fetchTickerData(assetName);
+    const price = await fetchTickerData(assetName).lastPrice;
 
     //find seller and order
     const Seller = await User.findOne({ userId }).session(session);
