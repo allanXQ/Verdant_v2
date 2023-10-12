@@ -3,6 +3,8 @@ const Messages = require("@utils/messages");
 const { User, limitOrders, limitEscrow } = require("@models");
 const axios = require("axios");
 const { coinLabelMap } = require("@config");
+const crypto = require("crypto");
+const logger = require("@utils/logger");
 
 //check if buyer has sufficient account balance
 //check if sell order exists
@@ -32,13 +34,14 @@ const fetchTickerData = async (assetName) => {
 };
 
 const buyLimit = async (req, res) => {
-  const { userId, sellerId, assetName, amount } = req.body;
-  const price = await fetchTickerData(assetName);
-  if (userId === sellerId) {
-    return res.status(400).json({ message: Messages.invalidRequest });
-  }
-  let session;
   try {
+    console.log("buyLimit");
+    const { userId, sellerId, assetName, amount } = req.body;
+    const price = await fetchTickerData(assetName);
+    if (userId === sellerId) {
+      return res.status(400).json({ message: Messages.invalidRequest });
+    }
+    let session;
     session = await mongoose.startSession();
     session.startTransaction();
 
@@ -48,9 +51,10 @@ const buyLimit = async (req, res) => {
       .findOne({ assetName, price })
       .session(session);
 
-    const buyerBalance = parseInt(Buyer.balance);
+    const buyerBalance = parseInt(Buyer.accountBalance);
     const assetAmount = parseInt(amount);
     const totalCost = assetAmount * price;
+    console.log(price, assetAmount, totalCost);
     if (buyerBalance < totalCost) {
       return res.status(400).json({ message: Messages.insufficientBalance });
     }
@@ -61,10 +65,10 @@ const buyLimit = async (req, res) => {
       const orderEscrow = await limitEscrow
         .findOne({ orderId })
         .session(session);
-      const sellerBalance = parseInt(Seller.balance);
+      const sellerBalance = parseInt(Seller.accountBalance);
       const escrowAmount = parseInt(orderEscrow.amount);
-      Buyer.balance = buyerBalance - totalCost;
-      Seller.balance = sellerBalance + totalCost;
+      Buyer.accountBalance = buyerBalance - totalCost;
+      Seller.accountBalance = sellerBalance + totalCost;
       const newEscrowAmount = escrowAmount - assetAmount;
       orderEscrow.amount = newEscrowAmount;
       if (newEscrowAmount <= 0) {
@@ -81,13 +85,50 @@ const buyLimit = async (req, res) => {
       await orderEscrow.save();
       await session.commitTransaction();
       session.endSession();
-      return res.status(200).json({ message: Messages.orderCompleted });
+      return res.status(200).json({ message: "Messages.orderCompleted" });
     }
-  } catch (err) {
-    console.log(err);
+    const orderId = crypto.randomBytes(16).toString("hex");
+    await limitOrders.create(
+      [
+        {
+          orderId,
+          userId,
+          assetName,
+          price,
+          amount,
+          totalAssetValue: totalCost,
+        },
+      ],
+      { session }
+    );
+    await limitEscrow.create(
+      [
+        {
+          orderId,
+          orderType: "buyLimit",
+          userId,
+          assetName,
+          cashAmount: totalCost,
+        },
+      ],
+      { session }
+    );
+    Buyer.accountBalance = buyerBalance - totalCost;
+    const buyerPortfolio = Buyer.portfolio;
+    buyerPortfolio.find((asset) => {
+      if (asset.assetName === assetName) {
+        asset.amount = parseInt(asset.amount) - assetAmount;
+      }
+    });
+    await Buyer.save();
+    await session.commitTransaction();
+    session.endSession();
+    return res.status(200).json({ message: Messages.orderCompleted });
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    return res.status(500).json({ message: err.message });
+    logger.error(error);
+    throw new Error(error);
   }
 };
 
