@@ -13,7 +13,7 @@ const SellModel = {
 
   fields: [
     {
-      name: "asset",
+      name: "assetName",
       type: "text",
       label: "Asset",
       placeholder: "asset name",
