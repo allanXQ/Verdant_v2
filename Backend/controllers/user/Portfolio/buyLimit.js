@@ -5,6 +5,7 @@ const axios = require("axios");
 const { coinLabelMap } = require("@config");
 const crypto = require("crypto");
 const logger = require("@utils/logger");
+const fetchTickerData = require("./utils/fetchTicker");
 
 //check if buyer has sufficient account balance
 //check if sell order exists
@@ -17,44 +18,28 @@ const logger = require("@utils/logger");
 //update buyer portfolio balance +
 //remove/update order from sellOrders
 //create a complete trade
-const fetchTickerData = async (assetName) => {
-  const tradingPair = coinLabelMap[assetName];
-  if (!tradingPair) {
-    throw new Error(Messages.invalidAsset);
-  }
-  const url = `https://api.binance.com/api/v3/ticker/24hr?symbol=${tradingPair}`;
-  try {
-    const response = await axios.get(url);
-    const data = response.data;
-    let lastPrice = parseFloat(data.lastPrice).toFixed(2);
-    return parseInt(lastPrice);
-  } catch (err) {
-    throw new Error(err.message);
-  }
-};
 
 const buyLimit = async (req, res) => {
+  let session;
   try {
-    console.log("buyLimit");
-    const { userId, sellerId, assetName, amount } = req.body;
+    const { userId, assetName, amount } = req.body;
     const price = await fetchTickerData(assetName);
-    if (userId === sellerId) {
-      return res.status(400).json({ message: Messages.invalidRequest });
-    }
-    let session;
     session = await mongoose.startSession();
     session.startTransaction();
 
     //find buyer and order
     const Buyer = await User.findOne({ userId }).session(session);
-    const Order = await limitOrders
-      .findOne({ assetName, price })
+    const findOrder = await limitOrders
+      .find({ assetName, price })
       .session(session);
+    const Orders = findOrder.filter((order) => {
+      order.orderId !== userId;
+    });
+    const Order = Orders[0];
 
     const buyerBalance = parseInt(Buyer.accountBalance);
     const assetAmount = parseInt(amount);
     const totalCost = assetAmount * price;
-    console.log(price, assetAmount, totalCost);
     if (buyerBalance < totalCost) {
       return res.status(400).json({ message: Messages.insufficientBalance });
     }
@@ -125,8 +110,8 @@ const buyLimit = async (req, res) => {
     session.endSession();
     return res.status(200).json({ message: Messages.orderCompleted });
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
+    session && (await session.abortTransaction());
+    session && session.endSession();
     logger.error(error);
     throw new Error(error);
   }
