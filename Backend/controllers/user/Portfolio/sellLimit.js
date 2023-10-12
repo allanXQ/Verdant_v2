@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const fetchTickerData = require("./utils/fetchTicker");
 const Messages = require("@utils/messages");
 const { User, limitOrders, limitEscrow } = require("@models");
+const crypto = require("crypto");
 
 const sellLimit = async (req, res) => {
   let session;
@@ -14,13 +15,16 @@ const sellLimit = async (req, res) => {
     //find seller and order
     const Seller = await User.findOne({ userId }).session(session);
     const Order = await limitOrders
-      .findOne({ assetName, price, userId: { $ne } })
+      .findOne({ assetName, price, userId: { $ne: userId } })
       .session(session);
 
     const sellerPortfolio = Seller.portfolio;
     const saleAsset = sellerPortfolio.find(
       (asset) => asset.assetName === assetName
     );
+    if (!saleAsset) {
+      return res.status(400).json({ message: Messages.insufficientStocks });
+    }
     const saleAssetAmount = parseInt(saleAsset.amount);
     const assetAmount = parseInt(amount);
     const totalAssetValue = assetAmount * price;
@@ -110,9 +114,12 @@ const sellLimit = async (req, res) => {
     await Seller.save();
     await session.commitTransaction();
     session.endSession();
+    return res.status(200).json({ message: Messages.orderCompleted });
   } catch (error) {
     session && (await session.abortTransaction());
     session && session.endSession();
     throw new Error(error);
   }
 };
+
+module.exports = sellLimit;
