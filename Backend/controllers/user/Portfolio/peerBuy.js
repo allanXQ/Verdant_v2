@@ -36,6 +36,7 @@ const peerBuy = async (req, res, next) => {
         price,
         amount,
         orderType: "sellp2p",
+        userId: { $ne: userId },
       })
       .session(session);
 
@@ -74,10 +75,6 @@ const peerBuy = async (req, res, next) => {
       await session.commitTransaction();
       session.endSession();
       return res.status(200).json({ message: Messages.orderCompleted });
-    }
-    //check if user is not buying from himself
-    if (sale.userId === userId) {
-      return res.status(400).json({ message: Messages.invalidRequest });
     }
     //update buyer balance and portfolio
     Buyer.accountBalance = balance - assetValue;

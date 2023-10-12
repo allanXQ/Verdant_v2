@@ -29,14 +29,9 @@ const buyLimit = async (req, res) => {
 
     //find buyer and order
     const Buyer = await User.findOne({ userId }).session(session);
-    const findOrder = await limitOrders
-      .find({ assetName, price })
+    const Order = await limitOrders
+      .findOne({ assetName, price, userId: { $ne: userId } })
       .session(session);
-    const Orders = findOrder.filter((order) => {
-      order.orderId !== userId;
-    });
-    const Order = Orders[0];
-
     const buyerBalance = parseInt(Buyer.accountBalance);
     const assetAmount = parseInt(amount);
     const totalCost = assetAmount * price;

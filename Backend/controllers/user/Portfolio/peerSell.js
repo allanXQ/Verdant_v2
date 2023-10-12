@@ -44,6 +44,7 @@ const peerSell = async (req, res, next) => {
       price,
       amount,
       orderType: "buyp2p",
+      userId: { $ne: userId },
     });
     if (!buyOrder) {
       await peerOrders.create(
@@ -73,10 +74,6 @@ const peerSell = async (req, res, next) => {
       session.endSession();
       return res.status(200).json({ message: Messages.orderCompleted });
     }
-    if (buyOrder.userId === userId) {
-      return res.status(400).json({ messages: Messages.invalidRequest });
-    }
-
     const buyerEscrow = await peerEscrow
       .findOne({
         orderId: buyOrder.orderId,
