@@ -11,12 +11,10 @@ const {
 
   buyLimit,
   cancelOrder,
-  // createBuyOrder,
-  // createSellOrder,
-  // sellLimit,
   tradeHistory,
   peerBuy,
   peerSell,
+  sellLimit,
 } = require("../../controllers/user/index");
 const {
   depositSchema,
@@ -72,12 +70,12 @@ router.post(
   formValidate(p2pOrderSchema),
   errorHOC(peerSell)
 );
-// router.post(
-//   "/trade/sell-limit",
-//   verifyjwt,
-//   formValidate(p2pOrderSchema),
-//   errorHOC(sellLimit)
-// );
+router.post(
+  "/trade/spot/sell-limit",
+  verifyjwt,
+  formValidate(limitOrderSchema),
+  errorHOC(sellLimit)
+);
 router.post(
   "/trade/spot/buy-limit",
   verifyjwt,
