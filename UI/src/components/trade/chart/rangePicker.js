@@ -1,8 +1,6 @@
-import { KeyboardArrowDown, MoreVertOutlined } from "@mui/icons-material";
+import { MoreVertOutlined } from "@mui/icons-material";
 import {
   Box,
-  Button,
-  Grid,
   IconButton,
   MenuItem,
   Popover,
@@ -14,6 +12,7 @@ import {
 import { MuiButton } from "components/common/Button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { apiCall } from "redux/async/asyncThunk";
 import {
   selectActiveAsset,
   selectKlineInterval,
@@ -157,6 +156,16 @@ const RangePicker = ({ formWidth }) => {
       return [];
     }
   };
+
+  useEffect(() => {
+    dispatch(
+      apiCall({
+        endpoint: "app/assets",
+        method: "get",
+        slice: "appData",
+      })
+    );
+  }, []);
 
   useEffect(() => {
     fetchTickerData(assetName).then((data) => {
