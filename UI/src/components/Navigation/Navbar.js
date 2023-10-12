@@ -153,14 +153,14 @@ function ResponsiveDrawer(props) {
           path: "/history/withdrawals",
         },
         {
-          name: "Loan Requests",
+          name: "Spot Trades",
           icon: <RequestPage sx={iconColor} />,
-          path: "/history/loan-requests",
+          path: "/history/spot",
         },
         {
-          name: "Loan Payments",
+          name: "P2P Trades",
           icon: <Receipt sx={iconColor} />,
-          path: "/history/loan-payments",
+          path: "/history/p2p",
         },
       ],
     },
