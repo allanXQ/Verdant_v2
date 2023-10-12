@@ -8,6 +8,7 @@ const closedLimit = new mongoose.Schema(
     assetName: { type: String, required: true },
     amount: { type: Number, required: true },
     price: { type: Number, required: true },
+    totalAssetValue: { type: Number, required: true },
   },
   {
     timestamps: true,
