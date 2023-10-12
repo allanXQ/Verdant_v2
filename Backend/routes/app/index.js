@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const { verifyjwt } = require("@middleware/verifyjwt");
-const getTickerData = require("@controllers/app/Assetinfo/getTickerData");
-const getHistoricalKlines = require("@controllers/app/Assetinfo/getHistoricalKlines");
+const getTickerData = require("@controllers/app");
+const getHistoricalKlines = require("@controllers/app");
 const formValidate = require("@middleware/validate");
 
 const { historicalKlinesSchema } = require("@yupschemas");
 const errorHOC = require("@utils/errorHOC");
-const getP2PTrades = require("@controllers/app/trades/p2p/getTrades");
+const getP2PTrades = require("@controllers/app");
 
 router.post("/ticker-data", errorHOC(getTickerData));
 router.get("/p2p-trades", errorHOC(getP2PTrades));
