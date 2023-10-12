@@ -11,7 +11,11 @@ const fetchTickerData = async (assetName) => {
     const response = await axios.get(url);
     const data = response.data;
     let lastPrice = parseFloat(data.lastPrice).toFixed(2);
-    return parseInt(lastPrice);
+    let priceChange = parseFloat(data.priceChange).toFixed(2);
+    return {
+      lastPrice,
+      priceChange,
+    };
   } catch (err) {
     throw new Error(err.message);
   }
