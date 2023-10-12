@@ -55,16 +55,16 @@ const MpesaWithdraw = async (req, res) => {
       userId: updatedUser.userId,
     }).session(session);
 
-    const user = {
-      ...updatedUser.toObject(),
-      withdrawals,
-    };
+    // const user = {
+    //   ...updatedUser.toObject(),
+    //   withdrawals,
+    // };
     await session.commitTransaction();
     return res.status(200).json({
       message: Messages.withdrawalSuccess,
-      payload: {
-        user,
-      },
+      // payload: {
+      //   user,
+      // },
     });
   } catch (error) {
     console.log(error);
