@@ -4,7 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import axiosInstance from "utils/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTopBarHeight } from "redux/features/app/configSlice";
-import createWebSocket from "./utils/websocket";
+import createWebSocket from "utils/websocket";
 import { reportError } from "redux/features/app/error";
 import {
   selectActiveAsset,

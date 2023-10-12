@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 
-import MUITextField from "../inputs/textField";
+import MUITextField from "../components/forms/inputs/textField";
 import { Box } from "@mui/material";
 import getValidationSchema from "./getValidationSchema";
 import { useDispatch, useSelector } from "react-redux";

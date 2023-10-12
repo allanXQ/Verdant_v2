@@ -1,5 +1,5 @@
 import useUserData from "Hooks/useUserData";
-import CreateForm from "../utils/createForm";
+import CreateForm from "../../../utils/createForm";
 
 const profileModel = {
   name: "Profile",

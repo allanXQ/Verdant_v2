@@ -1,5 +1,5 @@
-import CreateForm from "../utils/createForm";
-import FormStepper from "../utils/formStepper";
+import CreateForm from "../../../utils/createForm";
+import FormStepper from "../../../utils/formStepper";
 
 const DepositModel = {
   name: "Deposit",

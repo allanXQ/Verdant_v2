@@ -1,4 +1,4 @@
-import CreateForm from "../utils/createForm";
+import CreateForm from "../../../utils/createForm";
 
 const registerModel = {
   name: "Sign Up",

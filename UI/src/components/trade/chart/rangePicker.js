@@ -23,7 +23,7 @@ import {
 import { selectTheme } from "redux/features/app/configSlice";
 import { reportError } from "redux/features/app/error";
 import axiosInstance from "utils/axiosInstance";
-import createWebSocket from "./utils/websocket";
+import createWebSocket from "utils/websocket";
 
 const klineIntervals = [
   {

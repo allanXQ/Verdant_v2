@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import BuyForm from "components/forms/models/spot/buy";
 import SellForm from "components/forms/models/spot/sell";
-import createWebSocket from "../utils/websocket";
+import createWebSocket from "../../../../utils/websocket";
 import { useDispatch, useSelector } from "react-redux";
 import { reportError } from "redux/features/app/error";
 import { selectActiveAsset } from "redux/features/app/appDataSlice";
