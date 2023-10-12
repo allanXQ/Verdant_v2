@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const Overview = ({ userData, buttons }) => {
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const overviewWidth = `calc(100vw - 215px)`;
+  const overviewWidth = "calc(100vw - 215px)";
   const calculatedWidth = isSmallScreen ? "100vw" : overviewWidth;
 
   return (
