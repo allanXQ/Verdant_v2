@@ -78,7 +78,7 @@ const sellLimit = async (req, res) => {
       await Buyer.save();
       await Seller.save();
       await orderEscrow.save();
-      await limitOrders.save();
+      await Order.save();
       await session.commitTransaction();
       session.endSession();
       return res.status(200).json({ message: Messages.orderCompleted });

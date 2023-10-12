@@ -7,18 +7,6 @@ const crypto = require("crypto");
 const logger = require("@utils/logger");
 const fetchTickerData = require("./utils/fetchTicker");
 
-//check if buyer has sufficient account balance
-//check if sell order exists
-//if !exists create limit buy order, update buyer account balance, create escrow account
-
-//check if seller escrow account exists with this orderid and has sufficient asset balance
-//update buyer account balance -
-//update seller account balance +
-//update/delete seller escrow account -
-//update buyer portfolio balance +
-//remove/update order from sellOrders
-//create a complete trade
-
 const buyLimit = async (req, res) => {
   let session;
   try {
@@ -84,7 +72,7 @@ const buyLimit = async (req, res) => {
       await Buyer.save();
       await Seller.save();
       await orderEscrow.save();
-      await limitOrders.save();
+      await Order.save();
       await session.commitTransaction();
       session.endSession();
       return res.status(200).json({ message: Messages.orderCompleted });
@@ -116,12 +104,6 @@ const buyLimit = async (req, res) => {
       { session }
     );
     Buyer.accountBalance = buyerBalance - totalCost;
-    const buyerPortfolio = Buyer.portfolio;
-    buyerPortfolio.find((asset) => {
-      if (asset.assetName === assetName) {
-        asset.amount = parseInt(asset.amount) - assetAmount;
-      }
-    });
     await Buyer.save();
     await session.commitTransaction();
     session.endSession();
