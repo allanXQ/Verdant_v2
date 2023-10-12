@@ -173,7 +173,7 @@ const Assets = [
   },
 ];
 
-const overviewWidth = `calc(100vw - 200px)`;
+const overviewWidth = "calc(100vw - 200px)";
 
 const Dashboard = React.memo(() => {
   const cardStyle = {

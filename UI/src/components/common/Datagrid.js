@@ -52,7 +52,7 @@ const MUIDataGrid = ({ title, rows, columns, height, width }) => {
     });
   }
   const currentTheme = useSelector(selectTheme);
-  const overviewWidth = `calc(100vw - 200px)`;
+  const overviewWidth = "calc(100vw - 200px)";
   const calculatedWidth = isSmallScreen ? "100vw" : `calc(${overviewWidth}`;
 
   return (

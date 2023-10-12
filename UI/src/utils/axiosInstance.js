@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
 
       return new Promise((resolve, reject) => {
         axiosInstance
-          .post(`/auth/refresh-token`, {})
+          .post("/auth/refresh-token", {})
           .then((res) => {
             processQueue(null);
             resolve(axiosInstance(originalRequest));
