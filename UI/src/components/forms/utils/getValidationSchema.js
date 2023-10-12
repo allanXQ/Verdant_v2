@@ -42,7 +42,7 @@ const getValidationSchema = (fields) => {
         break;
 
       case "amount":
-        validator = validator.min(100, "Minimum amount is 100");
+        validator = validator.min(1, "Minimum amount is 100");
         break;
 
       default:
