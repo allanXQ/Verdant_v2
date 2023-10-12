@@ -3,7 +3,7 @@ const http = require("http");
 const WebSocket = require("ws");
 const { Server } = require("socket.io");
 const DBconn = require("../config/dbConn");
-const { coinLabelMap } = require("../controllers/app/Assetinfo");
+const { coinLabelMap } = require("../config");
 const logger = require("./utils/logger");
 
 const port = process.env.WSPORT || 2000;
