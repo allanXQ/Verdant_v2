@@ -15,9 +15,7 @@ const getAssets = async (req, res) => {
   const newAssets = await Promise.all(promises);
   return res.status(200).json({
     message: Messages.requestSuccessful,
-    payload: {
-      newAssets,
-    },
+    payload: newAssets,
   });
 };
 
