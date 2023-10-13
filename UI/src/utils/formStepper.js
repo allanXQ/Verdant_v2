@@ -26,7 +26,6 @@ const FormStepper = (modelName, model) => {
       initialValues={getInitialValues(model.steps[activeStep].fields)}
       validationSchema={getValidationSchema(model.steps[activeStep].fields)}
       onSubmit={(values, { setSubmitting }) => {
-        // Implement submission logic here
         setSubmitting(false);
         handleNext();
       }}

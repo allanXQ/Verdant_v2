@@ -93,7 +93,7 @@ const Profile = () => {
                     disabled
                     sx={{
                       "& .MuiInput-input": {
-                        color: "#fff", // Custom color for the input text
+                        color: "#fff",
                       },
                     }}
                   />

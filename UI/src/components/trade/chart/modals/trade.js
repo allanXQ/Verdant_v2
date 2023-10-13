@@ -1,41 +1,14 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React from "react";
+import { Card, CardContent, Typography } from "@mui/material";
 import BuyForm from "components/forms/models/spot/buy";
 import SellForm from "components/forms/models/spot/sell";
-import createWebSocket from "../../../../utils/websocket";
-import { useDispatch, useSelector } from "react-redux";
-import { reportError } from "redux/features/app/error";
-import { selectActiveAsset } from "redux/features/app/appDataSlice";
 
 const style = {
   position: "relative",
-  // top: "50%",
   right: 0,
-  // transform: "translate(-50%, -50%)",
-  // width: 270,
   bgcolor: "transparent",
   border: "none",
   boxShadow: "none",
-  // p: 4,
-};
-
-const textFieldStyle = {
-  width: "15rem",
-  "& .Mui-focused": {
-    backgroundColor: "transparent",
-  },
-  "& .MuiInputBase-input": {
-    "&:focus": {
-      backgroundColor: "transparent",
-    },
-  },
 };
 
 const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
@@ -57,10 +30,10 @@ const ModalComponent = ({ state, dispatch, title, FormComponent }) => {
   );
 };
 
-export const Buy = ({ state, dispatch }) => {
+export const Buy = () => {
   return <ModalComponent title="Buy" FormComponent={BuyForm} />;
 };
 
-export const Sell = ({ state, dispatch }) => {
+export const Sell = () => {
   return <ModalComponent title="Sell" FormComponent={SellForm} />;
 };

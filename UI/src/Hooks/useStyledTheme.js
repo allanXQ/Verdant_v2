@@ -147,27 +147,8 @@ const useStyledTheme = () => {
             ? theme.palette.bgColor.light
             : theme.palette.bgColor.dark,
       },
-      // MuiList: {
-      //   root: {
-      //     backgroundColor:
-      //       currentTheme === "dark"
-      //         ? theme.palette.bgColor.light
-      //         : theme.palette.bgColor.dark,
-      //   },
-      // },
     },
   };
-
-  // theme.components.MuiList = {
-  //   styleOverrides: {
-  //     root: {
-  //       backgroundColor:
-  //         currentTheme === "light"
-  //           ? theme.palette.bgColor.light
-  //           : theme.palette.bgColor.dark,
-  //     },
-  //   },
-  // },
 
   return theme;
 };

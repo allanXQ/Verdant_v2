@@ -104,6 +104,7 @@ const CreateForm = (formName, model, children, activeAsset) => {
                       />
                     );
                   }
+                  return null;
                 })}
               </CenteredBox>
               {children}

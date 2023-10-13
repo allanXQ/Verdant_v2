@@ -60,8 +60,6 @@ const AboutUs = () => {
         mt: 10,
         display: "flex",
         flexDirection: "column",
-        // alignItems: "center",
-        // justifyContent: "center",
         gap: 10,
       }}
     >

@@ -176,7 +176,6 @@ const Home = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              // alignItems: "center",
               gap: theme.spacing(2),
             }}
           >

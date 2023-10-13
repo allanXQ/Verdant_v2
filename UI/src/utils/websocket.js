@@ -1,5 +1,3 @@
-// websocket.js
-
 import { io } from "socket.io-client";
 
 const createWebSocket = (maxRetries = 3, retryInterval = 2000) => {

@@ -1,5 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import React, { useReducer } from "react";
+import React from "react";
 import CandleStickChart from "./chart";
 import RangePicker from "./rangePicker";
 import { Buy, Sell } from "./modals/trade";
@@ -25,10 +25,8 @@ const MainChart = () => {
           currentTheme === "light"
             ? theme.palette.bgColor.light
             : theme.palette.bgColor.dark,
-        // mx: "auto",
         width: "100vw",
         gap: mediaQuery ? 2 : 0,
-        // height: `calc(100vh - 63px)`,
       }}
     >
       <Box

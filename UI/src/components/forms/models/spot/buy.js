@@ -15,7 +15,6 @@ const BuyModel = {
       type: "text",
       label: "Asset",
       placeholder: "asset name",
-      // required: true,
     },
     {
       name: "amount",

@@ -13,11 +13,7 @@ import useAssetsData from "Hooks/useAssets";
 import { MuiButton } from "components/common/Button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { apiCall } from "redux/async/asyncThunk";
 import {
-  selectActiveAsset,
-  selectAssets,
-  selectKlineInterval,
   updateActiveAsset,
   updateKlineInterval,
 } from "redux/features/app/appDataSlice";
@@ -119,7 +115,7 @@ const PriceDisplay = ({ price, color }) => {
 const RangePicker = ({ formWidth }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const { activeAsset, assetNames, assets, klineInterval } = useAssetsData(); //,klineIntervals
+  const { activeAsset, assetNames, klineInterval } = useAssetsData(); //,klineIntervals
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
   const [tickerData, setTickerData] = useState(null);
@@ -143,17 +139,6 @@ const RangePicker = ({ formWidth }) => {
       return [];
     }
   };
-
-  useEffect(() => {
-    if (assets.length > 0) return;
-    dispatch(
-      apiCall({
-        endpoint: "app/assets",
-        method: "get",
-        slice: "appData",
-      })
-    );
-  }, []);
 
   useEffect(() => {
     fetchTickerData(activeAsset).then((data) => {

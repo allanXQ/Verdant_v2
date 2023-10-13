@@ -171,7 +171,6 @@ function DrawerAppBar(props) {
           <Box
             sx={{
               display: { xs: "none", sm: "flex" },
-              // gap: 10,
               width: "80%",
               alignItems: "center",
               justifyContent: "space-evenly",
@@ -244,7 +243,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

@@ -250,12 +250,7 @@ const Dashboard = React.memo(() => {
                 content="View All"
               />
             </Box>
-            <MUIDataGrid
-              columns={columns}
-              rows={Assets}
-              // width={calculatedWidth}
-              height={370}
-            />
+            <MUIDataGrid columns={columns} rows={Assets} height={370} />
           </CardContent>
         </Card>
       </Grid>
