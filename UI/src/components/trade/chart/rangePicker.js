@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "redux/async/asyncThunk";
 import {
   selectActiveAsset,
+  selectAssets,
   selectKlineInterval,
   updateActiveAsset,
   updateKlineInterval,
@@ -95,20 +96,6 @@ const klineIntervals = [
   },
 ];
 
-const assets = [
-  "verdant",
-  "azureCorp",
-  "sapphireHoldings",
-  "crimsonEnterprise",
-  "goldenVentures",
-  "silverSolutions",
-  "emeraldInc",
-  "rubyLtd",
-  "topazGroup",
-  "amberAssociation",
-  "pearlCo",
-];
-
 const PriceDisplay = ({ price, color }) => {
   const theme = useTheme();
   return (
@@ -132,6 +119,7 @@ const RangePicker = ({ formWidth }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const assetName = useSelector(selectActiveAsset);
+  const assets = useSelector(selectAssets);
   const klineInterval = useSelector(selectKlineInterval);
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
@@ -158,6 +146,7 @@ const RangePicker = ({ formWidth }) => {
   };
 
   useEffect(() => {
+    if (assets.length > 0) return;
     dispatch(
       apiCall({
         endpoint: "app/assets",
@@ -262,22 +251,28 @@ const RangePicker = ({ formWidth }) => {
                 },
               }}
             >
-              {assets.map((asset) => (
-                <MenuItem
-                  key={asset}
-                  value={asset}
-                  sx={{
-                    bgcolor: "transparent",
-                    "& .MuiList-root": {
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  <Typography variant="bodyRegular">
-                    {asset.toUpperCase()}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {Array.isArray(assets) &&
+                assets.map(
+                  (asset) => (
+                    console.log(asset.assetName),
+                    (
+                      <MenuItem
+                        key={asset.assetName}
+                        value={asset.assetName}
+                        sx={{
+                          bgcolor: "transparent",
+                          "& .MuiList-root": {
+                            backgroundColor: "transparent",
+                          },
+                        }}
+                      >
+                        <Typography variant="bodyRegular">
+                          {asset.assetName.toUpperCase()}
+                        </Typography>
+                      </MenuItem>
+                    )
+                  )
+                )}
             </Select>
             <IconButton onClick={handleClick}>
               <MoreVertOutlined color="primary" />
