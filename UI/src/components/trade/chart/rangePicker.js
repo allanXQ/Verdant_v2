@@ -9,6 +9,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import useAssetsData from "Hooks/useAssets";
 import { MuiButton } from "components/common/Button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -118,22 +119,22 @@ const PriceDisplay = ({ price, color }) => {
 const RangePicker = ({ formWidth }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const assetName = useSelector(selectActiveAsset);
-  const assets = useSelector(selectAssets);
-  const klineInterval = useSelector(selectKlineInterval);
+  const { activeAsset, assetNames, assets, klineInterval } = useAssetsData(); //,klineIntervals
   const currentTheme = useSelector(selectTheme);
   const theme = useTheme();
   const [tickerData, setTickerData] = useState(null);
   const [price, setPrice] = useState(0);
   const [priceColor, setPriceColor] = useState(null);
 
-  const fetchTickerData = async (assetName) => {
+  console.log(assetNames);
+
+  const fetchTickerData = async (activeAsset) => {
     try {
       const response = await axiosInstance({
         method: "POST",
         url: "http://localhost:5000/api/v1/app/ticker-data",
         data: {
-          assetName,
+          assetName: activeAsset,
         },
         withCredentials: true,
       });
@@ -157,7 +158,7 @@ const RangePicker = ({ formWidth }) => {
   }, []);
 
   useEffect(() => {
-    fetchTickerData(assetName).then((data) => {
+    fetchTickerData(activeAsset).then((data) => {
       setTickerData(data);
       setPrice(data.lastPrice);
     });
@@ -174,7 +175,7 @@ const RangePicker = ({ formWidth }) => {
 
     socket.on("connect", () => {
       socket.emit("requestKlines", {
-        assetName,
+        activeAsset,
         klineInterval,
       });
 
@@ -195,7 +196,7 @@ const RangePicker = ({ formWidth }) => {
     return () => {
       socket && socket.close();
     };
-  }, [assetName, klineInterval]);
+  }, [activeAsset, klineInterval]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -239,7 +240,7 @@ const RangePicker = ({ formWidth }) => {
         >
           <Box>
             <Select
-              value={assetName}
+              value={activeAsset}
               onChange={handleAssetChange}
               variant="outlined"
               sx={{
@@ -251,28 +252,23 @@ const RangePicker = ({ formWidth }) => {
                 },
               }}
             >
-              {Array.isArray(assets) &&
-                assets.map(
-                  (asset) => (
-                    console.log(asset.assetName),
-                    (
-                      <MenuItem
-                        key={asset.assetName}
-                        value={asset.assetName}
-                        sx={{
-                          bgcolor: "transparent",
-                          "& .MuiList-root": {
-                            backgroundColor: "transparent",
-                          },
-                        }}
-                      >
-                        <Typography variant="bodyRegular">
-                          {asset.assetName.toUpperCase()}
-                        </Typography>
-                      </MenuItem>
-                    )
-                  )
-                )}
+              {Array.isArray(assetNames) &&
+                assetNames.map((assetName) => (
+                  <MenuItem
+                    key={assetName}
+                    value={assetName}
+                    sx={{
+                      bgcolor: "transparent",
+                      "& .MuiList-root": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <Typography variant="bodyRegular">
+                      {assetName?.toUpperCase()}
+                    </Typography>
+                  </MenuItem>
+                ))}
             </Select>
             <IconButton onClick={handleClick}>
               <MoreVertOutlined color="primary" />
