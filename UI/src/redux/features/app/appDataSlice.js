@@ -45,8 +45,8 @@ export const appDataSlice = createSlice({
             case "kline-intervals":
               state.klineIntervals = action.payload;
               break;
-            case "assets":
-              state.assets = action.payload;
+            case "app/assets":
+              state.assets = action.payload.data;
               break;
             default:
               break;
