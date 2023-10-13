@@ -196,10 +196,10 @@ const RangePicker = ({ formWidth }) => {
   const id = open ? "simple-popover" : undefined;
 
   const statsStyle = {
-    width: 200,
+    width: 300,
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
     gap: 5,
     pr: 2,
   };
@@ -311,6 +311,7 @@ const RangePicker = ({ formWidth }) => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
+          width: 200,
         }}
       >
         <Box sx={statsStyle}>
