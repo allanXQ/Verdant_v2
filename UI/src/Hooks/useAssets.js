@@ -16,7 +16,6 @@ const useAssetsData = () => {
   const assets = useSelector(selectAssets);
   const activeAsset = useSelector(selectActiveAsset);
   useEffect(() => {
-    if (assets.length > 0) return;
     dispatch(
       apiCall({
         endpoint: "app/assets",

@@ -10,6 +10,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import useAssetsData from "Hooks/useAssets";
 import { MuiButton } from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
@@ -70,8 +71,8 @@ const columns = [
     width: 200,
   },
   {
-    field: "percentageChange",
-    headerName: "24h Change",
+    field: "24hrChange",
+    headerName: "24hr Change",
     smallScreenScreen: false,
     width: 200,
   },
@@ -91,91 +92,20 @@ const columns = [
   },
 ];
 
-const Assets = [
-  {
-    id: 1,
-    iconurl: "https://www.coingecko.com/coins/1/large/bitcoin.png?1547033579",
-    Asset: "Bitcoin",
-    Symbol: "BTC",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 2,
-    iconurl:
-      "https://www.coingecko.com/coins/356/large/ethereum.png?1547034048",
-    Asset: "Ethereum",
-    Symbol: "ETH",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 3,
-    iconurl:
-      "https://www.coingecko.com/coins/825/large/binance-coin-logo.png?1547034615",
-    Asset: "Litecoin",
-    Symbol: "LTC",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 4,
-    iconurl:
-      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
-    Asset: "Bitcoin Cash",
-    Symbol: "BCH",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 5,
-    iconurl:
-      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
-    Asset: "Ripple",
-    Symbol: "XRP",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 6,
-    iconurl:
-      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
-    Asset: "Dogecoin",
-    Symbol: "DOGE",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 7,
-    iconurl:
-      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
-    Asset: "Cardano",
-    Symbol: "ADA",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-  {
-    id: 8,
-    iconurl:
-      "https://www.coingecko.com/coins/12171/large/polkadot-new-logo.png?1616489452",
-    Asset: "Polkadot",
-    Symbol: "DOT",
-    Amount: "0.0000001",
-    Price: "1000000",
-    percentageChange: 10,
-  },
-];
-
 const overviewWidth = `calc(100vw - 200px)`;
 
 const Dashboard = React.memo(() => {
+  const { assets } = useAssetsData();
+  const Assets = assets.map((asset) => {
+    return {
+      id: asset.assetId,
+      Asset: asset.assetName,
+      Symbol: asset.symbol,
+      Amount: asset.amount,
+      "24hrChange": asset.priceChange,
+      Price: asset.lastPrice,
+    };
+  });
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
@@ -322,7 +252,7 @@ const Dashboard = React.memo(() => {
             </Box>
             <MUIDataGrid
               columns={columns}
-              rows={Assets.slice(0, 6)}
+              rows={Assets}
               // width={calculatedWidth}
               height={370}
             />
