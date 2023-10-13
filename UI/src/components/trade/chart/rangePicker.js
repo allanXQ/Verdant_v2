@@ -217,272 +217,144 @@ const RangePicker = ({ formWidth }) => {
     justifyContent: "space-evenly",
   };
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: {
+          xs: "100vw",
+          sm: `calc(100vw - ${formWidth})`,
+        },
+      }}
+    >
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
-          width: {
-            xs: "100vw",
-            sm: `calc(100vw - ${formWidth})`,
-          },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <Select
-              value={activeAsset}
-              onChange={handleAssetChange}
-              variant="outlined"
+        <Box>
+          <Select
+            value={activeAsset}
+            onChange={handleAssetChange}
+            variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "& .MuiTypography-root": {
+                ...theme.typography.bodyLargeBold,
+              },
+            }}
+          >
+            {Array.isArray(assetNames) &&
+              assetNames.map((assetName) => (
+                <MenuItem
+                  key={assetName}
+                  value={assetName}
+                  sx={{
+                    bgcolor: "transparent",
+                    "& .MuiList-root": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  <Typography variant="bodyRegular">
+                    {assetName?.toUpperCase()}
+                  </Typography>
+                </MenuItem>
+              ))}
+          </Select>
+          <IconButton onClick={handleClick}>
+            <MoreVertOutlined color="primary" />
+          </IconButton>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            sx={{
+              position: "absolute",
+              "& .MuiPopover-paper": {
+                backgroundColor:
+                  currentTheme === "light"
+                    ? theme.palette.bgColor.light
+                    : theme.palette.bgColor.dark,
+                color: "white",
+                boxShadow: "none",
+              },
+            }}
+          >
+            <Box
               sx={{
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "& .MuiTypography-root": {
-                  ...theme.typography.bodyLargeBold,
-                },
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                width: 290,
+                p: 2,
+                m: 0,
               }}
             >
-              {Array.isArray(assetNames) &&
-                assetNames.map((assetName) => (
-                  <MenuItem
-                    key={assetName}
-                    value={assetName}
-                    sx={{
-                      bgcolor: "transparent",
-                      "& .MuiList-root": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <Typography variant="bodyRegular">
-                      {assetName?.toUpperCase()}
-                    </Typography>
-                  </MenuItem>
-                ))}
-            </Select>
-            <IconButton onClick={handleClick}>
-              <MoreVertOutlined color="primary" />
-            </IconButton>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              sx={{
-                position: "absolute",
-                "& .MuiPopover-paper": {
-                  backgroundColor:
-                    currentTheme === "light"
-                      ? theme.palette.bgColor.light
-                      : theme.palette.bgColor.dark,
-                  color: "white",
-                  boxShadow: "none",
-                },
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  width: 290,
-                  p: 2,
-                  m: 0,
-                }}
-              >
-                {klineIntervals.map((interval) => (
-                  <MuiButton
-                    key={interval.label}
-                    variant="outlined"
-                    sx={{
-                      display: "flex",
-                      width: "0.5rem",
-                      borderRadius: "0",
-                    }}
-                    content={interval.label}
-                    onClick={() =>
-                      dispatch(updateKlineInterval(interval.value))
-                    }
-                  />
-                ))}
-              </Box>
-            </Popover>
-          </Box>
-          <PriceDisplay price={price} color={priceColor} />
+              {klineIntervals.map((interval) => (
+                <MuiButton
+                  key={interval.label}
+                  variant="outlined"
+                  sx={{
+                    display: "flex",
+                    width: "0.5rem",
+                    borderRadius: "0",
+                  }}
+                  content={interval.label}
+                  onClick={() => dispatch(updateKlineInterval(interval.value))}
+                />
+              ))}
+            </Box>
+          </Popover>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            // alignItems: "center",
-            // justifyContent: "space-between",
-          }}
-        >
-          <Box sx={statsStyle}>
-            <Stack>
-              <Typography variant="bodySmall">24h High</Typography>
-              <Typography variant="bodySmallBold">
-                {tickerData?.high}
-              </Typography>
-            </Stack>
-            <Stack>
-              <Typography variant="bodySmall">24h Change</Typography>
-              <Typography variant="bodySmallBold">
-                {tickerData?.priceChange}
-              </Typography>
-            </Stack>
-          </Box>
-          <Box sx={statsStyle}>
-            <Stack>
-              <Typography variant="bodySmall">24h Low</Typography>
-              <Typography variant="bodySmallBold">{tickerData?.low}</Typography>
-            </Stack>
+        <PriceDisplay price={price} color={priceColor} />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          // alignItems: "center",
+          // justifyContent: "space-between",
+        }}
+      >
+        <Box sx={statsStyle}>
+          <Stack>
+            <Typography variant="bodySmall">24h High</Typography>
+            <Typography variant="bodySmallBold">{tickerData?.high}</Typography>
+          </Stack>
+          <Stack>
+            <Typography variant="bodySmall">24h Change</Typography>
+            <Typography variant="bodySmallBold">
+              {tickerData?.priceChange}
+            </Typography>
+          </Stack>
+        </Box>
+        <Box sx={statsStyle}>
+          <Stack>
+            <Typography variant="bodySmall">24h Low</Typography>
+            <Typography variant="bodySmallBold">{tickerData?.low}</Typography>
+          </Stack>
 
-            <Stack>
-              <Typography variant="bodySmall">24h Volume</Typography>
-              <Typography variant="bodySmallBold">
-                {tickerData?.volume}
-              </Typography>
-            </Stack>
-          </Box>
+          <Stack>
+            <Typography variant="bodySmall">24h Volume</Typography>
+            <Typography variant="bodySmallBold">
+              {tickerData?.volume}
+            </Typography>
+          </Stack>
         </Box>
       </Box>
-    </>
-    // <Grid
-    //   container
-    //   alignContent={"center"}
-    //   justifyContent="space-between"
-    //   sx={{
-    //     width: {
-    //       xs: "100vw",
-    //       sm: `calc(100vw - 230px)`,
-    //     },
-    //   }}
-    // >
-    //   <Grid
-    //     item
-    //     sx={{
-    //       display: "flex",
-    //       alignItems: "center",
-    //       justifyContent: "space-evenly",
-    //     }}
-    //   >
-    //     {klineIntervals.map(
-    //       (interval) =>
-    //         interval.default && (
-    //           <MuiButton
-    //             key={interval.label}
-    //             variant="outlined"
-    //             sx={{
-    //               display: {
-    //                 xs: "none",
-    //                 sm: "flex",
-    //               },
-    //               width: "0.5rem",
-    //               borderRadius: "0",
-    //             }}
-    //             content={interval.label}
-    //             onClick={() => dispatch(updateKlineInterval(interval.value))}
-    //           />
-    //         )
-    //     )}
-    //     <IconButton onClick={handleClick}>
-    //       <MoreVertOutlined color="primary" />
-    //     </IconButton>
-    //     <Popover
-    //       id={id}
-    //       open={open}
-    //       anchorEl={anchorEl}
-    //       onClose={handleClose}
-    //       anchorOrigin={{
-    //         vertical: "bottom",
-    //         horizontal: "right",
-    //       }}
-    //       sx={{
-    //         position: "absolute",
-    //         "& .MuiPopover-paper": {
-    //           backgroundColor:
-    //             currentTheme === "light"
-    //               ? theme.palette.bgColor.light
-    //               : theme.palette.bgColor.dark,
-    //           color: "white",
-    //           boxShadow: "none",
-    //         },
-    //       }}
-    //     >
-    //       <Box
-    //         sx={{
-    //           display: "flex",
-    //           flexWrap: "wrap",
-    //           alignItems: "center",
-    //           width: 290,
-    //           p: 2,
-    //           m: 0,
-    //         }}
-    //       >
-    //         {klineIntervals.map((interval) => (
-    //           <MuiButton
-    //             key={interval.label}
-    //             variant="outlined"
-    //             sx={{
-    //               display: {
-    //                 xs: "none",
-    //                 sm: "flex",
-    //               },
-    //               width: "0.5rem",
-    //               borderRadius: "0",
-    //             }}
-    //             content={interval.label}
-    //             onClick={() => dispatch(updateKlineInterval(interval.value))}
-    //           />
-    //         ))}
-    //       </Box>
-    //     </Popover>
-    //   </Grid>
-
-    //   <Grid
-    //     item
-    //     sx={{
-    //       display: "flex",
-    //       alignItems: "center",
-    //       justifyContent: "space-evenly",
-    //       gap: "1rem",
-    //     }}
-    //   >
-    //     <MuiButton
-    //       variant="contained"
-    //       sx={{
-    //         width: "0.5rem",
-    //         borderRadius: "0",
-    //       }}
-    //       onClick={() => dispatch({ type: "buy" })}
-    //       content="Buy"
-    //     />
-
-    //     <MuiButton
-    //       variant="contained"
-    //       sx={{
-    //         width: "0.5rem",
-    //         borderRadius: "0",
-    //       }}
-    //       onClick={() => dispatch({ type: "sell" })}
-    //       content="Sell"
-    //     />
-    //   </Grid>
-    // </Grid>
+    </Box>
   );
 };
 
