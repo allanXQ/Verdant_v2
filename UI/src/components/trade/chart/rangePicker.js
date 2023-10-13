@@ -126,8 +126,6 @@ const RangePicker = ({ formWidth }) => {
   const [price, setPrice] = useState(0);
   const [priceColor, setPriceColor] = useState(null);
 
-  console.log(assetNames);
-
   const fetchTickerData = async (activeAsset) => {
     try {
       const response = await axiosInstance({
