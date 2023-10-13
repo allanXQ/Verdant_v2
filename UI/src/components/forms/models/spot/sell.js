@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import CreateForm from "../../../../utils/createForm";
 import { selectActiveAsset } from "redux/features/app/appDataSlice";
+import { useTheme } from "@mui/material";
 
 const SellModel = {
   name: "Sell",
@@ -9,6 +10,10 @@ const SellModel = {
   variant: "outlined",
   sx: {
     width: "15rem",
+  },
+  buttonSx: {
+    width: "15rem",
+    borderRadius: "2px",
   },
 
   fields: [
@@ -31,6 +36,14 @@ const SellModel = {
 
 const SellForm = ({ children }) => {
   const activeAsset = useSelector(selectActiveAsset);
+  const theme = useTheme();
+  SellModel.sx = {
+    width: theme.breakpoints.down("md") ? "14rem" : "15rem",
+  };
+  SellModel.buttonSx = {
+    width: theme.breakpoints.down("md") ? "14rem" : "15rem",
+    borderRadius: "2px",
+  };
   const updatedSellModel = {
     ...SellModel,
     fields: SellModel.fields.map((field) =>

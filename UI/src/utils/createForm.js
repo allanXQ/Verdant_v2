@@ -119,6 +119,7 @@ const CreateForm = (formName, model, children, activeAsset) => {
                 borderRadius: "2rem",
                 textTransform: "none",
                 color: "white.main",
+                ...model.buttonSx,
               }}
               content={formName}
             />

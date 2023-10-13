@@ -1,15 +1,13 @@
 import { useSelector } from "react-redux";
 import CreateForm from "../../../../utils/createForm";
 import { selectActiveAsset } from "redux/features/app/appDataSlice";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const BuyModel = {
   name: "Buy",
   endpoint: "user/trade/spot/buy-limit",
   method: "post",
   variant: "outlined",
-  sx: {
-    width: "15rem",
-  },
 
   fields: [
     {
@@ -31,6 +29,16 @@ const BuyModel = {
 
 const BuyForm = ({ children }) => {
   const activeAsset = useSelector(selectActiveAsset);
+  const theme = useTheme();
+  const mediaQuery = useMediaQuery(theme.breakpoints.down("md"));
+
+  BuyModel.sx = {
+    width: mediaQuery ? "14rem" : "15rem",
+  };
+  BuyModel.buttonSx = {
+    width: mediaQuery ? "14rem" : "15rem",
+    borderRadius: "2px",
+  };
   const updatedBuyModel = {
     ...BuyModel,
     fields: BuyModel.fields.map((field) =>
