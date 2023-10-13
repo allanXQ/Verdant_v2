@@ -2,13 +2,13 @@ const coinLabelMap = {
   verdant: "ETHUSDT",
   azureCorp: "BTCUSDT",
   sapphireHoldings: "BNBUSDT",
-  crimsonEnterprise: "ADAUSDT",
-  goldenVentures: "DOGEUSDT",
-  silverSolutions: "XRPUSDT",
+  crimsonEnterprise: "WBTCUSDT",
+  goldenVentures: "SOLUSDT",
+  silverSolutions: "BCHUSDT",
   emeraldInc: "DOTUSDT",
   rubyLtd: "LTCUSDT",
   topazGroup: "LINKUSDT",
-  amberAssociation: "XRPUSDT",
+  amberAssociation: "XMRUSDT",
   pearlCo: "UNIUSDT",
 };
 
